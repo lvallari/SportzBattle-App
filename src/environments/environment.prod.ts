@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    baseurl: 'https://server.brewker.com'
+    baseurl: 'https://sportzbattleserver.azurewebsites.net'
   };
   

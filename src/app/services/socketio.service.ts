@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { environment } from './../../environments/environment';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class SocketioService {
   }
 
   private connect(): void {
-    this.socket = io('http://localhost:3000');  // Connect to the Socket.IO server
+    this.socket = io(environment.baseurl);  // Connect to the Socket.IO server
 
     this.socket.on('connect', () => {
       console.log('Connected to the server');
