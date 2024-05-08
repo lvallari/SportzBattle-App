@@ -1,0 +1,311 @@
+<app-sidemenu></app-sidemenu>
+
+<div class="contents">
+    <div class="text-end">
+        <button class="btn btn-default button_primary" (click)="editQuestion(undefined)">
+            <i class="fa-solid fa-plus"></i>&nbsp;Add question
+        </button>
+    </div>
+    <div class="filter_container" style="padding: 30px 0;">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="filter_title">Search</div>
+                <div class="search_container">
+                    <input type="text" class="form-control inputx" [(ngModel)]="filters.query"
+                        placeholder="Search by keyword" (ngModelChange)="goSearch()">
+                    <div class="search_icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div *ngIf="filters.query" class="clear_icon" (click)="clearQuery()">
+                        <i class="fa-solid fa-times"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4" *ngIf="filters.categories">
+                <div class="filter_title">Category</div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.categories.all" checked="checked"
+                        (ngModelChange)="setAllCategories()">&nbsp;All
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.categories.nfl" checked="checked"
+                        (click)="categorySelected('nfl')">&nbsp;NFL
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.categories.mlb" checked="checked"
+                        (click)="categorySelected('mlb')">&nbsp;MLB
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.categories.nba" checked="checked"
+                        (click)="categorySelected('nba')">&nbsp;NBA
+                </div>
+            </div>
+            <div class="col-12 col-md-4" *ngIf="filters.difficulties">
+                <div class="filter_title">Difficulty</div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.all"
+                        (ngModelChange)="setAllDifficulties()">&nbsp;All
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.zero"
+                        (ngModelChange)="evalFilters2()">&nbsp;0
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.one"
+                        (ngModelChange)="evalFilters2()">&nbsp;1
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.two"
+                        (ngModelChange)="evalFilters2()">&nbsp;2
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.three"
+                        (ngModelChange)="evalFilters2()">&nbsp;3
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.four"
+                        (ngModelChange)="evalFilters2()">&nbsp;4
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.five"
+                        (ngModelChange)="evalFilters2()">&nbsp;5
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.six"
+                        (ngModelChange)="evalFilters2()">&nbsp;6
+                </div>
+                <div class="checkboxx">
+                    <input type="checkbox" [(ngModel)]="filters.difficulties.seven"
+                        (ngModelChange)="evalFilters2()">&nbsp;7
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Category</th>
+                <th>Question</th>
+                <th>Correct Answer</th>
+                <th>Alternative 1</th>
+                <th>Alternative 2</th>
+                <th>Alternative 3</th>
+                <th>Alternative 4</th>
+                <th>Difficulty</th>
+                <th>Points</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(x of questions; track x.question_id){
+            <tr>
+                <td>{{x.question_id}}</td>
+                <td>{{x.category}}</td>
+                <td>{{x.question}}</td>
+                <td>{{x.correct_answer}}</td>
+                <td>{{x.option1}}</td>
+                <td>{{x.option2}}</td>
+                <td>{{x.option3}}</td>
+                <td>{{x.option4}}</td>
+                <td>{{x.difficulty}}</td>
+                <td>{{x.value_points}}</td>
+                <td>
+                    <i class="fa-solid fa-pencil table_icon" (click)="editQuestion(x)"></i>
+                </td>
+                <td>
+                    <i class="fa-solid fa-trash table_icon" (click)="confirmDelete(x)"></i>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center" style="padding:20px 0;">
+        <button class="btn btn-default button_primary" (click)="loadMore()">Load More</button>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:700px;">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="questionx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('editQuestionModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div class="modal_title">{{questionx.question_id ? 'Edit Question':'Add Question'}}</div>
+                <div class="dropdown">
+                    <div class="labelf">Category</div>
+                    <select class="btn btn-default dropdown-toggle sort_dropdown"
+                        [(ngModel)]="questionx.category" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of ['NFL','MLB','NBA']" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                    <div *ngIf="invalid_category" class="alert_message">{{invalid_category}}</div>
+                </div>
+                <div class="input_container">
+                    <div class="labelf">Question</div>
+                    <textarea rows="2" class="form-control" [(ngModel)]="questionx.question" (ngModelChange)="clearAlerts()"></textarea>
+                    <div *ngIf="invalid_question" class="alert_message">{{invalid_question}}</div>
+                </div>
+                <div class="input_container">
+                    <div class="labelf">Correct Answer</div>
+                    <input type="text" class="form-control" [(ngModel)]="questionx.correct_answer" (ngModelChange)="clearAlerts()">
+                    <div *ngIf="invalid_correct_answer" class="alert_message">{{invalid_correct_answer}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input_container">
+                            <div class="labelf">Wrong Answer 1</div>
+                            <input type="text" class="form-control" [(ngModel)]="questionx.option1" (ngModelChange)="clearAlerts()">
+                            <div *ngIf="invalid_option1" class="alert_message">{{invalid_option1}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input_container">
+                            <div class="labelf">Wrong Answer 2</div>
+                            <input type="text" class="form-control" [(ngModel)]="questionx.option2" (ngModelChange)="clearAlerts()">
+                            <div *ngIf="invalid_option2" class="alert_message">{{invalid_option2}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input_container">
+                            <div class="labelf">Wrong Answer 3</div>
+                            <input type="text" class="form-control" [(ngModel)]="questionx.option3" (ngModelChange)="clearAlerts()">
+                            <div *ngIf="invalid_option3" class="alert_message">{{invalid_option3}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input_container">
+                            <div class="labelf">Wrong Answer 4</div>
+                            <input type="text" class="form-control" [(ngModel)]="questionx.option4" (ngModelChange)="clearAlerts()">
+                            <div *ngIf="invalid_option4" class="alert_message">{{invalid_option4}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input_container">
+                            <div class="labelf">Difficulty</div>
+                            <input type="text" class="form-control" [(ngModel)]="questionx.difficulty" (ngModelChange)="clearAlerts()">
+                            <div *ngIf="invalid_difficulty" class="alert_message">{{invalid_difficulty}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input_container">
+                            <div class="labelf">Value Points</div>
+                            <input type="text" class="form-control" [(ngModel)]="questionx.value_points" (ngModelChange)="clearAlerts()">
+                            <div *ngIf="invalid_value_points" class="alert_message">{{invalid_value_points}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="saveQuestion()">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changesSavedModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="questionx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('changesSavedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">Changes have been saved!</p>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('changesSavedModal')">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="questionAddedModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="questionx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('questionAddedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">Question was added!</p>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('questionAddedModal')">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="questionx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('confirmDeleteModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">Confirm you wish to delete the following question</p>
+
+                <strong>Category:</strong>&nbsp;{{questionx.category}}<br>
+                <strong>Question:</strong>&nbsp;{{questionx.question}}<br>
+                <strong>Correct Answer:</strong>&nbsp;{{questionx.correct_answer}}<br>
+                <strong>Wrong Answer 1:</strong>&nbsp;{{questionx.option1}}<br>
+                <strong>Wrong Answer 2:</strong>&nbsp;{{questionx.option2}}<br>
+                <strong>Wrong Answer 3:</strong>&nbsp;{{questionx.option3}}<br>
+                <strong>Wrong Answer 4:</strong>&nbsp;{{questionx.option4}}<br>
+                <strong>Difficulty:</strong>&nbsp;{{questionx.difficulty}}<br>
+                <strong>Value Points:</strong>&nbsp;{{questionx.value_points}}
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-danger" (click)="deleteQuestion()">Delete</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="questionDeletedModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="questionx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('questionDeletedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">Question deleted!</p>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('questionDeletedModal')">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

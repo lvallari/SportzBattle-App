@@ -1,0 +1,28 @@
+/* styles.css */
+.timer {
+    width: 80px; /* Set the size of the circle */
+    height: 80px; /* Set the size of the circle */
+    background-color: transparent; /* Initial background color */
+    border-radius: 50%; /* Makes the div a circle */
+    position:absolute;
+    top: 0;
+    right:1%;
+    font-size: 3em;
+    padding: 0em 0.5em;
+    color:white;
+}
+
+.animated-circle {
+    
+    animation: colorChange 1s infinite; /* Apply the animation */
+    
+}
+
+@keyframes colorChange {
+    0%, 100% {
+        background-color: transparent; /* Circle starts and ends transparent */
+    }
+    50% {
+        background-color: red; /* Circle changes to blue at the halfway point */
+    }
+}

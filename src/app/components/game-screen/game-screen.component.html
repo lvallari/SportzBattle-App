@@ -1,0 +1,72 @@
+<div class="game_screen">
+    <!--
+    <app-timer [time]="time"></app-timer>
+    -->
+    @if (has_joined){
+        @if (page == 'game'){
+        <app-timer *ngIf="show_timer" [time]="time"></app-timer>
+        <div class="question_container">
+            <div class="question">{{question}}</div>
+            <div class="row">
+                @for(x of options; track x.text){
+                <div class="col-12 col-md-6">
+                    <div class="option op1" [ngClass]="{'green': x.show_green, 'red': x.show_red }" (click)="answerSelected(x)">{{x.text}}</div>
+                </div>
+                }
+            </div>
+            <div class="row join_container">
+                <div class="col-12 col-md-6">
+                    <div class="join_text">Join the battle!<br>
+                        <div class="join_url">sb.com/xyz</div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6" style="height:100%;">
+                    <img class="logo_with_words" src="../../../assets/images/logo_with_words.png">
+                </div>
+            </div>
+        </div>
+        }
+        @else if (page == 'leaderboard' && users){
+            <div class="title">Leaderboard</div>
+            <table class="table leaderboard_table">
+                <thead>
+                    <tr>
+                        <th class="tc" style="width:10%; text-align:center;">Position</th>
+                        <th class="tc" style="width:30%">Player</th>
+                        <th class="tc" style="width:10%; text-align:center;">Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(x of users; track x.player_id){
+                        <tr>
+                            <td class="tc" style="width:10%; text-align:center;">{{x.position}}</td>
+                            <td class="tc" style="width:30%">
+                                <img class="user_image" src={{x.image}}>&nbsp;&nbsp;&nbsp;{{x.name}}
+                            </td>
+                            <td class="tc" style="width:10%; text-align:center;">{{x.points}}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        @else if (page == 'advertisement'){
+            <img class="hero_image" src="../../../assets/images/woman2.png">
+            <div class="advertisement_text">
+                All eyes on you!<br><br>
+                Advertise here!<br><br>
+                <small>Contact management for more details.</small>
+            </div>
+        }
+    }
+    @else {       
+        <img class="logo" src="../../../assets/images/logo.png">
+        <img class="logo_words" src="../../../assets/images/logo_words.png">
+        <p class="hero_text">Get ready, the game is about to start.</p>
+    }
+
+   
+
+    <!--
+    <img class="hero" src="../../../assets/images/woman2.png">
+    -->
+</div>

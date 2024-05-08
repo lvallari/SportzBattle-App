@@ -1,0 +1,164 @@
+.game_screen{
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(45deg, #00cccc, #000000, #000000);
+    position: relative;
+}
+
+.hero{
+    height: calc(100vh - 100px);
+    position: absolute;
+    bottom:0;
+    right:0;
+}
+
+.message{
+    position:absolute;
+    top: 50px;
+    color: white;
+}
+
+.logo {
+    width: 100%;
+    max-height: 50%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+    padding-top: 5%;
+}
+
+.logo_words {
+    margin: auto;
+    display: block;
+    padding: 30px 0;
+    width: 100%;
+    max-width: 760px;
+}
+
+.logo_with_words {
+    height: 94%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+    padding-top: 3%;
+}
+
+.hero_text{
+    color: white;
+    font-size: 34px;
+    text-align: center;
+    font-family: 'monospace';
+}
+
+.question_container{
+    width: 100%;
+    display: block;
+    padding: 4% 5%;
+    text-align: center;
+    margin: 0;
+}
+
+.question{
+    color: white;
+    font-size: 3.5em;
+    margin: 0 0 2% 0px;
+}
+
+.option{
+    background-color: white;
+    color: black;
+    font-size: 3.5em;
+    margin: 30px 0;
+    border-radius: 100px;
+    box-shadow: 5px 8px 0px lightgrey
+}
+
+.join_container{
+    font-size: 1.5em;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding-bottom: 2%;
+    width: 100%;
+    height: 30vh;
+}
+
+.join_text{
+    font-size: 1.5em;
+    color: white;
+    padding-top: 10%;
+}
+
+.join_url{
+    color:yellow;
+    font-size: 1.5em;
+}
+
+.title{
+    font-family: 'roboto-bold';
+    font-size: 4em;
+    color:white;
+    text-align: center;
+    padding: 2% 0;
+}
+
+.tc{
+    color:white;
+    background-color: transparent;
+    font-size: 24px;
+}
+
+.user_image {
+    width: 2.5em;
+    border-radius: 50%;
+    height: 2.5em;
+    object-fit: cover;
+}
+
+.leaderboard_table{
+    width: 80%;
+    margin: auto;
+    display: block;
+}
+
+.advertisement_text{
+    position: absolute;
+    color: white;
+    font-family: 'roboto-bold';
+    font-size: 4em;
+    top: 20%;
+    right: 20px;
+    width: 50%;
+    text-align: center;
+}
+
+.green{
+    background-color: greenyellow;
+}
+
+.red{
+    background-color: red;
+}
+
+@media screen and (max-width: 768px) {
+    .option {
+        background-color: white;
+        color: black;
+        font-size: 2em;
+        margin: 15px 0;
+        border-radius: 100px;
+        box-shadow: 5px 8px 0px lightgrey;
+    }
+
+    .question{
+        color: white;
+        font-size: 1.5em;
+        margin: 0 0 2% 0px;
+    }
+}
+
+
+
+
