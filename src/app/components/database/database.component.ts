@@ -3,8 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionsService } from '../../services/questions.service';
 import { TablesService } from '../../services/tables.service';
+import { MyblobService } from '../../services/myblob.service';
+import { UploadService } from '../../services/upload.service';
 import { SidemenuComponent } from '../../components/sidemenu/sidemenu.component';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -33,11 +36,18 @@ export class DatabaseComponent implements OnInit {
   invalid_option4!:string;
   invalid_difficulty!:string;
   invalid_value_points!:string;
+
+  file!:File | null;
+
+  fileUploadedSubscription!: Subscription;
+  uploaded_message!:string;
   
   constructor(
     //public tablesService: TablesService,
     public questionsService: QuestionsService,
-    public tablesService: TablesService
+    public tablesService: TablesService,
+    public myBlobService: MyblobService,
+    public uploadService: UploadService
   ){}
 
 
@@ -50,6 +60,22 @@ export class DatabaseComponent implements OnInit {
     this.setAllCategories();
     this.setAllDifficulties();
     this.getData(0);
+
+    this.fileUploadedSubscription = this.myBlobService._fileUploaded.subscribe((filename) => {
+      console.log('image upload status', status);
+      if (filename) {
+        $('#uploadModal').modal('hide');
+        $('#uploadingRecordsModal').modal('show');
+        this.uploadService.BatchUpload(filename).subscribe((data:any) => {
+          this.uploaded_message = data.message;
+          console.log('data', data);
+          $('#uploadingRecordsModal').modal('hide');
+          $('#uploadedCompleteModal').modal('show');
+          this.getData(0);
+        });
+      }
+    });
+    
 
   }
 
@@ -248,6 +274,20 @@ export class DatabaseComponent implements OnInit {
     this.questionsService.Get(this.filters,this.page).subscribe((data:any) => {
       this.questions = this.questions.concat(data);
     });
+  }
+
+  uploadModal(){
+    this.file = null;
+    $('#uploadModal').modal('show');
+  }
+
+  fileChangeEvent(event:any){
+    console.log('event', event);
+    if (event.target.files[0]) this.file = event.target.files[0];
+  }
+
+  uploadFile(){
+    this.myBlobService.uploadBulkFile(this.file,this.file?.name);
   }
 
 }

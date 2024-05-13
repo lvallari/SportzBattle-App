@@ -1,9 +1,11 @@
 .game_screen{
     width: 100%;
     height: 100vh;
-    background: linear-gradient(45deg, #00cccc, #000000, #000000);
+    background: linear-gradient(45deg, #33ccff, #000000, #000000);
     position: relative;
 }
+
+/* #00cccc */
 
 .hero{
     height: calc(100vh - 100px);
@@ -25,7 +27,57 @@
     display: block;
     object-fit: contain;
     padding-top: 5%;
+    animation: blurToClear 3s ease-out forwards; /* Animation configuration */
 }
+
+.banner{
+    width: 100%;
+    max-width: 1200px;
+    margin: 3% auto;
+    display: block;
+}
+
+.hero_image{
+    width:100%;
+    height:100vh;
+    object-fit: cover;
+}
+
+@keyframes blurToClear {
+  0% {
+    filter: blur(15px); /* Starting with a strong blur */
+  }
+  100% {
+    filter: blur(0px); /* Fully clear image */
+  }
+}
+
+.spark {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, white 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 12px 2px white; /* Optional: Adds a glow effect */
+    animation: sparkEffect 4s ease-in-out forwards;
+    position: absolute;
+    top: -135px;
+    right: calc(50% - 424px);
+  }
+  
+  @keyframes sparkEffect {
+    0% {
+      transform: scale(0); /* Start with the spark scaled down */
+      opacity: 0; /* Start completely transparent */
+    }
+    50% {
+      transform: scale(1); /* Scale up the spark to full size */
+      opacity: 1; /* Fully visible at the midpoint of the animation */
+    }
+    100% {
+      transform: scale(0); /* Scale down the spark */
+      opacity: 0; /* End completely transparent, ensuring it disappears */
+    }
+  }
 
 .logo_words {
     margin: auto;
@@ -45,15 +97,15 @@
 
 .hero_text{
     color: white;
-    font-size: 34px;
+    font-size: 2em;
     text-align: center;
-    font-family: 'monospace';
+    font-family: 'roboto-bold';
 }
 
 .question_container{
     width: 100%;
     display: block;
-    padding: 4% 5%;
+    padding: 5% 5% 0 5%;
     text-align: center;
     margin: 0;
 }
@@ -67,19 +119,17 @@
 .option{
     background-color: white;
     color: black;
-    font-size: 3.5em;
-    margin: 30px 0;
+    font-size: 2.5em;
+    margin: 15px 0;
     border-radius: 100px;
-    box-shadow: 5px 8px 0px lightgrey
+    box-shadow: 5px 8px 0px lightgrey;
+    z-index: 100;;
 }
 
 .join_container{
     font-size: 1.5em;
     color: white;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 0;
+    margin: 5% 0;
     padding-bottom: 2%;
     width: 100%;
     height: 30vh;
@@ -88,12 +138,13 @@
 .join_text{
     font-size: 1.5em;
     color: white;
-    padding-top: 10%;
+    padding-top: 12%;
 }
 
 .join_url{
     color:yellow;
     font-size: 1.5em;
+    font-family: 'roboto-bold';
 }
 
 .title{
@@ -120,7 +171,6 @@
 .leaderboard_table{
     width: 80%;
     margin: auto;
-    display: block;
 }
 
 .advertisement_text{
@@ -135,17 +185,98 @@
 }
 
 .green{
-    background-color: greenyellow;
+    background-color: greenyellow !important;
 }
 
 .red{
+    background-color: red !important;
+}
+
+.invisible{
+    visibility: hidden;
+}
+
+.countdown_timer{
+    font-size: 12em;
+    color: white;
+    font-family: 'roboto-bold';
+    text-align: center;
+    padding: 1% 0
+}
+
+.logo_prepare {
+   
+    height: 20%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo_words_prepare {
+    margin: auto;
+    display: block;
+    padding: 30px 0;
+    width: 30%;
+    max-width: 760px;
+}
+
+.user_stats{
+    color: white;
+    font-size: 1.5em;
+    padding: 0 20px 20px 20px;
+}
+
+.points_animation{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #33ccff;
+    color: white;
+    top: 47px;
+    left: calc(50% - 50px);
+    border-radius: 50%;
+    font-size: 48px;
+    padding: 10px 4px;
+}
+
+.life_circle{
+    width:20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 50%;
     background-color: red;
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.game_over{
+    color: white;
+    font-size: 2em;
+    font-family: 'roboto-bold';
+    /* margin: auto; */
+    /* display: block; */
+    text-align: center;
+}
+
+.play_again_button{
+    background-color:#33ccff;
+    color: white;
+    font-size: 2em;
+    font-family: 'roboto-medium'
 }
 
 @media screen and (max-width: 768px) {
+
+    .logo{
+        width:90%;
+        padding-top: 35px;
+    }
+
+    .logo_words{
+        width:90%;
+    }
+
     .option {
-        background-color: white;
-        color: black;
         font-size: 2em;
         margin: 15px 0;
         border-radius: 100px;
@@ -157,8 +288,63 @@
         font-size: 1.5em;
         margin: 0 0 2% 0px;
     }
+
+    .question_container{
+        padding-top:10px;
+    }
+
+    .countdown_timer{
+        font-size: 10em;
+        padding: 2% 0
+    }
+
+    .logo_prepare {
+        width: 80%;
+    }
+    
+    .logo_words_prepare {
+        width: 80%;
+    }
+
+    .tc{
+        color:white;
+        background-color: transparent;
+        font-size: 18px;
+    }
+
+    .hero_text{
+        font-size:1.7em;
+    }
+
+    .spark{
+        position: absolute;
+        top: -81px;
+        right: 1%;
+        width: 50px;
+        height: 50px;
+    }
+
+    .logo_with_words{
+        display:none;
+    }
+
+    .join_text{
+        padding-top:0;
+    }
+
+    .join_url{
+        font-size:1em;
+    }
+
+    
+    
 }
 
+@media screen and (min-width: 768px) {
+    .user_stats{
+        display: none;
+    }
+}
 
 
 

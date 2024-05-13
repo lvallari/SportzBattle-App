@@ -2,6 +2,9 @@
 
 <div class="contents">
     <div class="text-end">
+        <button class="btn btn-default button_primary" (click)="uploadModal()">
+            <i class="fa-solid fa-upload"></i>&nbsp;Upload
+        </button>&nbsp;
         <button class="btn btn-default button_primary" (click)="editQuestion(undefined)">
             <i class="fa-solid fa-plus"></i>&nbsp;Add question
         </button>
@@ -303,6 +306,69 @@
 
                 <div class="text-center" style="padding: 35px 0 0 0;">
                     <button class="btn btn-default button_primary" (click)="closeModal('questionDeletedModal')">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('uploadModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div class="form-group" style="margin-bottom:0;">
+                    <input type="file" (change)="fileChangeEvent($event)" style="width: 95%;" accept=".csv" />
+                    <div class="text-center" style="padding:30px 0">
+                        <button *ngIf="file" class="btn btn-default button_primary" (click)="uploadFile()">Upload</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadingRecordsModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('uploadingRecordsModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">Uploading records...</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadedCompleteModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('uploadedCompleteModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">{{uploaded_message}}</p>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('uploadedCompleteModal')">Ok</button>
                 </div>
 
             </div>

@@ -1,0 +1,24 @@
+/* Container for the progress bar, providing dimensions and background */
+.progress-container {
+    width: 100%; /* Full width of the container */
+    height: 30px; /* Height of the progress bar */
+    background-color: #ddd; /* Light grey background */
+    border-radius: 5px; /* Rounded corners */
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  /* The progress bar itself */
+  .progress-bar {
+    height: 100%; /* Full height of its parent */
+    width: 0%; /* Start width at 0% */
+    background-color: #4CAF50; /* Green background */
+    border-radius: 5px; /* Rounded corners to match the container */
+    animation: fill 2s ease-in-out forwards; /* Animation details */
+  }
+  
+  /* Keyframes for the fill animation */
+  @keyframes fill {
+    from { width: 0%; } /* Start at 0% width */
+    to { width: 100%; } /* End at 100% width */
+  }

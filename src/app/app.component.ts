@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuestionsService } from './services/questions.service';
 import { TablesService } from './services/tables.service';
 import { CommonService } from './services/common.service';
+import { MyblobService } from './services/myblob.service';
+import { UploadService } from './services/upload.service';
 
 
 @Component({
@@ -21,7 +23,7 @@ import { CommonService } from './services/common.service';
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers:[ QuestionsService, TablesService, CommonService ]
+  providers:[ QuestionsService, TablesService, CommonService, MyblobService, UploadService ]
 })
 export class AppComponent {
   title = 'sportzbattle';
