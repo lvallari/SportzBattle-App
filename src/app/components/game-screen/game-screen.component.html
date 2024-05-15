@@ -5,11 +5,20 @@
     -->
     @if (has_joined){
     @if (page == 'game'){
-    <app-user-stats [user]="user"></app-user-stats>
+    <app-user-stats [user]="user" [counter]="counter"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
     <app-timer *ngIf="show_timer" [time]="time"></app-timer>
     <div class="question_container">
-        <div class="question">{{message.question}}&nbsp;<em>({{message.value_points}} pts)</em></div>
+        <div class="question">{{message.question}}</div>
+        @switch (message.value_points) {
+            @case (10) { <div class="question_value blue"><em>{{message.value_points}} pts</em></div> }
+            @case (20) { <div class="question_value blue"><em>{{message.value_points}} pts</em></div> }
+            @case (30) { <div class="question_value green"><em>{{message.value_points}} pts</em></div> }
+            @case (40) { <div class="question_value green"><em>{{message.value_points}} pts</em></div> }
+            @case (50) { <div class="question_value orange"><em>{{message.value_points}} pts</em></div> }
+            @case (60) { <div class="question_value orange"><em>{{message.value_points}} pts</em></div> }
+            @case (70) { <div class="question_value red"><em>{{message.value_points}} pts</em></div> }
+        }
         <div class="row">
             @for(x of options; track x.text){
             <div class="col-12 col-md-6">
@@ -22,6 +31,7 @@
         </div>
     </div>
 
+    <!--
     @if (cycle_counter % 3 == 1){
     <app-question-footer></app-question-footer>
     }
@@ -31,6 +41,8 @@
     @if (cycle_counter % 3 == 0){
     <app-question-footer3></app-question-footer3>
     }
+    -->
+    <app-question-footer3></app-question-footer3>
 
     }
     @else if (page == 'leaderboard'){
@@ -39,7 +51,7 @@
 
     }
     @else if (page == 'advertisement'){
-    <img class="hero_image" src="../../../assets/images/ad2.jpg">
+    <app-advertisement-page></app-advertisement-page>
     }
     @else if (page == 'prepare_screen'){
     <app-prepare-screen></app-prepare-screen>

@@ -5,12 +5,12 @@
 }
 
 .life_circle{
-    width:20px;
-    height: 20px;
+    width:16px;
+    height: 16px;
     display: inline-block;
     border-radius: 50%;
     background-color: red;
-    margin: 0 5px;
+    margin: 0 1px;
     vertical-align: middle;
 }
 
@@ -27,8 +27,19 @@
     font-size: 24px;
 }
 
+.game_stats{
+    display:none;
+    color: white;
+    font-size:1.5em;
+    padding: 1% 0 0 1%;
+}
+
 @media screen and (min-width: 768px) {
     .user_stats{
         display: none;
+    }
+
+    .game_stats{
+        display:block;
     }
 }

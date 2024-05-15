@@ -1,0 +1,14 @@
+
+
+.hero_image{
+    width:100%;
+    height:100vh;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+
+    .hero_image {
+        height:auto;
+    }
+}

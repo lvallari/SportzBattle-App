@@ -9,17 +9,19 @@
 }
 
 .join_text{
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: white;
     text-align: center;
-    padding: 0 0 3% 0;
+    padding: 0 0 1.5% 0;
     font-family: 'orbitron-medium';
 }
 
 .join_url{
     color:yellow;
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-family: 'roboto-bold';
+    text-align: center;
+    padding-top:1.5%;
 }
 
 
@@ -36,7 +38,7 @@
 }
 
 .qr_code{
-    height: 80%;
+    height: 60%;
     margin: auto;
     display: block;
 }
@@ -84,4 +86,14 @@
         height: auto;
     }
 
+}
+
+@media screen and (max-height: 750px){
+    .question_container{
+        padding-top: 3%;
+    }
+
+    .join_container{
+        margin: 2% 0;
+    }
 }

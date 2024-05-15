@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-user-stats',
@@ -8,8 +8,15 @@ import { Component, Input } from '@angular/core';
   templateUrl: './user-stats.component.html',
   styleUrl: './user-stats.component.scss'
 })
-export class UserStatsComponent {
+export class UserStatsComponent implements OnChanges{
 
   @Input() user:any;
+  @Input() counter!:number;
+  
+  number_of_users!:number;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.number_of_users = 10 + Math.round(Math.random()*10);
+  }
   
 }

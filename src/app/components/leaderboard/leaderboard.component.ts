@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-leaderboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'
 })
