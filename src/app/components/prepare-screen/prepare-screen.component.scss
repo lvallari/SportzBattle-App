@@ -1,0 +1,46 @@
+.countdown_timer{
+    font-size: 12em;
+    color: white;
+    font-family: 'roboto-bold';
+    text-align: center;
+    padding: 1% 0
+}
+
+.logo_prepare {
+   
+    height: 20%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo_words_prepare {
+    margin: auto;
+    display: block;
+    padding: 30px 0;
+    width: 30%;
+    max-width: 760px;
+}
+
+.banner{
+    width: 100%;
+    max-width: 1200px;
+    margin: 3% auto;
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+
+    .countdown_timer{
+        font-size: 10em;
+        padding: 2% 0
+    }
+
+    .logo_prepare {
+        width: 80%;
+    }
+    
+    .logo_words_prepare {
+        width: 80%;
+    }
+}

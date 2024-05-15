@@ -1,0 +1,56 @@
+.logo {
+    width: 100%;
+    max-height: 50%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+    padding-top: 5%;
+    animation: blurToClear 3s ease-out forwards;
+    /* Animation configuration */
+}
+
+@keyframes blurToClear {
+    0% {
+        filter: blur(15px);
+        /* Starting with a strong blur */
+    }
+
+    100% {
+        filter: blur(0px);
+        /* Fully clear image */
+    }
+}
+
+.logo_words {
+    margin: auto;
+    display: block;
+    padding: 30px 0;
+    width: 100%;
+    max-width: 760px;
+}
+
+.hero_text {
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    font-family: 'orbitron-bold';
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    .logo{
+        width:90%;
+        padding-top: 35px;
+    }
+
+    .logo_words{
+        width:90%;
+    }
+
+    .hero_text{
+        font-size:1.7em;
+    }
+
+}

@@ -9,6 +9,7 @@ import { TablesService } from './services/tables.service';
 import { CommonService } from './services/common.service';
 import { MyblobService } from './services/myblob.service';
 import { UploadService } from './services/upload.service';
+import { UserStatsComponent } from './components/user-stats/user-stats.component';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { UploadService } from './services/upload.service';
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers:[ QuestionsService, TablesService, CommonService, MyblobService, UploadService ]
+  providers:[ QuestionsService, TablesService, CommonService, MyblobService, UploadService, UserStatsComponent ]
 })
 export class AppComponent {
   title = 'sportzbattle';

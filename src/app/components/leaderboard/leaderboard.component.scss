@@ -1,0 +1,39 @@
+.tc{
+    color:white;
+    background-color: transparent;
+    font-size: 24px;
+}
+
+.leaderboard_table{
+    width: 80%;
+    margin: auto;
+}
+
+.title{
+    font-family: 'orbitron-bold';
+    font-size: 4em;
+    color:white;
+    text-align: center;
+    padding: 2% 0;
+}
+
+
+.user_image {
+    width: 2.5em;
+    border-radius: 50%;
+    height: 2.5em;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+
+    .tc{
+        color:white;
+        background-color: transparent;
+        font-size: 18px;
+    }
+
+    .title{
+        font-size: 2em;
+    }
+}

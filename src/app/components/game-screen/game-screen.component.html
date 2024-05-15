@@ -4,109 +4,55 @@
    
     -->
     @if (has_joined){
-        @if (page == 'game'){
-        <div class="user_stats">
-            {{user_name}}:&nbsp;{{user_points}}&nbsp;&nbsp;#{{user_ranking}}&nbsp;&nbsp;
-            <div class="life_circle" [ngClass]="{'green':(lives >= 1)}"></div>
-            <div class="life_circle" [ngClass]="{'green':(lives >= 2)}"></div>
-            <div class="life_circle" [ngClass]="{'green':(lives == 3)}"></div>
+    @if (page == 'game'){
+    <app-user-stats [user]="user"></app-user-stats>
+    <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
+    <app-timer *ngIf="show_timer" [time]="time"></app-timer>
+    <div class="question_container">
+        <div class="question">{{message.question}}&nbsp;<em>({{message.value_points}} pts)</em></div>
+        <div class="row">
+            @for(x of options; track x.text){
+            <div class="col-12 col-md-6">
+                <div class="option op1"
+                    [ngClass]="{'green': x.show_green, 'red': x.show_red, 'invisible': (time_is_up == true && x.is_right_answer == false) }"
+                    (click)="answerSelected(x)">
+                    {{x.text}}</div>
+            </div>
+            }
         </div>
-        <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
-        <app-timer *ngIf="show_timer" [time]="time"></app-timer>
-        <div class="question_container">
-            <div class="question">{{message.question}}</div>
-            <div class="row">
-                @for(x of options; track x.text){
-                <div class="col-12 col-md-6">
-                    <div class="option op1" [ngClass]="{'green': x.show_green, 'red': x.show_red, 'invisible': (time_is_up == true && x.is_right_answer == false) }" (click)="answerSelected(x)">
-                        {{x.text}}</div>
-                </div>
-                }
-            </div>
-            <div class="row join_container">
-                <div class="col-12 col-md-6">
-                    <div class="join_text">Join the battle!<br>
-                        <div class="join_url">sptzba.com/2334</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6" style="height:100%;">
-                    <img class="logo_with_words" src="../../../assets/images/logo_with_words.png">
-                </div>
-            </div>
-        </div>
-        }
-        @else if (page == 'leaderboard' && users){
-            <div class="user_stats">
-                {{user_name}}:&nbsp;{{user_points}}&nbsp;&nbsp;#{{user_ranking}}
-            </div>
-            <div class="title">Leaderboard</div>
-            <table class="table leaderboard_table">
-                <thead>
-                    <tr>
-                        <th class="tc" style="text-align:center;">Position</th>
-                        <th class="tc" style="">Player</th>
-                        <th class="tc" style="text-align:center;">Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for(x of users; track x.player_id){
-                        <tr>
-                            <td class="tc" style="text-align:center;">{{x.position}}</td>
-                            <td class="tc" style="">
-                                <img class="user_image" src={{x.image}}>&nbsp;&nbsp;&nbsp;{{x.name}}
-                            </td>
-                            <td class="tc" style="text-align:center;">{{x.points}}</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        @else if (page == 'advertisement'){
-            <img class="hero_image" src="../../../assets/images/ad2.jpg">
-            <!--
-            <div class="advertisement_text">
-                All eyes on you!<br><br>
-                Advertise here!<br><br>
-                <small>Contact management for more details.</small>
-            </div>
-            -->
-        }
-        @else if (page == 'prepare_screen'){
-            <div class="user_stats">
-                {{user_name}}:&nbsp;{{user_points}}&nbsp;&nbsp;#{{user_ranking}}
-            </div>
-            <h1 class="countdown_timer">{{countdown_timer}}</h1>
-            <img class="logo_prepare" src="../../../assets/images/logo.png">
-            <img class="logo_words_prepare" src="../../../assets/images/logo_words.png">
-            <img class="banner" src="{{'../../../../../assets/images/banner' + banner_index + '.png'}}">
-            
-            <!--
-            <p class="hero_text">Loading next question.</p>
-            -->
-            <!--
-            <app-progress-bar></app-progress-bar>
-            -->
-        }
-        @else if (page == 'game_over'){
-            <img class="logo_prepare" style="padding-top:50px;" src="../../../assets/images/logo.png">
-            <img class="logo_words_prepare" src="../../../assets/images/logo_words.png">
-            <div class="game_over">Game over</div><br>
-            <div class="text-center" style="padding:30px 0">
-                <button class="btn btn-default play_again_button">Play again</button>
-            </div>
-        }
+    </div>
+
+    @if (cycle_counter % 3 == 1){
+    <app-question-footer></app-question-footer>
     }
-    @else {       
-        <img class="logo" src="../../../assets/images/logo.png">
-        <img class="logo_words" src="../../../assets/images/logo_words.png">
-        <div style="position:relative">
-            <p class="hero_text">The Battle for Ultimate Sports Trivia Supremacy</p>
-            <div class="spark"></div>
-        </div>
-        
+    @if (cycle_counter % 3 == 2){
+    <app-question-footer2 [counter]="counter"></app-question-footer2>
+    }
+    @if (cycle_counter % 3 == 0){
+    <app-question-footer3></app-question-footer3>
     }
 
-   
+    }
+    @else if (page == 'leaderboard'){
+    <app-user-stats [user]="user"></app-user-stats>
+    <app-leaderboard></app-leaderboard>
+
+    }
+    @else if (page == 'advertisement'){
+    <img class="hero_image" src="../../../assets/images/ad2.jpg">
+    }
+    @else if (page == 'prepare_screen'){
+    <app-prepare-screen></app-prepare-screen>
+    }
+    @else if (page == 'game_over'){
+    <app-game-over (playAgain)="playAgain()"></app-game-over>
+    }
+    }
+    @else {
+    <app-splash></app-splash>
+    }
+
+
 
     <!--
     <img class="hero" src="../../../assets/images/woman2.png">

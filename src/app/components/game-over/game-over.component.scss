@@ -1,0 +1,43 @@
+.logo {
+   
+    height: 20%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo_words {
+    margin: auto;
+    display: block;
+    padding: 30px 0;
+    width: 30%;
+    max-width: 760px;
+}
+
+.game_over{
+    color: white;
+    font-size: 2em;
+    font-family: 'orbitron-bold';
+    /* margin: auto; */
+    /* display: block; */
+    text-align: center;
+}
+
+.play_again_button{
+    background-color: #33ccff;
+    color: white;
+    font-size: 1.5em;
+    font-family: "orbitron-medium";
+    padding: 10px 30px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .logo {
+        width: 80%;
+    }
+    
+    .logo_words {
+        width: 80%;
+    }
+}

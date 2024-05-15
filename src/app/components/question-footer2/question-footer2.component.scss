@@ -1,0 +1,83 @@
+.join_container{
+    font-size: 1.5em;
+    color: white;
+    padding-bottom: 2%;
+    width: 100%;
+    
+}
+
+.join_text{
+    font-size: 1.5em;
+    color: white;
+    text-align: center;
+    padding-top: 3%;
+    font-family: 'orbitron-medium';
+}
+
+.join_url{
+    color:yellow;
+    font-size: 1.5em;
+    font-family: 'roboto-bold';
+}
+
+
+.logo_words {
+    width: 80%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+    padding-top: 6%;
+}
+
+.banner{
+    width:80%;
+    max-height:15%;
+    margin: 3% auto;
+    display: block;
+}
+
+.logo_container{
+    height:100%;
+}
+
+
+@media screen and (max-width: 768px) {
+    .logo_words {
+        display: none;
+    }
+
+    .join_text{
+        padding-top:0;
+    }
+
+    .join_url{
+        font-size:1em;
+    }
+
+    .banner{
+        width:100%;
+        max-height: none;
+    }
+}
+
+@media screen and (max-height: 750px){
+    .join_container{
+        padding-bottom: 0%;
+    }
+
+    .join_url{
+        font-size: 1.2em;
+    }
+
+    .join_text{
+        padding-top: 0;
+    }
+
+    .logo_words{
+        padding-top: 3%;
+    }
+
+    .logo_container{
+        height:auto;
+    }
+}

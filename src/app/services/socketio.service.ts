@@ -30,6 +30,7 @@ export class SocketioService {
     this.socket.on('message', (data) => {
       //console.log('message', data);
       this._getMessage.next(data);
+      this._getMessage.next(undefined);
       //subscriber.next(data);
     });
 
