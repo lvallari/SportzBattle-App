@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-leaderboard',
@@ -8,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'
 })
-export class LeaderboardComponent implements OnInit{
+export class LeaderboardComponent implements OnInit, OnDestroy{
+
+  countdonw_interval:any;
+  countdown!:string;
 
   users!:any[];
   users_o:any[] = [
@@ -34,6 +37,42 @@ export class LeaderboardComponent implements OnInit{
     setTimeout(() => {
       this.users = this.users_o.slice(8);
     },7000)
+
+    this.countdonw_interval = setInterval(() => {
+      this.countdown = this.timeUntil3AMET();
+    },1000);
   }
+
+  ngOnDestroy(): void {
+    
+  }
+
+  timeUntil3AMET() {
+    // Get the current time in UTC
+    const now = new Date();
+
+    // Convert the current time to Eastern Time (ET)
+    const currentETOffset = +4; // Eastern Daylight Time (EDT) UTC-4
+    var easternTime:any = new Date(now.getTime() + (currentETOffset * 60 * 60 * 1000));
+    
+    // Create a Date object for the next 3 AM ET
+    var next3AMET:any = new Date(easternTime);
+    next3AMET.setHours(3, 0, 0, 0); // Set time to 3 AM
+
+    // If the current time is past 3 AM ET, set the next 3 AM to the next day
+    if (easternTime.getHours() >= 3) {
+        next3AMET.setDate(next3AMET.getDate() + 1);
+    }
+
+    // Calculate the time difference in milliseconds
+    var timeDifference = next3AMET - easternTime;
+
+    // Convert the time difference to a human-readable format (hours, minutes, seconds)
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return `${hours} hrs, ${minutes} min, ${seconds} sec`;
+}
 
 }

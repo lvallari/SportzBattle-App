@@ -25,6 +25,17 @@
     object-fit: cover;
 }
 
+.countdown{
+    text-align: right;
+    font-size: 1.5em;
+    color:white;
+    font-style:italic;
+    padding: 1% 1% 0 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 @media screen and (max-width: 768px) {
 
     .tc{
@@ -39,5 +50,9 @@
 
     .leaderboard_table{
         width: 100%;
+    }
+
+    .countdown{
+        display: none;
     }
 }
