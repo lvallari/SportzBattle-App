@@ -23,7 +23,7 @@
             @for(x of options; track x.text){
             <div class="col-12 col-md-6">
                 <div class="option op1"
-                    [ngClass]="{'green': x.show_green, 'red': x.show_red, 'invisible': (time_is_up == true && x.is_right_answer == false) }"
+                    [ngClass]="{'greenyellow': x.show_green, 'red': x.show_red, 'invisible': (time_is_up == true && x.is_right_answer == false) }"
                     (click)="answerSelected(x)">
                     {{x.text}}</div>
             </div>
