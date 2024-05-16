@@ -57,6 +57,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   start_timestamp = Date.now();
   counter:number = 0;
   cycle_counter:number = 1;
+  question_notification!:string;
 
   private messagesSubscription!: Subscription;
 
@@ -95,6 +96,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
           this.counter += 1;
           this.page = 'prepare_screen';
+          this.question_notification = this.message.value_points + ' Pts';
 
           setTimeout(() => {
             this.page = 'game';
@@ -102,7 +104,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
             this.has_joined = true;
             this.question_active = true;
 
+            this.message.question = this.commonService.decrypt('sb', message.question);
             this.right_answer = this.commonService.decrypt('sb', message.key);
+
 
             this.options = [];
             this.message.answers.forEach((x: any) => {
@@ -123,6 +127,10 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                 this.time = 0;
                 this.time_is_up = true;
                 if (this.question_active == true) this.answerSelected(undefined);
+              }
+
+              if (elapsed_time == 8){
+                this.question_notification = Math.round(Math.random()*100) + '% answered correctly';
               }
 
 
@@ -146,7 +154,6 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
     if (this.screen_width > 768 || this.question_active == false) return;
 
-    console.log('answer selected!', option);
     this.question_active = false;
     //clearInterval(this.timerInterval);
 
@@ -154,7 +161,6 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       option.show_green = true;
       this.user.points += this.message.value_points;
       this.points_value = this.message.value_points;
-      console.log('points_value', this.points_value);
       this.show_point_animation = true;
       setTimeout(() => { this.show_point_animation = false; }, 1500);
     }
@@ -163,7 +169,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.user.lives -= 1;
     }
 
-    console.log('this.lives', this.user.lives);
+    //console.log('this.lives', this.user.lives);
 
     this.stopTimer();
 
@@ -181,7 +187,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   }
 
   playAgain() {
-    this.user.lives = 3;
+    this.user.lives = 5;
     this.has_joined = false;
     this.page = 'game';
     this.subscribeToSocket();

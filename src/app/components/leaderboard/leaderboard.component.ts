@@ -13,6 +13,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy{
   countdonw_interval:any;
   countdown!:string;
 
+  is_mobile:boolean = window.innerWidth < 768;
+
+  position_label!:string;
+  points_label!:string;
+  winnings_label!:string;
+
   users!:any[];
   users_o:any[] = [
     {position: 1, name: 'Alfred', image: '../../../assets/images/user1.jpeg', points: 112},
@@ -33,6 +39,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy{
   ];
 
   ngOnInit(): void {
+
+    this.position_label = this.is_mobile ? 'Pos.':'Position';
+    this.points_label = this.is_mobile ? 'Pts.':'Points';
+    this.winnings_label = this.is_mobile ? 'PW':'Potential Winnings';
+
+
     this.users = this.users_o.slice(0,8);
     setTimeout(() => {
       this.users = this.users_o.slice(8);
@@ -72,7 +84,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy{
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-    return `${hours} hrs, ${minutes} min, ${seconds} sec`;
+    if (this.is_mobile == true) return `${hours}:${minutes}::${seconds}`;
+    else return `${hours} hrs, ${minutes} min, ${seconds} sec`;
 }
 
 }

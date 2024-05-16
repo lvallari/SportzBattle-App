@@ -5,20 +5,21 @@
     -->
     @if (has_joined){
     @if (page == 'game'){
-    <app-user-stats [user]="user" [counter]="counter"></app-user-stats>
+    <app-user-stats [user]="user" [counter]="counter" [show_lives]="true"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
     <app-timer *ngIf="show_timer" [time]="time"></app-timer>
     <div class="question_container">
         <div class="question">{{message.question}}</div>
         @switch (message.value_points) {
-            @case (10) { <div class="question_value blue"><em>{{message.value_points}} pts</em></div> }
-            @case (20) { <div class="question_value blue"><em>{{message.value_points}} pts</em></div> }
-            @case (30) { <div class="question_value green"><em>{{message.value_points}} pts</em></div> }
-            @case (40) { <div class="question_value green"><em>{{message.value_points}} pts</em></div> }
-            @case (50) { <div class="question_value orange"><em>{{message.value_points}} pts</em></div> }
-            @case (60) { <div class="question_value orange"><em>{{message.value_points}} pts</em></div> }
-            @case (70) { <div class="question_value red"><em>{{message.value_points}} pts</em></div> }
+        @case (10) { <div class="question_value blue"><em>{{question_notification}}</em></div> }
+        @case (20) { <div class="question_value blue"><em>{{question_notification}}</em></div> }
+        @case (30) { <div class="question_value green"><em>{{question_notification}}</em></div> }
+        @case (40) { <div class="question_value green"><em>{{question_notification}}</em></div> }
+        @case (50) { <div class="question_value orange"><em>{{question_notification}}</em></div> }
+        @case (60) { <div class="question_value orange"><em>{{question_notification}}</em></div> }
+        @case (70) { <div class="question_value red"><em>{{question_notification}}</em></div> }
         }
+       
         <div class="row">
             @for(x of options; track x.text){
             <div class="col-12 col-md-6">
@@ -46,7 +47,7 @@
 
     }
     @else if (page == 'leaderboard'){
-    <app-user-stats [user]="user"></app-user-stats>
+    <app-user-stats [user]="user" [show_lives]="false"></app-user-stats>
     <app-leaderboard></app-leaderboard>
 
     }
@@ -63,10 +64,4 @@
     @else {
     <app-splash></app-splash>
     }
-
-
-
-    <!--
-    <img class="hero" src="../../../assets/images/woman2.png">
-    -->
 </div>

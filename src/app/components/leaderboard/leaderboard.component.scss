@@ -1,7 +1,8 @@
 .tc{
     color:white;
     background-color: transparent;
-    font-size: 24px;
+    font-size: 1.2em;
+    font-family: 'orbitron-medium';
 }
 
 .leaderboard_table{
@@ -30,10 +31,12 @@
     font-size: 1.5em;
     color:white;
     font-style:italic;
-    padding: 1% 1% 0 0;
+    padding: 0.5% 1.5% 0.5% 1.5%;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 1%;
+    right: 1%;
+    background-color:red;
+    font-family:'orbitron-medium';
 }
 
 @media screen and (max-width: 768px) {
@@ -41,7 +44,7 @@
     .tc{
         color:white;
         background-color: transparent;
-        font-size: 18px;
+        font-size: 0.8em;
     }
 
     .title{
@@ -50,9 +53,6 @@
 
     .leaderboard_table{
         width: 100%;
-    }
-
-    .countdown{
-        display: none;
+        font-size:1.2em;
     }
 }

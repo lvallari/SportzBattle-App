@@ -1,12 +1,12 @@
-<div class="countdown">{{countdown}}</div>
-<div class="title">Leaderboard</div>
+<div *ngIf="countdown" class="countdown">{{countdown}}</div>
+<div class="title">Daily Leaderboard</div>
 <table class="table leaderboard_table">
     <thead>
         <tr>
-            <th class="tc" style="text-align:center;">Position</th>
+            <th class="tc" style="text-align:center;">{{position_label}}</th>
             <th class="tc" >Player</th>
-            <th class="tc" style="text-align:center;">Points</th>
-            <th class="tc" style="text-align:center;">Winnings</th>
+            <th class="tc" style="text-align:center;">{{points_label}}</th>
+            <th class="tc" style="text-align:center;">{{winnings_label}}</th>
         </tr>
     </thead>
     <tbody>

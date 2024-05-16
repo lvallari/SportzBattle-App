@@ -57,6 +57,17 @@
     display: block;
 }
 
+.button_invite_friend{
+    background-color: #b30000;
+    color: white;
+    font-family: 'orbitron-medium';
+    font-size: 20px;
+}
+
+.invite_friend_container{
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
     .logo_with_words {
         display: none;
@@ -84,6 +95,9 @@
 
     .join_container{
         height: auto;
+    }
+    .invite_friend_container{
+        display: block;
     }
 
 }
