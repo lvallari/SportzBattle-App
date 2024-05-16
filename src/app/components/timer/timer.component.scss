@@ -8,9 +8,10 @@
     top: 0;
     right:1%;
     font-size: 3em;
-    padding: 0em 0.5em;
+    padding: 0em 0.4em;
     color:white;
     border: solid 3px;
+    font-family: 'orbitron-medium';
 }
 
 .animated-circle {
@@ -21,10 +22,12 @@
 
 @media screen and (max-width: 768px) {
     .timer {
-        width: 60px;
-        height: 60px;
-        font-size: 2em;
-        padding: 0.1em 0.6em;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+        padding: 0.2em 0.5em;
+        font-family: 'orbitron-medium';
+        margin-top:5px;
     }
 }
 

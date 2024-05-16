@@ -80,11 +80,18 @@ export class LeaderboardComponent implements OnInit, OnDestroy{
     var timeDifference = next3AMET - easternTime;
 
     // Convert the time difference to a human-readable format (hours, minutes, seconds)
-    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    var hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-    if (this.is_mobile == true) return `${hours}:${minutes}::${seconds}`;
+    var minutes_str;
+    var seconds_str;
+    
+    minutes_str = minutes < 10 ? '0' + minutes:minutes;
+    seconds_str = seconds < 10 ? '0' + seconds:seconds;
+
+
+    if (this.is_mobile == true) return `${hours}:${minutes_str}::${seconds_str}`;
     else return `${hours} hrs, ${minutes} min, ${seconds} sec`;
 }
 

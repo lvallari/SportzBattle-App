@@ -1,7 +1,7 @@
 .user_stats{
     color: white;
     font-size: 1.2em;
-    padding: 10px 20px 20px 20px;
+    padding: 10px 10px 20px 10px;
 }
 
 .life_circle{
@@ -34,12 +34,20 @@
     padding: 1% 0 0 1%;
 }
 
+.user_icon{
+    color:#33ccff;
+    font-size: 20px;
+}
+
 @media screen and (min-width: 768px) {
     .user_stats{
         display: none;
     }
 
+    
     .game_stats{
         display:block;
+       
     }
+    
 }
