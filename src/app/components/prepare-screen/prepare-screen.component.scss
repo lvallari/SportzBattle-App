@@ -44,3 +44,10 @@
         width: 80%;
     }
 }
+
+@media screen and (max-height: 500px){
+    .countdown_timer{
+        font-size: 5em;
+        padding: 2% 0
+    }
+}

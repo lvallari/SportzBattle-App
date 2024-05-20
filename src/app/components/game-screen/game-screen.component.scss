@@ -98,6 +98,7 @@
     color: white;
     font-size: 3.5em;
     margin: 0 0 1% 0px;
+    min-height: 150px;
 }
 
 .option{
@@ -142,6 +143,17 @@
     transform: translateX(-50%);
     opacity: 0;
     animation: flash 1s ease-in-out forwards;
+}
+
+/*  
+
+*/
+.question{
+    font-size:2.7em;
+}
+
+.option{
+    font-size:2.2em;
 }
 
 
@@ -199,6 +211,22 @@
     .question_container{
         padding-top: 0%;
     }
+
+    .option{
+        font-size:2em;
+    }
+}
+
+@media screen and (max-height: 500px){
+    .question{
+        font-size:1.7em;
+    }
+
+    .option{
+        font-size:1.25em;
+        margin: 15px 0;
+    }
+
 }
 
 

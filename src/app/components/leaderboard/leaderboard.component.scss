@@ -39,6 +39,12 @@
     font-family:'orbitron-medium';
 }
 
+.banner{
+    width: 80%;
+    margin: 2% auto;
+    display: block; 
+}
+
 @media screen and (max-width: 768px) {
 
     .tc{
@@ -58,5 +64,21 @@
 
     .countdown{
         font-size:1.2em;
+    }
+
+    .banner{
+        width:100%;
+        max-width: none;
+    }
+}
+
+@media screen and (max-height: 500px){
+    .title{
+        font-size: 2em;
+    }
+    .tc{
+        color:white;
+        background-color: transparent;
+        font-size: 0.8em;
     }
 }

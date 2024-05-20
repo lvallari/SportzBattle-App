@@ -45,9 +45,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy{
     this.winnings_label = this.is_mobile ? 'PW':'Potential Winnings';
 
 
-    this.users = this.users_o.slice(0,8);
+    this.users = this.users_o.slice(0,5);
     setTimeout(() => {
-      this.users = this.users_o.slice(8);
+      this.users = this.users_o.slice(5,10);
     },7000)
 
     this.countdonw_interval = setInterval(() => {

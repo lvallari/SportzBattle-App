@@ -45,3 +45,14 @@
         background-color: red; /* Circle changes to blue at the halfway point */
     }
 }
+
+@media screen and (max-height: 500px){
+    .timer {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+        padding: 0.2em 0.5em;
+        font-family: 'orbitron-medium';
+        margin-top:5px;
+    }
+}

@@ -111,3 +111,14 @@
         margin: 2% 0;
     }
 }
+
+@media screen and (max-height: 500px){
+    .join_text{
+        font-size:0.75em;
+    }
+
+    .join_url{
+        font-size:0.75em;
+    }
+}
+

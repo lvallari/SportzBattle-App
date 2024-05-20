@@ -37,6 +37,13 @@
     padding: 0 10px;
 }
 
+.loading{
+    font-family:'orbitron-regular';
+    font-size:1.2em;
+    text-align: center;
+    color: white;
+}
+
 
 
 @media screen and (max-width: 768px) {
@@ -52,6 +59,24 @@
 
     .hero_text{
         font-size:1.6em;
+    }
+
+}
+
+
+@media screen and (max-height: 500px){
+    .logo{
+        max-height: 45%;
+        width: auto;
+        padding-top: 35px;
+    }
+
+    .logo_words{
+        width:70%;
+    }
+
+    .hero_text{
+        font-size:1.2em;
     }
 
 }
