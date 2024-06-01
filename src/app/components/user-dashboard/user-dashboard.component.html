@@ -1,0 +1,34 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="dashboard_contents">
+        <div class="user_details">
+            <img class="user_image" src="{{user.image}}">
+            <div class="user_name">{{user.name}}</div>
+            <div class="text-end">
+                <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
+            </div>
+        </div>
+
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Games</div>
+                <div class="box_number">{{games.length}}</div>
+            </div>
+            <div class="col-6">
+                <div class="box_title">Top Score</div>
+                <div class="box_number">{{max_score}}</div>
+            </div>
+            <!--
+            <div class="col-12 col-md-4">
+                <div class="box_title">Rank</div>
+                <div class="box_number">#2</div>
+            </div>
+            -->
+        </div>
+
+        
+            <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
+            <app-user-dashboard-graph2 [activity]="activity"></app-user-dashboard-graph2>
+        
+    </div>
+</div>

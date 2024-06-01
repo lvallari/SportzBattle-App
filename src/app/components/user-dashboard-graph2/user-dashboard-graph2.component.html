@@ -1,0 +1,8 @@
+
+<div class="graph_container">
+    <div class="graph_title">Performace by Category</div>
+    <img class="league_logo_1" src="../../../assets/images/nba.png">
+    <img class="league_logo_2" src="../../../assets/images/nfl.png">
+    <img class="league_logo_3" src="../../../assets/images/mlb.png">
+    <plotly-plot *ngIf="ready" [data]="graph.data" [layout]="graph.layout" [config]="graph.config"></plotly-plot>
+</div>

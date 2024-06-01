@@ -1,0 +1,76 @@
+@import '../../../globals.scss';
+
+
+.title{
+    font-family: 'orbitron-bold';
+    font-size: 36px;
+    color: $color-one;
+    text-align: center;
+    padding: 40px 0 0 0;
+}
+
+.contents{
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    display: block;
+    padding: 60px 0 100px 0;
+}
+
+.continue_button{
+    width:100%;
+    padding: 18px 14px;
+    font-size: 18px;
+    max-width: 320px;
+}
+
+.disclaimer_text{
+    font-family: 'gotham-medium';
+    font-size: 17px;
+}
+
+.form_container{
+    width: 324px;
+    margin: auto;
+    display: block;
+}
+
+.inputx{
+    font-family: 'gotham-medium';
+    padding: 18px 14px;
+    font-size: 18px;
+    border-radius: 0;
+    text-align: center;
+    margin: 30px 0 0 0;
+}
+
+
+.disclaimer_text{
+    text-align: center;
+}
+
+.form_text{
+    text-align: center;
+    font-family: 'gotham-medium';
+    padding: 20px 0;
+    font-size: 17px;
+}
+
+.forgot_password{
+    text-align: end;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    font-style: italic;
+}
+
+.forgot_password:hover{
+    text-decoration: underline;
+}
+
+.notification_message{
+    padding: 60px 0;
+    max-width: 650px;
+    margin: auto;
+    color: grey;
+}

@@ -1,0 +1,60 @@
+<div class="background">
+    <app-navbar></app-navbar>
+    @if (step == 'form'){
+    <div class="title">Sign Up</div>
+    <div class="form_container">
+
+        <!--
+        <div *ngIf="account_type == 'staffer'" class="input_container">
+            <div class="labelf">Agency Name</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.agency_name" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_ageny_name" class="form_alert">{{itemx.invalid_ageny_name}}</div>
+        </div>
+    -->
+        
+        <div class="input_container">
+            <div class="labelf">Name</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.name" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_name" class="form_alert">{{itemx.invalid_name}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Email</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.email" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_email" class="form_alert">{{itemx.invalid_email}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Password</div>
+            <input type="password" class="form-control form_input" [(ngModel)]="itemx.password" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_password" class="form_alert">{{itemx.invalid_password}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Confirm Password</div>
+            <input type="password" class="form-control form_input" [(ngModel)]="itemx.password_confirm" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_password_confirm" class="form_alert">{{itemx.invalid_password_confirm}}</div>
+        </div>
+
+        <div class="text-center" style="padding:20px 0;" [ngClass]="{'highlight': highlight_terms == true}">
+            <input type="checkbox" [(ngModel)]="user_agreed_to_terms" checked="checked">
+            <em style="color:white;font-family: 'roboto-medium';">&nbsp;&nbsp;By creating an account in SportzBattle you are agreeing to our
+                <a href="/terms-of-service" style="text-decoration:underline;color:white;" target="_blank">Terms of Service</a> and
+                <a href="/privacy-policy" style="text-decoration:underline;color:white;" target="_blank">Privacy Policy</a>.</em>
+        </div>
+
+    </div>
+
+    <div class="text-center" style="margin:50px 0">
+        <button class="btn btn-default button_primary continue_button" (click)="registerUser()">REGISTER</button>
+    </div>
+    }
+    @else{
+        <div class="notification_container">
+            <p>Your account has been created successfully.</p>
+            <div class="text-center" style="padding:30px 0">
+                <button class="btn btn-default button_primary" (click)="goToLogin()">Log in</button>
+            </div>
+        </div>
+    }
+</div>

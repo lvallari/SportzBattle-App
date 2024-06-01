@@ -320,6 +320,17 @@ formatMonthLabel(monthIdx:number, year:number) {
   return `${month} ${year}`;
 }
 
+getDateString(timestamp:number){
 
+  var date = new Date(timestamp);
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var day = date.getDay();
+
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  //return year.toString() + (month < 10 ? ('0' + month):month) + (day < 10 ? ('0' + day): day);
+  return monthNames[month] + '-' + (day < 10 ? ('0' + day): day); 
+}
 
 }

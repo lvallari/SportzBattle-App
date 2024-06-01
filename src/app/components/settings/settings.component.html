@@ -1,0 +1,420 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <!--
+    <button class="btn btn-default back_button d-block d-md-none" (click)="goBack()">
+        <i class="fa fa-arrow-left"></i>
+    </button>
+    -->
+    <div class="page_title">Account</div>
+    <div class="text-start" style="padding:30px 0;">
+        <em>You can edit or modify your account settings here. Your profile image is shown in the active personnel directory, make it a good one!</em>
+    </div>
+    <div class="content_container" *ngIf="user" style="max-width:450px;">
+       <div class="settings_container">
+        <div style="position:relative;width: fit-content; display: block; margin:auto;">
+            <img class="profile_image" src="{{user.image}}">
+            <i *ngIf="user" class="fa fa-pencil edit_image_icon" (click)="editProfileImage()"></i>
+        </div>
+            <ul style="list-style-type: none;max-width: 400px;padding: 0;">
+                <li class="list_itemx">{{user.name}}
+                    <span>
+                        <button class="btn btn-default settings_edit_button" (click)="showEditName()">Edit</button>
+                    </span>
+                </li>
+                <li class="list_itemx">{{user.email}}
+                    &nbsp;
+                    <span *ngIf="user.email_has_been_verified == true">
+                        <i class="fa fa-check verified_icon"></i>
+                    </span>
+                    <span *ngIf="user.email_has_been_verified != true">
+                        <i class="fa fa-minus not_verified_icon"></i>
+                    </span>
+                    <span>
+                        <button class="btn btn-default settings_edit_button" (click)="showEditEmail()">
+                            {{user.email_has_been_verified == true ? 'Edit':'Verify'}}
+                        </button>
+                    </span>
+                </li>
+                <!--
+                <li class="list_itemx">{{user.phone ? '######' + user.phone.slice(6,10): '##########'}}
+                    &nbsp;
+                    <span *ngIf="user.phone_has_been_verified == true">
+                        <i class="fa fa-check verified_icon"></i>
+                    </span>
+                    <span *ngIf="user.phone_has_been_verified != true">
+                        <i class="fa fa-minus not_verified_icon"></i>
+                    </span>
+                    <span>
+                        <button class="btn btn-default settings_edit_button" (click)="showEditPhone()">
+                            {{user.phone_has_been_verified == true ? 'Edit':'Verify'}}
+                        </button>
+                    </span>
+                </li>
+                -->
+                <!--
+                <li class="list_itemx">Location&nbsp;-&nbsp;
+                    <span style="color: grey;">{{user.location_zipcode}}</span>
+                    <span>
+                        <button class="btn btn-default settings_edit_button" (click)="showEditLocation()">Edit</button>
+                    </span>
+                </li>
+                -->
+                <li class="list_itemx">Password
+                    <span>
+                        <button class="btn btn-default settings_edit_button" (click)="showEditPassword()">Edit</button>
+                    </span>
+                </li>
+                <!--
+                <li class="list_itemx">Preferences
+                    <label class="checkbox_container checkbox_option" style="font-size:15px">Notify me via SMS of new
+                        messages
+                        <input type="checkbox" [(ngModel)]="notify_via_sms" checked="checked"
+                            (ngModelChange)="notifyViaSMS()">
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                -->
+                <li class="list_itemx logout_button" (click)="logout()">Logout
+
+                </li>
+                <li class="list_itemx delete_account_button" (click)="confirmDelete()">Delete Account
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="editNameModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('editNameModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Edit Name</h1>
+                <div style="padding:30px 0 10px 0">
+                    <input type="text" [(ngModel)]="user_name" class="form-control" (ngModelChange)="clearAlerts()">
+                </div>
+                <div *ngIf="invalid_user_name" class="alert_message">{{invalid_user_name}}</div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="saveName()">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editEmailModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('editEmailModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div *ngIf="email_change_step == 1" class="form-group col-12">
+                    <h1 class="modal_title">Edit Email</h1>
+                    <div style="padding:30px 0">
+                        <input type="text" [(ngModel)]="user_email" class="form-control"
+                            (ngModelChange)="clearAlerts()">
+                    </div>
+                    <div *ngIf="invalid_user_email" class="alert_message">{{invalid_user_email}}</div>
+                    <p style="padding-left: 10px; color:grey;"><i class="fa fa-lock"></i>&nbsp;Editing will require
+                        verification</p>
+                </div>
+                <div *ngIf="email_change_step == 2" class="form-group col-12" style="padding-top: 30px;">
+                    <p>Please enter the verification code that was sent to <em>{{user.email}}</em></p>
+                    <div class="d-none d-md-block text-center">
+                        <input id="digit_1e" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_1e" (ngModelChange)="evalAccessCodeEmail(1)">
+                        <input id="digit_2e" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_2e" (ngModelChange)="evalAccessCodeEmail(2)">
+                        <input id="digit_3e" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_3e" (ngModelChange)="evalAccessCodeEmail(3)">
+                        <input id="digit_4e" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_4e" (ngModelChange)="evalAccessCodeEmail(4)">
+                        <input id="digit_5e" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_5e" (ngModelChange)="evalAccessCodeEmail(5)">
+                        <input id="digit_6e" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_6e" (ngModelChange)="evalAccessCodeEmail(6)">
+                    </div>
+                    <div class="d-block d-md-none text-center">
+                        <input type="text" class="form-control" [(ngModel)]="digits">
+                    </div>
+                    <div *ngIf="email_verification_code_failed == true" class="alert_message">Code is incorrect</div>
+                </div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button *ngIf="email_change_step == 1" type="button" class="btn btn-default button_primary"
+                        (click)="verifyEmail()">VERIFY</button>
+                    <button *ngIf="email_change_step == 2" type="button" class="btn btn-default button_primary"
+                        (click)="submitEmailVerificationCode()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editPhoneModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('editPhoneModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div *ngIf="phone_change_step == 1" class="form-group col-12">
+
+                    <h1 class="modal_title">Phone Verification</h1>
+                    <p>Add a phone number to your account to receive notifications.
+                    </p>
+                    <div style="padding:30px 0">
+                        <label>Mobile number</label><br>
+                        <input type="text" [(ngModel)]="user_phone" class="form-control"
+                            (ngModelChange)="clearAlerts()">
+                        <div *ngIf="invalid_user_phone" class="alert_message">{{invalid_user_phone}}</div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="phone_change_step == 2" class="form-group col-12" style="padding-top: 30px;">
+                    <p>Please enter the verification code that was sent to <em>{{user_phone}}</em></p>
+                    <div class="d-none d-md-block text-center">
+                        <input id="digit_1p" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_1p" (ngModelChange)="evalAccessCodePhone(1)">
+                        <input id="digit_2p" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_2p" (ngModelChange)="evalAccessCodePhone(2)">
+                        <input id="digit_3p" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_3p" (ngModelChange)="evalAccessCodePhone(3)">
+                        <input id="digit_4p" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_4p" (ngModelChange)="evalAccessCodePhone(4)">
+                        <input id="digit_5p" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_5p" (ngModelChange)="evalAccessCodePhone(5)">
+                        <input id="digit_6p" type="text" class="form-control digit_input" maxlength="1"
+                            [(ngModel)]="digit_6p" (ngModelChange)="evalAccessCodePhone(6)">
+                    </div>
+                    <div class="d-block d-md-none text-center">
+                        <input type="text" class="form-control" [(ngModel)]="digits">
+                    </div>
+                </div>
+
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_secondary" style="margin: 0 7px"
+                        (click)="closeModal('editPhoneModal')">CANCEL</button>
+                    <button *ngIf="phone_change_step == 1" type="button" class="btn btn-default button_primary"
+                        style="min-width:150px" (click)="sendPhoneCode()">SEND CODE</button>
+                    <button *ngIf="phone_change_step == 2" type="button" class="btn btn-default button_primary"
+                        style="min-width:150px" (click)="confirmPhoneCode()">CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editLocationModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('editLocationModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Set Location</h1>
+                <p>Set your location so we can personalize your experience showing you distance to certain classes</p>
+                <div style="padding:30px 0;max-width:225px;margin: auto;">
+                    <label>Zip Code</label><br>
+                    <input type="text" style="text-align: center;" [(ngModel)]="user_zipcode" class="form-control"
+                        (ngModelChange)="evalZipCode(); clearAlerts();">
+                    <div *ngIf="invalid_user_zipcode" class="alert_message">{{invalid_user_zipcode}}</div>
+                    <p class="location_text">{{location.city}}, {{location.state}}</p>
+                </div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px"
+                        (click)="saveZipCode()">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editPasswordModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('editPasswordModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Reset Password</h1>
+                <div style="padding-top:30px;">
+                    <label>Current Password</label><br>
+                    <input type="password" [(ngModel)]="password_current" class="form-control"
+                        (ngModelChange)="clearAlerts()">
+                </div>
+                <div *ngIf="invalid_password_current" class="alert_message">{{invalid_password_current}}</div>
+                <div style="padding:30px 0;">
+                    <label>New Password</label><br>
+                    <input type="password" [(ngModel)]="password_new" class="form-control"
+                        (ngModelChange)="clearAlerts()">
+                    <div *ngIf="invalid_password_new" class="alert_message">{{invalid_password_new}}</div>
+
+                    <label>Confirm Password</label><br>
+                    <input type="password" [(ngModel)]="password_new_confirm" class="form-control"
+                        (ngModelChange)="clearAlerts()">
+                    <div *ngIf="invalid_password_new_confirm" class="alert_message">{{invalid_password_new_confirm}}
+                    </div>
+                </div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px"
+                        (click)="savePassword()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="emailVerificationSuccessModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('emailVerificationSuccessModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <p style="padding-top:40px;text-align:center;">Thank you! Your email has been verified successfully.</p>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px"
+                        (click)="closeModal('emailVerificationSuccessModal')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="phoneVerificationSuccessModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('phoneVerificationSuccessModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <p style="padding-top:40px;text-align:center;">Thank you! Your phone has been verified successfully.</p>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px"
+                        (click)="closeModal('phoneVerificationSuccessModal')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordSuccessModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('changePasswordSuccessModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <p style="padding-top:40px;text-align:center;">Your password has been changed.</p>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px"
+                        (click)="closeModal('changePasswordSuccessModal')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="profileImageModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('profileImageModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <app-profile-image-upload [previewUrl]="user.image" [ratio]="1/1" [shape]="'rectangular'"
+                    (imageLoadedEvent)='saveProfileImage($event)' (cropperActiveEvent)="setCropperActive($event)">
+                </app-profile-image-upload>
+
+
+                <div class="text-center" style="padding: 25px 0;" *ngIf="cropper_active != true;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px"
+                        (click)="closeModal('profileImageModal')">OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('confirmDeleteModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <p class="delete_account_title"><strong>Delete Account</strong></p>
+                <p style="padding-top:26px;text-align:left;">Please confirm you wish to delete your account. This can
+                    not be undone.
+                    Your account will be permanently deleted.</p>
+                <div class="text-left">
+                    To confirm delete, please type <em>DELETE</em> and click confirm.
+                    <input type="text" [(ngModel)]="delete_confirm" class="form-control">
+                </div>
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-danger" style="min-width:150px"
+                        (click)="deleteAccount()">Confirm delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="profileImageModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal" (click)="closeModal('profileImageModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <app-profile-image-upload [previewUrl]="user.image" [ratio]="1/1" [shape]="'rectangular'"
+                    (imageLoadedEvent)='saveProfileImage($event)' (cropperActiveEvent)="setCropperActive($event)">
+                </app-profile-image-upload>
+                
+                
+                <div class="text-center" style="padding: 25px 0;" *ngIf="cropper_active != true;">
+                    <button type="button" class="btn btn-default button_primary" style="min-width:150px" (click)="closeModal('profileImageModal')">OK</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

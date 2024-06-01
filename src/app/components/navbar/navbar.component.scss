@@ -1,0 +1,81 @@
+@import '../../../globals.scss';
+
+
+.navbarx{
+    background-color: transparent;
+    height:64px;
+}
+
+
+.logo{
+    height: 44px;
+    margin: 10px 0;
+    position: absolute;
+    top: 0;
+    left: 10px;
+}
+
+.menu_icon{
+    color:white;
+}
+
+.nav_button{
+    font-family: 'roboto-medium';
+    color: white;
+    font-size:16px;
+    border-radius:0;
+    width:130px;
+    margin: 0 8px;
+}
+
+.nav_button:hover{
+    background-color: $color-one;
+    color: white;
+}
+
+.navbar_ulx{
+    padding-left:125px;
+}
+
+.login_buttons_container{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu_icon{
+    margin-right: 10px;
+}
+
+.togglerx:focus {
+    box-shadow: none;
+}
+
+.navbar_sm{
+    padding: 10px 0;
+}
+
+.bg{
+    background-color: grey;
+}
+  
+@media screen and (max-width: 768px) {
+    .navbar_sm{
+        margin-top:28px;
+    }
+}
+
+@media screen and (max-width: 1390px) {
+    .nav_itemx{
+        padding: 0 8px;
+    }    
+  }
+
+  @media screen and (max-width: 1300px) {
+    .nav_linkx{
+        height: 60px;
+    }
+    .navbar_ulx{
+        padding-left:100px;
+    }    
+  }

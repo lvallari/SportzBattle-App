@@ -1,0 +1,29 @@
+<div class="sidemenu">
+    <img class="logo" src="../../../assets/images/logo_words.jpeg">
+    <ul class="ulx">
+        <li class="sidemenu_item" (click)="goto('user-dashboard')" [ngClass]="{'selectedx':page == 'dashboard'}">Dashboard</li>
+        <li class="sidemenu_item" (click)="goto('settings')" [ngClass]="{'selectedx':page == 'settings'}">Account</li>
+        <li class="sidemenu_item" (click)="goto('play')" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
+        <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
+    </ul>
+</div>
+
+<button class="btn btn-default bottom_menu" (click)="show_menu = true;">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="sidemenu_sm" *ngIf="show_menu == true">
+    
+    <button class="btn btn-default close_menu"  (click)="show_menu = false;">
+        <i class="fa-solid fa-times"></i>
+    </button>
+
+    <img class="logo" src="../../../assets/images/logo_words.jpeg">
+    
+    <ul class="ulx">
+        <li class="sidemenu_item" (click)="goto('user-dashboard')" [ngClass]="{'selectedx':page == 'dashboard'}">Dashboard</li>
+        <li class="sidemenu_item" (click)="goto('settings')" [ngClass]="{'selectedx':page == 'settings'}">Account</li>
+        <li class="sidemenu_item blue" (click)="goto('play')" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
+        <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
+    </ul>
+</div>

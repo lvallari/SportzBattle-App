@@ -1,0 +1,39 @@
+<nav class="navbar navbarx navbar-expand-xl">
+    <!--
+    <a class="navbar-brand" href="#">
+        <img class="logo" src="../../../assets/images/logo_words.jpeg">
+    </a>
+    -->
+    <button class="navbar-toggler togglerx navbar_button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars menu_icon"></i>
+    </button>
+
+    <div class="collapse navbar-collapse navbar_sm" id="navbarSupportedContent">
+        <!--
+
+            [ngClass]="{'bg': is_home != true}"
+            
+        <ul class="navbar-nav mr-auto navbar_ulx">
+           
+            
+            <li class="nav-item nav_itemx">
+                <a class="nav-link nav_linkx" (click)="goto('brews')">BREWS</a>
+            </li>
+            <li class="nav-item nav_itemx">
+                <a class="nav-link nav_linkx" (click)="goto('breweries')">BREWERIES</a>
+            </li>
+            <li class="nav-item nav_itemx">
+                <a class="nav-link nav_linkx" (click)="goto('how-it-works')">HOW IT WORKS</a>
+            </li>
+            
+            
+        </ul>
+        -->
+        <div class="form-inline login_buttons_container">
+            <button class="btn btn-default nav_button" (click)="goto('login')">LOGIN</button>
+            <button class="btn btn-default nav_button" (click)="goto('register')">REGISTER</button>
+        </div>
+
+    </div>
+</nav>

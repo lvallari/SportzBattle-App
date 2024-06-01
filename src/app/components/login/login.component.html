@@ -1,0 +1,106 @@
+<div class="background">
+    <app-navbar></app-navbar>
+
+    <div class="contents">
+
+        <div *ngIf="page == 'form'">
+            <div class="title">Login</div>
+
+            <div *ngIf="show_incorrect_credentials == true" class="form_alert text-center" style="padding: 20px 0 0 0;">
+                Invalid email or password
+            </div>
+
+            <div class="form_container">
+
+                <div class="labelf">Email</div>
+                <input type="text" class="form-control form_input" [(ngModel)]="email" (ngModelChange)="clearAlerts()">
+                <div [hidden]="!invalid_email" class="form_alert">{{invalid_email}}</div>
+
+                <div class="labelf">Password</div>
+                <input type="password" class="form-control form_input" [(ngModel)]="password" (ngModelChange)="clearAlerts()">
+                <div [hidden]="!invalid_password" class="form_alert">{{invalid_password}}</div>
+                <div class="forgot_password" (click)="forgotPassword()">Forgot password</div>
+
+                <div class="text-center" style="margin:50px 0">
+                    <button class="btn btn-default button_primary continue_button" (click)="submit()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="page == 'notification'">
+            <div class="text-center" class="notification_message">
+                <p class="text-center">
+                    If an account exists for <em>{{reset_email}}</em> we will send an email with a link to reset your
+                    password.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="emailVerificationLinkSentModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal" (click)="closeModal('emailVerificationLinkSentModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+               <p class="text-center modal_text">
+                An email has been sent to <strong>{{email}}</strong> with a link to complete your registration.<br>
+                Make sure to check your Promotions and or Spam folders as ocassionally they might land there. 
+               </p>
+               <div class="text-center" style="padding:30px 0">
+                    <button class="btn btn-default button_primary" style="width: 200px"  (click)="closeModal('emailVerificationLinkSentModal')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="passwordResetSentModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal" (click)="closeModal('passwordResetSentModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+               <p class="text-center modal_text">
+                An email has been sent to <strong>{{email}}</strong> with a link to set your password.<br>
+                Make sure to check your Promotions and or Spam folders as ocassionally they might land there. 
+               </p>
+               <div class="text-center" style="padding:30px 0">
+                    <button class="btn btn-default button_primary" style="width: 200px"  (click)="closeModal('passwordResetSentModal')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="passwordResetModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal" (click)="closeModal('passwordResetModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+               
+                <div class="input_container">
+                    <div class="labelf">Enter email</div>
+                    <input type="text" class="form-control" [(ngModel)]="reset_email">
+                </div>
+
+               <div class="text-center" style="padding:30px 0">
+                    <button class="btn btn-default button_primary" style="width: 200px"  (click)="sendResetPassword()">Reset password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="disclaimer_text">
+    By continuing, you agree to Brewker's Terms of Use, Read our Privacy Policy
+</div>
+-->
