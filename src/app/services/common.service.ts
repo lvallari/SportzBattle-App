@@ -320,17 +320,27 @@ formatMonthLabel(monthIdx:number, year:number) {
   return `${month} ${year}`;
 }
 
-getDateString(timestamp:number){
+  getDateString(timestamp: number) {
 
-  var date = new Date(timestamp);
-  var year = date.getFullYear();
-  var month = date.getMonth();
-  var day = date.getDay();
+    var date = new Date(timestamp);
+    var year = date.getUTCFullYear();
+    var month = date.getUTCMonth();
+    var day = date.getUTCDate();
 
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  //return year.toString() + (month < 10 ? ('0' + month):month) + (day < 10 ? ('0' + day): day);
-  return monthNames[month] + '-' + (day < 10 ? ('0' + day): day); 
-}
+    //return year.toString() + (month < 10 ? ('0' + month):month) + (day < 10 ? ('0' + day): day);
+    return monthNames[month] + '-' + (day < 10 ? ('0' + day) : day);
+  }
+
+  isThisMonth(date_str:string){
+    var date = new Date();
+    var m = date.getUTCMonth();
+
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var month = monthNames[m];
+
+    return date_str.indexOf(month) > -1;
+  }
 
 }

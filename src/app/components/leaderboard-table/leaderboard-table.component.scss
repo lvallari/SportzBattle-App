@@ -1,0 +1,84 @@
+.tc{
+    color:white;
+    background-color: transparent;
+    font-size: 1.2em;
+    font-family: 'orbitron-medium';
+}
+
+.leaderboard_table{
+    width: 80%;
+    margin: auto;
+}
+
+.title{
+    font-family: 'orbitron-bold';
+    font-size: 4em;
+    color:white;
+    text-align: center;
+    padding: 2% 0;
+}
+
+
+.user_image {
+    width: 2.5em;
+    border-radius: 50%;
+    height: 2.5em;
+    object-fit: cover;
+}
+
+.countdown{
+    text-align: right;
+    font-size: 1.5em;
+    color:white;
+    font-style:italic;
+    padding: 0.5% 1.5% 0.5% 1.5%;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    background-color:red;
+    font-family:'orbitron-medium';
+}
+
+.banner{
+    width: 80%;
+    margin: 2% auto;
+    display: block; 
+}
+
+@media screen and (max-width: 768px) {
+
+    .tc{
+        color:white;
+        background-color: transparent;
+        font-size: 0.8em;
+    }
+
+    .title{
+        font-size: 2em;
+    }
+
+    .leaderboard_table{
+        width: 100%;
+        font-size:1.2em;
+    }
+
+    .countdown{
+        font-size:1.2em;
+    }
+
+    .banner{
+        width:100%;
+        max-width: none;
+    }
+}
+
+@media screen and (max-height: 500px){
+    .title{
+        font-size: 2em;
+    }
+    .tc{
+        color:white;
+        background-color: transparent;
+        font-size: 0.8em;
+    }
+}

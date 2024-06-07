@@ -9,6 +9,9 @@
             </div>
         </div>
 
+        <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
+
+
         <div class="row rowx" id="myrow">
             <div class="col-6">
                 <div class="box_title">Games</div>
@@ -18,17 +21,56 @@
                 <div class="box_title">Top Score</div>
                 <div class="box_number">{{max_score}}</div>
             </div>
-            <!--
-            <div class="col-12 col-md-4">
-                <div class="box_title">Rank</div>
-                <div class="box_number">#2</div>
+        </div>
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Monthly Points</div>
+                <div class="box_number">{{points_month}}</div>
             </div>
-            -->
+            <div class="col-6">
+                <div class="box_title">All-time Points</div>
+                <div class="box_number">{{points_all_time}}</div>
+            </div>
         </div>
 
-        
-            <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
-            <app-user-dashboard-graph2 [activity]="activity"></app-user-dashboard-graph2>
+        <div class="table_container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="tc"></th>
+                        <th class="tc">Total Questions</th>
+                        <th class="tc">Answered Correctly</th>
+                        <th class="tc">% Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tc">All</td>
+                        <td class="tc">{{stats.all}}</td>
+                        <td class="tc">{{stats.all_correct}}</td>
+                        <td class="tc">{{stats.all_pct}}%</td>
+                    </tr>
+                    <tr>
+                        <td class="tc">NBA</td>
+                        <td class="tc">{{stats.all_nba}}</td>
+                        <td class="tc">{{stats.nba_correct}}</td>
+                        <td class="tc">{{stats.nba_pct}}%</td>
+                    </tr>
+                    <tr>
+                        <td class="tc">NFL</td>
+                        <td class="tc">{{stats.all_nfl}}</td>
+                        <td class="tc">{{stats.nfl_correct}}</td>
+                        <td class="tc">{{stats.nfl_pct}}%</td>
+                    </tr>
+                    <tr>
+                        <td class="tc">MLB</td>
+                        <td class="tc">{{stats.all_mlb}}</td>
+                        <td class="tc">{{stats.mlb_correct}}</td>
+                        <td class="tc">{{stats.mlb_pct}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
     </div>
 </div>

@@ -1,0 +1,102 @@
+@import '../../../globals.scss';
+
+
+.player_image{
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.backgroundx{
+    padding-left: 200px;
+}
+
+.user_details {
+    padding: 60px 40px 20px 40px;
+    position: relative;
+    margin: auto;
+    display: block;
+}
+
+.dashboard_contents{
+    width: 100%;
+    max-width: 1000px;
+    margin:auto;
+    display: block;
+}
+
+.user_image{
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.user_name{
+    font-size: 20px;
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:20px;
+    color: white;
+}
+
+.box_title{
+    color:white;
+    font-family:'orbitron-bold';
+    font-size: 24px;
+    text-align: center;
+}
+
+.box_number{
+    color:white;
+    font-family:'orbitron-bold';
+    font-size: 30px;
+    text-align: center;
+}
+
+
+.rowx{
+    margin:0;
+    border-bottom: solid 1px white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: solid 1px white;
+}
+
+.play_now_button{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table_container{
+    padding: 30px 0;
+}
+
+.graph_title{
+    font-family: 'orbitron-bold';
+    font-size:20px;
+    color: white;
+    text-align: center;
+}
+
+.tablex{
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+
+@media screen and (max-width: 768px) {
+   .backgroundx{
+    padding-left:0px;
+   }
+}

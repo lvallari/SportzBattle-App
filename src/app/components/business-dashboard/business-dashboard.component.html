@@ -1,1 +1,56 @@
-<p>business-dashboard works!</p>
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="dashboard_contents">
+        <div class="user_details" *ngIf="venue">
+            <div class="user_name">{{venue.business_name}}</div>
+            <div class="text-end">
+                <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Launch Game</button>
+            </div>
+        </div>
+
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Games</div>
+                <div class="box_number">{{games.length}}</div>
+            </div>
+            <div class="col-6">
+                <div class="box_title">Players</div>
+                <div class="box_number">{{players.length}}</div>
+            </div>
+            <!--
+            <div class="col-12 col-md-4">
+                <div class="box_title">Rank</div>
+                <div class="box_number">#2</div>
+            </div>
+            -->
+        </div>
+
+        <app-business-dashboard-graph [games]="games"></app-business-dashboard-graph>
+
+        <div class="table_container">
+            <div class="graph_title">Top Players</div>
+            <table class="table tablex">
+                <thead>
+                    <tr>
+                        <th class="tc"></th>
+                        <th class="tc">Username</th>
+                        <th class="tc">Games</th>
+                        <th class="tc">Total Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(x of players; track x.user_id){
+                    <tr>
+                        <td class="tc">
+                            <img class="player_image" src="{{x.image}}">
+                        </td>
+                        <td class="tc">{{x.username}}</td>
+                        <td class="tc">{{x.games}}</td>
+                        <td class="tc">{{x.points}}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -31,7 +31,7 @@ export class UserDashboardGraphComponent implements OnChanges {
         */
         layout: {
             width: document.getElementById('myrow')?.offsetWidth,
-            height: 400,
+            height: 300,
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
 
@@ -72,6 +72,7 @@ export class UserDashboardGraphComponent implements OnChanges {
 
         //organize graph data
         this.graph_data = [];
+        /*
         this.games.forEach((x: any) => {
             var record = this.graph_data.find((n: any) => { return n.date == x.date });
             if (record) {
@@ -86,10 +87,18 @@ export class UserDashboardGraphComponent implements OnChanges {
                 this.graph_data.push(game_object);
             }
         });
+        */
 
         this.graph.data = [
+            /*
             {
                 x: this.graph_data.map((x: any) => { return x.date }), y: this.graph_data.map((x: any) => { return x.score }), type: 'bar', marker: {
+                    color: '33ccff' // Bar color
+                }
+            },
+            */
+            {
+                x: this.games.map((x: any) => { return x.date }), y: this.games.map((x: any) => { return x.score }), type: 'bar', marker: {
                     color: '33ccff' // Bar color
                 }
             },

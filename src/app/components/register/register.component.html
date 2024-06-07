@@ -13,9 +13,9 @@
     -->
         
         <div class="input_container">
-            <div class="labelf">Name</div>
-            <input type="text" class="form-control form_input" [(ngModel)]="itemx.name" (ngModelChange)="eval()">
-            <div [hidden]="!itemx.invalid_name" class="form_alert">{{itemx.invalid_name}}</div>
+            <div class="labelf">Username</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.username" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_username" class="form_alert">{{itemx.invalid_username}}</div>
         </div>
 
         <div class="input_container">
@@ -41,6 +41,9 @@
             <em style="color:white;font-family: 'roboto-medium';">&nbsp;&nbsp;By creating an account in SportzBattle you are agreeing to our
                 <a href="/terms-of-service" style="text-decoration:underline;color:white;" target="_blank">Terms of Service</a> and
                 <a href="/privacy-policy" style="text-decoration:underline;color:white;" target="_blank">Privacy Policy</a>.</em>
+<br>
+            <input type="checkbox" [(ngModel)]="user_is18" checked="checked">
+                <em style="color:white;font-family: 'roboto-medium';">&nbsp;&nbsp;I am at least 18 years old and a resident of the U.S.</em>
         </div>
 
     </div>

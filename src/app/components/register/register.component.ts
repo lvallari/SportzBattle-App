@@ -25,7 +25,8 @@ export class RegisterComponent implements OnInit {
   account_type:string = 'applicant';
 
   itemx:any = {};
-  user_agreed_to_terms:boolean = true;
+  user_agreed_to_terms:boolean = false;
+  user_is18:boolean = false;
   highlight_terms:boolean = false;
 
   constructor(
@@ -66,6 +67,7 @@ export class RegisterComponent implements OnInit {
   registerUser(){
 
     if (!this.itemx.name || this.itemx.name.length == 0) this.itemx.invalid_name = 'Please enter a valid name';
+    if (!this.itemx.username || this.itemx.username.length == 0) this.itemx.invalid_username = 'Please enter a valid username';
     
     if (!this.itemx.email || this.itemx.email.length == 0) this.itemx.invalid_email = 'Please enter a valid email';
     else {
@@ -78,10 +80,6 @@ export class RegisterComponent implements OnInit {
 
     if (this.itemx.password != this.itemx.password_confirm) this.itemx.invalid_password_confirm = 'Passwords do not match';
 
-    if (this.account_type == 'staffer'){
-      if (!this.itemx.agency_name) this.itemx.invalid_agency_name = 'Please enter a valid agency'
-    }
-
     if (this.itemx.invalid_name || this.itemx.invalid_email || this.itemx.invalid_password 
       || this.itemx.invalid_password_confirm || this.itemx.invalid_agency_name) return;
 
@@ -93,7 +91,7 @@ export class RegisterComponent implements OnInit {
       if (user_object)  this.itemx.invalid_email = 'Email already exists';
 
 
-      else if (this.user_agreed_to_terms == true) {
+      else if (this.user_agreed_to_terms == true && this.user_is18 == true) {
 
        
           this.userService.signUpUser({

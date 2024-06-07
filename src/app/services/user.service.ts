@@ -96,9 +96,9 @@ export class UserService {
           }
           //else this.router.navigate(['/admin/profile/' + this.user.id]);
           else {
-            if (this.user.type == 'player') this.router.navigate(['user-dashboard']);
-            else if (this.user.type == 'venue') this.router.navigate(['business-dashboard']);
-            else if (this.user.type == 'admin') this.router.navigate(['admin-dashboard']);
+            if (this.user.account_type == 'player') this.router.navigate(['user-dashboard']);
+            else if (this.user.account_type == 'business') this.router.navigate(['business-dashboard']);
+            else if (this.user.account_type == 'admin') this.router.navigate(['admin-dashboard']);
 
             //$('#loginModal').modal('hide');
           }
@@ -160,7 +160,8 @@ signUpUser(user:any){
     email: user.email.toLowerCase(),
     password: sha512.sha512(user.password),
     signup_timestamp: Date.now(),
-    type: 'player'
+    account_type: user.account_type,
+    venue_id: user.venue_id ? user.venue_id:null
   }
 
   return this.http.post<any>(this.baseurl+'/createUser', user_object, this.httpOptions)
@@ -172,6 +173,14 @@ signUpUser(user:any){
 
 getUserActivity(user_id:number){
   return this.http.get<any>(this.baseurl+'/activity?id=' + user_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getGamesByVenue(venue_id:number){
+  return this.http.get<any>(this.baseurl+'/gamesByVenue?id=' + venue_id, this.httpOptions)
   .pipe(
     retry(0),
     catchError(this.errorHandl),

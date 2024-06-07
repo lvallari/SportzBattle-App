@@ -10,20 +10,20 @@ import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import { QuestionFooterComponent } from '../question-footer/question-footer.component';
 import { SplashComponent } from '../splash/splash.component';
 import { PrepareScreenComponent } from '../prepare-screen/prepare-screen.component';
-import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
 import { UserStatsComponent } from '../user-stats/user-stats.component';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { QuestionFooter2Component } from '../question-footer2/question-footer2.component';
 import { QuestionFooter3Component } from '../question-footer3/question-footer3.component';
 import { QuestionFooter4Component } from '../question-footer4/question-footer4.component';
 import { AdvertisementPageComponent } from '../advertisement-page/advertisement-page.component';
+import { LeaderboardTableComponent } from '../leaderboard-table/leaderboard-table.component';
 
 
 @Component({
   selector: 'app-game-screen',
   standalone: true,
   imports: [CommonModule, TimerComponent, ProgressBarComponent, QuestionFooterComponent, UserStatsComponent,
-    SplashComponent, PrepareScreenComponent, LeaderboardComponent, GameOverComponent, QuestionFooter2Component, 
+    SplashComponent, PrepareScreenComponent, LeaderboardTableComponent, GameOverComponent, QuestionFooter2Component, 
     QuestionFooter3Component, QuestionFooter4Component, AdvertisementPageComponent],
   templateUrl: './game-screen.component.html',
   styleUrl: './game-screen.component.scss'
@@ -84,7 +84,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.user.points = 0;
       this.user.rank = 3;
       console.log('this.user', this.user);
-      if (this.user.type == 'player'){
+      if (this.user.account_type == 'player'){
         this.createGame();
       }
     });

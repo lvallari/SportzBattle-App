@@ -4,13 +4,12 @@ import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
 import { UserDashboardGraphComponent } from '../user-dashboard-graph/user-dashboard-graph.component';
-import { UserDashboardGraph2Component } from '../user-dashboard-graph2/user-dashboard-graph2.component';
 import { UserSidemenuComponent } from '../user-sidemenu/user-sidemenu.component';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [UserDashboardGraphComponent, UserDashboardGraph2Component, UserSidemenuComponent],
+  imports: [UserDashboardGraphComponent, UserSidemenuComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
@@ -22,6 +21,10 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   games:any[] = [];
   activity:any[] = [];
   max_score!:number;
+  points_all_time!:number;
+  points_month!:number;
+
+  stats:any ={};
 
   constructor(
     public userService: UserService,
@@ -65,12 +68,19 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       });
       
       this.max_score = 0;
+      this.points_month = 0;
+      this.points_all_time = 0;
       this.games.forEach((x:any) => {
         x.date = this.commonService.getDateString(x.timestamp);
+        x.is_this_month = this.commonService.isThisMonth(x.date);
+        if (x.is_this_month == true) this.points_month += x.score;
+        this.points_all_time += x.score;
         if (x.score){
           if (x.score > this.max_score) this.max_score = x.score;
         }
       });
+
+      this.calculateStats();
 
       //console.log('this.games', this.games);
     })
@@ -78,6 +88,35 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   goPlay(){
     this.router.navigate(['play']);
+  }
+
+  calculateStats(){
+    //sort by category
+  var nba_questions = this.activity.filter((n:any) => {return n.category == 'NBA'});
+  var nfl_questions = this.activity.filter((n:any) => {return n.category == 'NFL'});
+  var mlb_questions = this.activity.filter((n:any) => {return n.category == 'MLB'});
+
+  var nba_pct = 100* nba_questions.filter((x:any) => {return x.got_it_right == 1}).length / nba_questions.length;
+  var nfl_pct = 100* nfl_questions.filter((x:any) => {return x.got_it_right == 1}).length / nfl_questions.length;
+  var mlb_pct = 100* mlb_questions.filter((x:any) => {return x.got_it_right == 1}).length / mlb_questions.length;
+
+  
+  this.stats.all = this.activity.length;
+  this.stats.all_correct = this.activity.filter((x:any) => {  return x.got_it_right == 1 }).length;
+  this.stats.all_pct = Math.round(100 * this.stats.all_correct/this.stats.all);
+
+  this.stats.all_nba = nba_questions.length;
+  this.stats.nba_correct = nba_questions.filter((x:any) => {return x.got_it_right == 1}).length
+  this.stats.nba_pct = Math.round(100 * this.stats.nba_correct/this.stats.all_nba);
+
+  this.stats.all_nfl = nfl_questions.length;
+  this.stats.nfl_correct = nfl_questions.filter((x:any) => {return x.got_it_right == 1}).length
+  this.stats.nfl_pct = Math.round(100 * this.stats.nfl_correct/this.stats.all_nfl);
+
+  this.stats.all_mlb = mlb_questions.length;
+  this.stats.mlb_correct = mlb_questions.filter((x:any) => {return x.got_it_right == 1}).length
+  this.stats.mlb_pct = Math.round(100 * this.stats.mlb_correct/this.stats.all_mlb);
+
   }
 
 }
