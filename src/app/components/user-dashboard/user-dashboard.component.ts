@@ -47,6 +47,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   getData(){
+
+    this.userService.getUserStats(this.user.user_id).subscribe((data:any) => {
+      console.log('stats', data);
+      this.stats = data;
+    })
+
+    
     this.userService.getUserActivity(this.user.user_id).subscribe((data:any) => {
       var user_data = data;
       //console.log('user_data', user_data);
@@ -67,38 +74,38 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         }
       });
       
-      this.max_score = 0;
-      this.points_month = 0;
-      this.points_all_time = 0;
+      //this.max_score = 0;
+      //this.points_month = 0;
+      //this.points_all_time = 0;
       this.games.forEach((x:any) => {
         x.date = this.commonService.getDateString(x.timestamp);
-        x.is_this_month = this.commonService.isThisMonth(x.date);
-        if (x.is_this_month == true) this.points_month += x.score;
-        this.points_all_time += x.score;
-        if (x.score){
-          if (x.score > this.max_score) this.max_score = x.score;
-        }
+        //x.is_this_month = this.commonService.isThisMonth(x.date);
+        //if (x.is_this_month == true) this.points_month += x.score;
+        //this.points_all_time += x.score;
+        //if (x.score){
+          //if (x.score > this.max_score) this.max_score = x.score;
+        //}
       });
 
-      this.calculateStats();
+      //this.calculateStats();
 
       //console.log('this.games', this.games);
     })
+    
   }
 
   goPlay(){
     this.router.navigate(['play']);
   }
 
+  /*
   calculateStats(){
     //sort by category
   var nba_questions = this.activity.filter((n:any) => {return n.category == 'NBA'});
   var nfl_questions = this.activity.filter((n:any) => {return n.category == 'NFL'});
   var mlb_questions = this.activity.filter((n:any) => {return n.category == 'MLB'});
 
-  var nba_pct = 100* nba_questions.filter((x:any) => {return x.got_it_right == 1}).length / nba_questions.length;
-  var nfl_pct = 100* nfl_questions.filter((x:any) => {return x.got_it_right == 1}).length / nfl_questions.length;
-  var mlb_pct = 100* mlb_questions.filter((x:any) => {return x.got_it_right == 1}).length / mlb_questions.length;
+ 
 
   
   this.stats.all = this.activity.length;
@@ -118,5 +125,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   this.stats.mlb_pct = Math.round(100 * this.stats.mlb_correct/this.stats.all_mlb);
 
   }
+  */
 
 }

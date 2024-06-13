@@ -179,8 +179,32 @@ getUserActivity(user_id:number){
   )
 }
 
+getUserStats(user_id:number){
+  return this.http.get<any>(this.baseurl+'/stats?id=' + user_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
 getGamesByVenue(venue_id:number){
   return this.http.get<any>(this.baseurl+'/gamesByVenue?id=' + venue_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getUsersByVenue(venue_id:number){
+  return this.http.get<any>(this.baseurl+'/usersByVenue?id=' + venue_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+downloadUsersByVenue(venue_id:number){
+  return this.http.get<any>(this.baseurl+'/downloadUsersByVenue?id=' + venue_id, this.httpOptions)
   .pipe(
     retry(0),
     catchError(this.errorHandl),

@@ -1,0 +1,71 @@
+@import '../../../globals.scss';
+
+.contents{
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    display: block;
+    padding: 60px 0 100px 0;
+}
+
+.form_container{
+    width: 100%;
+    max-width: 340px;
+    margin: auto;
+    display: block;
+    font-family: 'gotham-medium';
+    color: grey;
+}
+
+.page_text{
+    font-family: 'gotham-medium';
+    font-size: 18px;
+    text-align: center;
+    color: $color-one;
+    margin: 20px 0;
+}
+
+.continue_button{
+    width:100%;
+    padding: 18px 14px;
+    font-size: 18px;
+    max-width: 320px;
+}
+
+.spinner{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 40px auto;
+}
+
+.contentsx{
+    padding: 60px 0 100px 0;
+}
+
+.title{
+    font-family: 'orbitron-bold';
+    font-size: 36px;
+    color: $color-one;
+    text-align: center;
+    padding: 40px 0 0 0;
+}
+
+.notification_message{
+    padding: 60px 0;
+    max-width: 650px;
+    margin: auto;
+    color: grey;
+}
+
+.highlight{
+    border-bottom: solid 3px $color-one;
+}
+
+.notification_container{
+    color:white;
+    font-family:'roboto-medium';
+    font-size: 18px;
+    text-align: center;
+    padding: 20px 0;
+}

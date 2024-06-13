@@ -12,20 +12,27 @@ import { Subscription } from 'rxjs';
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'
 })
-export class LeaderboardComponent implements OnInit, OnDestroy{
+export class LeaderboardComponent implements OnInit, OnDestroy {
 
-  players:any[] = [];
-  user:any;
-  data:any[] = [];
-  games:any[] = [];
-  tab:string = 'all-time';
+  players: any[] = [];
+  user: any;
+  data: any[] = [];
+  games: any[] = [];
+  tab: string = 'all-time';
 
-  userServiceSubscription!:Subscription;
+  data_ready:boolean = false;
+
+
+
+  userServiceSubscription!: Subscription;
+
+  daily_start_time: number = this.commonService.getEpochTimeForTodayAtMidnight();
+  monthly_start_time: number = this.commonService.getFirstDayOfMonthEpoch();
 
   constructor(
     public userService: UserService,
     public commonService: CommonService
-  ){}
+  ) { }
 
   ngOnInit(): void {
 
@@ -34,42 +41,56 @@ export class LeaderboardComponent implements OnInit, OnDestroy{
       //console.log('this.user', this.user);
       this.loadData();
     });
-    
+
   }
 
   ngOnDestroy(): void {
     if (this.userServiceSubscription) this.userServiceSubscription.unsubscribe();
   }
 
-  loadData(){
-    this.userService.getGamesByVenue(this.user.venue_id).subscribe((data:any) => {
+  loadData() {
+    this.userService.getGamesByVenue(this.user.venue_id).subscribe((data: any) => {
       this.games = data;
 
-      this.players = [];
-      this.games.forEach((x:any) => {
-        x.date = this.commonService.getDateString(x.timestamp);
+      this.filterPlayers();
+    })
+  }
 
-        var record = this.players.find((n:any) => { return n.user_id == x.user_id});
-        if (!record) this.players.push({
-          user_id: x.user_id,
-          username: x.username,
-          image: x.user_image
-        });
+  filterPlayers() {
 
+    this.data_ready =false;
+    var games:any = [];
+
+    if (this.tab == 'all-time') games = this.games;
+    else if (this.tab == 'monthly') games = this.games.filter((x: any) => { return x.timestamp >= this.monthly_start_time });
+    else if (this.tab == 'daily') games = this.games.filter((x: any) => { return x.timestamp >= this.daily_start_time });
+
+    this.players = [];
+    games.forEach((x: any) => {
+      //x.date = this.commonService.getDateString(x.timestamp);
+
+      var record = this.players.find((n: any) => { return n.user_id == x.user_id });
+      if (!record) this.players.push({
+        user_id: x.user_id,
+        username: x.username,
+        image: x.user_image
       });
 
-      this.players.forEach((x:any) => {
-        var player_games = this.games.filter((n:any) => {return n.user_id == x.user_id});
-        x.games = player_games.length;
-        var points = 0;
-        player_games.forEach((n:any) => {points += ( n.score ? n.score : 0) });
-        x.points = points;
-      })
+    });
 
-      console.log('this.games', this.games);
-      console.log('this.players', this.players);
+    this.players.forEach((x: any) => {
+      var player_games = games.filter((n: any) => { return n.user_id == x.user_id });
+      x.games = player_games.length;
+      var points = 0;
+      player_games.forEach((n: any) => { points += (n.score ? n.score : 0) });
+      x.points = points;
+    });
 
-    })
+    this.data_ready =true;
+
+    console.log('this.games', this.games);
+    console.log('this.players', this.players);
+
   }
 
 }

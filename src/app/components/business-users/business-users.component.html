@@ -1,0 +1,31 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="title">Players</div>
+
+    <div class="text-end" style="padding:30px">
+        <button class="btn btn-default button_primary" (click)="downloadUsers()">
+            <i class="fa-solid fa-download"></i>&nbsp;Download
+        </button>
+    </div>
+
+    <div class="table_container">
+        <table class="table tablex">
+            <thead>
+                <tr>
+                    <th class="tc">Id</th>
+                    <th class="tc">Username</th>
+                    <th class="tc">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(x of players; track x.user_id){
+                <tr>
+                    <td class="tc">{{x.user_id}}</td>
+                    <td class="tc">{{x.username}}</td>
+                    <td class="tc">{{x.email}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

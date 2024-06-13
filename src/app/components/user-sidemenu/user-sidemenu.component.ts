@@ -27,7 +27,6 @@ export class UserSidemenuComponent {
 
     this.userService._getUser.subscribe((currentUser) => {
       this.user = currentUser;
-      console.log('@sidemenu this.user', this.user);
     });
 
     //console.log(this.router.url);

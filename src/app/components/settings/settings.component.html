@@ -6,15 +6,24 @@
     </button>
     -->
     <div class="page_title">Account</div>
+    @if(user.account_type == 'player'){
     <div class="text-start" style="padding:30px 0;">
         <em>You can edit or modify your account settings here. Your profile image is shown on the leaderboard table, make it a good one!</em>
     </div>
+    }
+    @else{
+        <div class="text-start" style="padding:30px 0;">
+            <em>You can edit or modify your account settings here.</em>
+        </div>
+    }
     <div class="content_container" *ngIf="user" style="max-width:450px;">
        <div class="settings_container">
+        @if(user.account_type == 'player'){
         <div style="position:relative;width: fit-content; display: block; margin:auto;">
             <img class="profile_image" src="{{user.image}}">
             <i *ngIf="user" class="fa fa-pencil edit_image_icon" (click)="editProfileImage()"></i>
         </div>
+        }
             <ul style="list-style-type: none;max-width: 400px;padding: 0;">
                 <li class="list_itemx">{{user.name}}
                     <span>

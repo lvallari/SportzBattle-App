@@ -13,6 +13,7 @@ $color-four:#D2D2D2 ;
   min-height: 100vh;
   background: linear-gradient(45deg, #33ccff, #000000, #000000);
   position: relative;
+  padding-left: 220px;
 }
 
 .page_title {
@@ -371,5 +372,9 @@ $color-four:#D2D2D2 ;
 
   .remove_search_icon{
     top: 12px;
+  }
+
+  .background{
+    padding:20px;
   }
 }

@@ -9,6 +9,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { RegisterBusinessComponent } from './components/register-business/register-business.component';
 import { BusinessDashboardComponent } from './components/business-dashboard/business-dashboard.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { BusinessProfileComponent } from './components/business-profile/business-profile.component';
+import { BusinessUsersComponent } from './components/business-users/business-users.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -20,6 +22,8 @@ export const routes: Routes = [
     { path: 'play', component: GameScreenComponent},
     { path: 'user-dashboard', component: UserDashboardComponent},
     { path: 'business-dashboard', component: BusinessDashboardComponent},
+    { path: 'business-profile', component: BusinessProfileComponent},
+    { path: 'business-users', component: BusinessUsersComponent},
     { path: 'database', component: DatabaseComponent}
 
 ];

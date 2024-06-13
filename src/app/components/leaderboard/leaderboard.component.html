@@ -1,36 +1,43 @@
 <app-user-sidemenu></app-user-sidemenu>
 <div class="background backgroundx">
-    <div class="page_title">Leaderboard</div>
+    <div class="contentsx">
+        <div class="page_title">Leaderboard</div>
 
-    <div class="submenu_container">
-        <div class="submenu_item" [ngClass]="{'selected':tab == 'daily'}">Daily</div>
-        <div class="submenu_item" [ngClass]="{'selected':tab == 'monthly'}">Monthly</div>
-        <div class="submenu_item" [ngClass]="{'selected':tab == 'all-time'}">All-Time</div>
-    </div>
+        <div class="submenu_container">
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'daily'}" (click)="tab = 'daily'; filterPlayers()">Daily</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'monthly'}" (click)="tab = 'monthly'; filterPlayers()">Monthly</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'all-time'}" (click)="tab = 'all-time'; filterPlayers()">All-Time</div>
+        </div>
 
-    <div class="table_container">
-        <div class="graph_title">Top Players</div>
-        <table class="table tablex">
-            <thead>
-                <tr>
-                    <th class="tc"></th>
-                    <th class="tc">Username</th>
-                    <th class="tc">Games</th>
-                    <th class="tc">Total Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(x of players; track x.user_id){
-                <tr>
-                    <td class="tc">
-                        <img class="player_image" src="{{x.image}}">
-                    </td>
-                    <td class="tc">{{x.username}}</td>
-                    <td class="tc">{{x.games}}</td>
-                    <td class="tc">{{x.points}}</td>
-                </tr>
-                }
-            </tbody>
-        </table>
+        <div class="table_container">
+            <div class="graph_title">Top Players</div>
+            @if (players.length > 0){
+            <table class="table tablex">
+                <thead>
+                    <tr>
+                        <th class="tc"></th>
+                        <th class="tc">Username</th>
+                        <th class="tc">Games</th>
+                        <th class="tc">Total Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(x of players; track x.user_id){
+                    <tr>
+                        <td class="tc">
+                            <img class="player_image" src="{{x.image}}">
+                        </td>
+                        <td class="tc">{{x.username}}</td>
+                        <td class="tc">{{x.games}}</td>
+                        <td class="tc">{{x.points}}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            @else{
+                <div class="note">There are no players to show</div>
+            }
+        </div>
     </div>
 </div>

@@ -179,7 +179,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   answerSelected(option: any) {
 
-    if (this.screen_width > 768 || this.question_active == false) return;
+    //if (this.screen_width > 768 || this.question_active == false) return;
+    if (this.user.account_type == 'player' || this.question_active == false) return;
 
     console.log('answer selected');
 

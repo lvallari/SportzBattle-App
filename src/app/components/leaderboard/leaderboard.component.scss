@@ -13,9 +13,6 @@
     cursor: pointer;
 }
 
-.backgroundx{
-    padding-left: 200px;
-}
 
 .tc{
     background-color: transparent;
@@ -51,8 +48,21 @@
     border-bottom:solid 2px white;
 }
 
+.contentsx{
+    padding: 50px;
+}
+
+.note{
+    padding: 30px 0;
+    font-style:italic;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
 @media screen and (max-width: 768px) {
-    .backgroundx{
-     padding-left:0px;
+    
+    .contentsx{
+        padding: 20px;
     }
  }

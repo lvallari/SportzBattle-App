@@ -63,6 +63,14 @@
 
 }
 
+.est{
+    position:fixed;
+    bottom: 30px;
+    left: calc(50% - 45px);
+    color:white;
+    font-family: 'orbitron-bold';
+}
+
 
 @media screen and (max-height: 500px){
     .logo{

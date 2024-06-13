@@ -1,0 +1,68 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+   
+    <div class="title">Business Profile</div>
+    <div class="form_container">
+    
+    <div class="input_container">
+        <div class="labelf">Business Name</div>
+        <input type="text" class="form-control form_input" [(ngModel)]="itemx.business_name" (ngModelChange)="eval()">
+        <div [hidden]="!itemx.invalid_business_name" class="form_alert">{{itemx.invalid_business_name}}</div>
+    </div>
+        
+    <div class="input_container">
+            <div class="labelf">Address 1</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.address1" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_address1" class="form_alert">{{itemx.invalid_address1}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Address 2</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.address2" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_address2" class="form_alert">{{itemx.invalid_address2}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">City</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.city" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_city" class="form_alert">{{itemx.invalid_city}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">State</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.state" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_state" class="form_alert">{{itemx.invalid_state}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Postal Code</div>
+            <input type="text" class="form-control form_input" [(ngModel)]="itemx.postal_code" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_postal_code" class="form_alert">{{itemx.invalid_postal_code}}</div>
+        </div>
+    </div>
+
+    <div class="text-center" style="margin:50px 0">
+        <button class="btn btn-default button_primary continue_button" (click)="saveBusiness()">SAVE</button>
+    </div>
+</div>
+
+<div class="modal fade" id="changesSavedModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('changesSavedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">Changes have been saved!</p>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('changesSavedModal')">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
