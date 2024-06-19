@@ -5,7 +5,7 @@
     -->
     @if (has_joined){
     @if (page == 'game'){
-    <app-user-stats [user]="user" [counter]="counter" [show_lives]="true"></app-user-stats>
+    <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
     <app-timer *ngIf="show_timer" [time]="time"></app-timer>
     <div class="question_container">
@@ -47,7 +47,7 @@
 
     }
     @else if (page == 'leaderboard'){
-    <app-user-stats [user]="user" [show_lives]="false"></app-user-stats>
+    <app-user-stats [user]="user" [show_lives]="false" [active_players]="active_players"></app-user-stats>
     <app-leaderboard-table></app-leaderboard-table>
 
     }

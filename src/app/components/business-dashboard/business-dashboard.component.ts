@@ -20,11 +20,17 @@ export class BusinessDashboardComponent implements OnInit, OnDestroy {
   user:any;
   userServiceSubscription!:Subscription;
 
+  daily_start_time: number = this.commonService.getEpochTimeForTodayAtMidnight();
+  monthly_start_time: number = this.commonService.getFirstDayOfMonthEpoch();
+
   games:any[] = [];
   activity:any[] = [];
   max_score!:number;
   venue:any;
   players:any[] = [];
+
+  games_today!:number;
+  games_this_month!:number;
 
   constructor(
     public userService: UserService,
@@ -57,8 +63,11 @@ export class BusinessDashboardComponent implements OnInit, OnDestroy {
   getData(){
     this.userService.getGamesByVenue(this.user.venue_id).subscribe((data:any) => {
       this.games = data;
-      
+      //console.log('this.games', this.games);
+      //console.log('daily_start_time', this.daily_start_time);
       this.players = [];
+
+
       this.games.forEach((x:any) => {
         x.date = this.commonService.getDateString(x.timestamp);
 
@@ -77,10 +86,17 @@ export class BusinessDashboardComponent implements OnInit, OnDestroy {
         var points = 0;
         player_games.forEach((n:any) => {points += ( n.score ? n.score : 0) });
         x.points = points;
-      })
+      });
 
-      console.log('this.games', this.games);
-      console.log('this.players', this.players);
+      //get games played today
+      this.games_today = this.games.filter((x:any) => {return x.timestamp > this.daily_start_time}).length;
+
+      //get games played this monthy
+      this.games_this_month = this.games.filter((x:any) => {return x.timestamp > this.monthly_start_time}).length;
+
+
+      //console.log('this.games', this.games);
+      //console.log('this.players', this.players);
     })
   }
 

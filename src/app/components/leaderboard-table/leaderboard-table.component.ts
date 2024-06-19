@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { CommonService } from '../../services/common.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-leaderboard-table',
@@ -12,6 +15,7 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
 
   countdown_interval:any;
   countdown!:string;
+  user:any;
 
   is_mobile:boolean = window.innerWidth < 768;
 
@@ -20,25 +24,29 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
   winnings_label!:string;
 
   users!:any[];
-  users_o:any[] = [
-    {position: 1, name: 'Alfred', image: '../../../assets/images/user1.jpeg', points: 112},
-    {position: 2, name: 'John', image: '../../../assets/images/user2.jpg', points: 76},
-    {position: 3, name: 'Troy', image: '../../../assets/images/user3.jpg', points: 60},
-    {position: 4, name: 'Joe', image: '../../../assets/images/user4.jpg', points: 45},
-    {position: 5, name: 'Caitlin', image: '../../../assets/images/user5.jpg', points: 39},
-    {position: 6, name: 'Charles', image: '../../../assets/images/user6.png', points: 34},
-    {position: 7, name: 'Stephanie', image: '../../../assets/images/user7.png', points: 33},
-    {position: 8, name: 'Mary', image: '../../../assets/images/user8.jpg', points: 29},
-    {position: 9, name: 'Big Bill', image: '../../../assets/images/user9.jpeg', points: 26},
-    {position: 10, name: 'MJ', image: '../../../assets/images/user10.jpg', points: 24},
-    {position: 11, name: 'Whitney', image: '../../../assets/images/user11.jpg', points: 22},
-    {position: 12, name: 'Wendy', image: '../../../assets/images/user12.jpeg', points: 20},
-    {position: 13, name: 'Ralph', image: '../../../assets/images/user13.jpeg', points: 18},
-    {position: 14, name: 'Brett', image: '../../../assets/images/user14.jpg', points: 16},
-    {position: 15, name: 'Sam', image: '../../../assets/images/user15.jpg', points: 12},
-  ];
+  users_o:any[] = [];
+  games:any[] = [];
+
+  players:any[] = [];
+
+  data_ready:boolean = false;
+  daily_start_time: number = this.commonService.getEpochTimeForTodayAtMidnight();
+
+  userServiceSubscription!:Subscription;
+
+  constructor(
+    public userService: UserService,
+    public commonService: CommonService,
+  ){}
+  
 
   ngOnInit(): void {
+
+    this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
+      this.user = currentUser;
+      //console.log('this.user', this.user);
+      this.loadData();
+    });
 
     this.position_label = this.is_mobile ? 'Pos.':'Position';
     this.points_label = this.is_mobile ? 'Pts.':'Points';
@@ -57,6 +65,57 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     clearInterval(this.countdown_interval);
+  }
+
+  loadData() {
+    //this.user.venue_id
+    this.userService.getGamesByVenue(1).subscribe((data: any) => {
+      this.games = data.filter((x: any) => { return x.timestamp >= this.daily_start_time });
+      console.log('this.games', this.games);
+      this.filterPlayers();
+    })
+  }
+
+  filterPlayers() {
+
+    this.data_ready =false;
+    //games = this.games.filter((x: any) => { return x.timestamp >= this.daily_start_time });
+
+    this.players = [];
+    this.games.forEach((x: any) => {
+      //x.date = this.commonService.getDateString(x.timestamp);
+
+      var record = this.players.find((n: any) => { return n.user_id == x.user_id });
+      if (!record) this.players.push({
+        user_id: x.user_id,
+        username: x.username,
+        image: x.user_image
+      });
+
+    });
+
+    this.players.forEach((x: any) => {
+      var player_games = this.games.filter((n: any) => { return n.user_id == x.user_id });
+      x.games = player_games.length;
+      
+      var points = 0;
+      var max_score = 0;
+      player_games.forEach((n: any) => { points += (n.score ? n.score : 0) });
+      player_games.forEach((n: any) => { if (n.score > max_score) max_score = n.score; });
+      x.points = points;
+      x.max_score = max_score;
+    });
+
+    this.players = this.players.sort((a:any,b:any) => { return a.score - b.score});
+    this.players.forEach((x:any,i:number) => {
+      x.position = i+1;
+    })
+
+    this.data_ready =true;
+
+    console.log('this.games', this.games);
+    console.log('this.players', this.players);
+
   }
 
   timeUntil3AMET() {

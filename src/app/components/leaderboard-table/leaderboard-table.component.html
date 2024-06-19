@@ -10,13 +10,13 @@
         </tr>
     </thead>
     <tbody>
-        @for(x of users; track x.player_id){
+        @for(x of players; track x.user_id){
         <tr>
             <td class="tc" style="text-align:center;">{{x.position}}</td>
             <td class="tc" style="">
-                <img class="user_image" src={{x.image}}>&nbsp;&nbsp;&nbsp;{{x.name}}
+                <img class="user_image" src={{x.image}}>&nbsp;&nbsp;&nbsp;{{x.username}}
             </td>
-            <td class="tc" style="text-align:center;">{{x.points}}</td>
+            <td class="tc" style="text-align:center;">{{x.max_score}}</td>
             <td class="tc" style="text-align:center;">
                 
                 <div *ngIf="x.position == 1">$50</div>

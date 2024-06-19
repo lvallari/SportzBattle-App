@@ -8,6 +8,8 @@
             </div>
         </div>
 
+        <app-business-dashboard-graph [games]="games"></app-business-dashboard-graph>
+
         <div class="row rowx" id="myrow">
             <div class="col-6">
                 <div class="box_title">Games</div>
@@ -25,7 +27,18 @@
             -->
         </div>
 
-        <app-business-dashboard-graph [games]="games"></app-business-dashboard-graph>
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Monthly Games</div>
+                <div class="box_number">{{games_this_month}}</div>
+                
+            </div>
+            <div class="col-6">
+                <div class="box_title">Today Games</div>
+                <div class="box_number">{{games_today}}</div>
+                
+            </div>
+        </div>
 
         <div class="table_container">
             <div class="graph_title">Top Players</div>

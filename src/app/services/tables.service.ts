@@ -99,6 +99,15 @@ export class TablesService {
     )
   }
 
+  // ADD user activity
+  StoreUserActivity(obj:any): Observable<any> {
+    return this.http.post<any>(this.baseurl+'/storeUserActivity', obj, this.httpOptions)
+    .pipe(
+      retry(0),
+      catchError(this.errorHandl),
+    )
+  }
+
   // ADD object to database
   UpdateItem(table:string, id_field:string, obj:any): Observable<any> {
     return this.http.put<any>(this.baseurl+'/'+table + '/update/'+ obj[id_field], obj, this.httpOptions)

@@ -94,9 +94,51 @@
     margin: auto;
 }
 
+.box_title{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 24px;
+    text-align: center;
+    padding: 7px 0;
+    margin: auto;
+}
+
+.box_number{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 20px;
+    text-align: center;
+    background-color: #33ccff;
+    padding: 25px 0px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+
+.box_rank{
+    font-style: italic;
+    font-size:18px;
+    color:white;
+    text-align: center;
+}
+
+
+.rowx{
+    margin:0;
+    border-bottom: solid 1px white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: solid 1px white;
+}
+
 
 @media screen and (max-width: 768px) {
    .backgroundx{
     padding-left:0px;
    }
+
+   .box_title{
+    max-width:166px;
+}
 }

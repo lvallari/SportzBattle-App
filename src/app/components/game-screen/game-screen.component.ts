@@ -65,6 +65,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   question_notification!:string;
   game_id!:number;
   game_is_active:boolean = false;
+  active_players!:number;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -104,6 +105,13 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       //check that a minimum of 5 sec have passed since loading
       var delta = Date.now() - this.start_timestamp;
 
+      /*
+      if (message == 'results') {
+        this.question_notification = this.message.percent + '% answered correctly';
+        return;
+      }
+      */
+
       if (message && delta > 5000) {
         clearInterval(this.timerInterval);
 
@@ -119,8 +127,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
           this.page = 'advertisement';
           this.cycle_counter += 1;
         }
-        else {
-
+        else if (this.message.message == 'question') {
+          console.log('game logic');
           this.counter += 1;
           this.page = 'prepare_screen';
           this.question_notification = this.message.value_points + ' Pts';
@@ -156,12 +164,33 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                 if (this.question_active == true) this.answerSelected(undefined);
               }
 
-              if (elapsed_time == 8){
-                this.question_notification = Math.round(Math.random()*100) + '% answered correctly';
+              
+              if (elapsed_time == 9) {
+                this.tablesService.GetFiltered('user_activity', 'question_id', this.message.question_id).subscribe((data: any) => {
+                  //console.log('user_activity',data);
+                  //console.log(Date.now(), data[0].timestamp_question);
+                  var time_threshold = Date.now() - 11000;
+                  
+                  var questions = data.filter((x:any) => { return x.timestamp_question > time_threshold });
+                  var got_right_ctr = 0;
+                  questions.forEach((x:any) => {
+                    if (x.got_it_right == 1) got_right_ctr++;
+                  })
+
+                  var object = {
+                    message: 'results',
+                    percent: Math.round(100 * got_right_ctr / questions.length),
+                    got_right: got_right_ctr,
+                    total_players: questions.length
+                  }
+                  //this.question_notification = object.got_right + ' out of ' + object.total_players + ' answered correctly';
+                  if (questions.length > 0) this.question_notification = object.percent + '% answered correctly';
+                  this.active_players = object.total_players;
+                })
+               
               }
 
-
-              if (elapsed_time == 10) {
+              if (elapsed_time == 11) {
                 if (this.user.lives <= 0) {
                   this.gameOver();
                   return;
@@ -180,7 +209,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   answerSelected(option: any) {
 
     //if (this.screen_width > 768 || this.question_active == false) return;
-    if (this.user.account_type == 'player' || this.question_active == false) return;
+    if (this.user.account_type == 'business' || this.question_active == false) return;
 
     console.log('answer selected');
 
@@ -236,6 +265,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   }
 
   storeAnswer(value:boolean){
+
+    console.log('storeAnswer');
     
     if (this.game_is_active != true) return;
 
@@ -246,7 +277,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       question_id: this.message.question_id
     }
 
-    this.tablesService.AddItem('user_activity', object).subscribe();
+    this.tablesService.StoreUserActivity(object).subscribe();
     console.log('answer stored');
   }
 

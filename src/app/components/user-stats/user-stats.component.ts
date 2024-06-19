@@ -12,6 +12,7 @@ export class UserStatsComponent implements OnChanges{
 
   @Input() user:any;
   @Input() counter!:number;
+  @Input() active_players!:number;
   @Input() show_lives!:boolean;
 
   number_of_users!:number;
