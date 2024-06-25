@@ -36,6 +36,10 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
+      if (!currentUser){
+        this.router.navigate(['login']);
+        return;
+      }
       this.user = currentUser;
       //console.log('this.user', this.user);
       this.getData();

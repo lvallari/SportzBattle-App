@@ -17,6 +17,7 @@ import { QuestionFooter3Component } from '../question-footer3/question-footer3.c
 import { QuestionFooter4Component } from '../question-footer4/question-footer4.component';
 import { AdvertisementPageComponent } from '../advertisement-page/advertisement-page.component';
 import { LeaderboardTableComponent } from '../leaderboard-table/leaderboard-table.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -74,12 +75,17 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     public socketioService: SocketioService,
     public commonService: CommonService,
     public userService: UserService,
-    public tablesService: TablesService
+    public tablesService: TablesService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
 
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
+      if (!currentUser){
+        this.router.navigate(['login']);
+        return;
+      }
       this.user = currentUser;
       this.user.lives = 5;
       this.user.points = 0;
@@ -87,6 +93,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       console.log('this.user', this.user);
       if (this.user.account_type == 'player'){
         this.createGame();
+        this.getUserDailyHighScore();
       }
     });
 
@@ -172,6 +179,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                   var time_threshold = Date.now() - 11000;
                   
                   var questions = data.filter((x:any) => { return x.timestamp_question > time_threshold });
+
+                  console.log('questions', questions);
+
                   var got_right_ctr = 0;
                   questions.forEach((x:any) => {
                     if (x.got_it_right == 1) got_right_ctr++;
@@ -261,6 +271,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     this.user.lives = 5;
     this.has_joined = false;
     this.page = 'game';
+    this.getUserDailyHighScore();
     this.subscribeToSocket();
   }
 
@@ -296,6 +307,14 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       console.log('game created!', data);
       this.game_id = data.id;
       this.game_is_active = true;
+    });
+  }
+
+  getUserDailyHighScore(){
+    this.userService.getUserDailyHighScore(this.user.user_id).subscribe((data:any) => {
+      var record = data[0];
+      if (record) this.user.daily_high = record.score;
+      console.log('data', data);
     });
   }
 

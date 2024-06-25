@@ -195,6 +195,22 @@ getGamesByVenue(venue_id:number){
   )
 }
 
+getAllGames(){
+  return this.http.get<any>(this.baseurl+'/getAllGames', this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getUserDailyHighScore(user_id:number){
+  return this.http.get<any>(this.baseurl+'/getUserDailyHighScore?id=' + user_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
 getUsersByVenue(venue_id:number){
   return this.http.get<any>(this.baseurl+'/usersByVenue?id=' + venue_id, this.httpOptions)
   .pipe(

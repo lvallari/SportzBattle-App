@@ -69,7 +69,8 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
 
   loadData() {
     //this.user.venue_id
-    this.userService.getGamesByVenue(1).subscribe((data: any) => {
+    //this.userService.getGamesByVenue(1).subscribe((data: any) => {
+    this.userService.getAllGames().subscribe((data: any) => {
       this.games = data.filter((x: any) => { return x.timestamp >= this.daily_start_time });
       console.log('this.games', this.games);
       this.filterPlayers();

@@ -4,6 +4,7 @@ import { UserSidemenuComponent } from '../user-sidemenu/user-sidemenu.component'
 import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-leaderboard',
@@ -31,12 +32,17 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   constructor(
     public userService: UserService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
 
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
+      if (!currentUser){
+        this.router.navigate(['login']);
+        return;
+      }
       this.user = currentUser;
       //console.log('this.user', this.user);
       this.loadData();
@@ -49,8 +55,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.userService.getGamesByVenue(this.user.venue_id).subscribe((data: any) => {
+
+    this.userService.getAllGames().subscribe((data: any) => {
       this.games = data;
+      //console.log('games', this.games, this.user.venue_id);
 
       this.filterPlayers();
     })

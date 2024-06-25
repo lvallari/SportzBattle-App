@@ -3,7 +3,7 @@
     <!--
     {{user.name}}&nbsp;&nbsp;&nbsp;
     -->
-    <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} ({{user.rank}}rd)
+    <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} | {{user.daily_high}}
     &nbsp;
     @if (show_lives){
     <div class="life_circle" [ngClass]="{'green':(user.lives >= 1)}"></div>
@@ -14,8 +14,29 @@
     &nbsp;
     }
     <i class="fa-solid fa-user user_icon"></i>&nbsp;{{active_players}}
+    <button class="btn btn-default button_primary button_exit" (click)="confirmExit()">Exit</button>
 </div>
 
 <div class="game_stats">
     <em><i class="fa-solid fa-user user_icon"></i>&nbsp;&nbsp;Total Daily Plays: {{active_players}}</em>
+</div>
+
+<div class="modal fade" id="confirmExitModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('confirmExitModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Are you sure you want to exit the game?</h1>  
+                
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="exitGame()">YES</button><br><br>
+                    <button type="button" class="btn btn-default button_primary"  (click)="closeModal('confirmExitModal')">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
