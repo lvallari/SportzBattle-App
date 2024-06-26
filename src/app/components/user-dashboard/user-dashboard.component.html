@@ -24,10 +24,10 @@
                 }
             </div>
             <div class="col-6">
-                <div class="box_title">Daily Points</div>
-                <div class="box_number">{{stats.points_today}}</div>
-                @if(stats.points_today_number_players > 0){
-                <div class="box_rank">{{stats.points_today_rank_suffix}} out of {{stats.points_today_number_players}}</div>
+                <div class="box_title">Daily High Points</div>
+                <div class="box_number">{{stats.high_points_today}}</div>
+                @if(stats.high_points_today_number_players > 0){
+                <div class="box_rank">{{stats.high_points_today_rank_suffix}} out of {{stats.high_points_today_number_players}}</div>
                 }
                 @else{
                     <div class="box_rank">-</div>

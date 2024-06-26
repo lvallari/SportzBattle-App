@@ -30,7 +30,7 @@
 }
 
 .game_stats{
-    display:none;
+    /*display:none;*/
     color: white;
     font-size:1.5em;
     padding: 1% 0 0 1%;
@@ -58,15 +58,18 @@
 }
 
 @media screen and (min-width: 768px) {
+    /*
     .user_stats{
         display: none;
     }
+    */
 
-    
+    /*
     .game_stats{
         display:block;
        
     }
+    */
     
 }
 

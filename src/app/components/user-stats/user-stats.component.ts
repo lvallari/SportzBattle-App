@@ -35,7 +35,8 @@ export class UserStatsComponent implements OnChanges{
   exitGame(){
     console.log('exit game');
     $('#confirmExitModal').modal('hide');
-    this.router.navigate(['user-dashboard']);
+    if (this.user.account_type == 'player') this.router.navigate(['user-dashboard']);
+    else this.router.navigate(['business-dashboard']);
   }
 
   closeModal(name:string){

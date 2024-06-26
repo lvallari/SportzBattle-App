@@ -231,6 +231,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.user.points += this.message.value_points;
       this.points_value = this.message.value_points;
       this.show_point_animation = true;
+      this.updateGameRecord();
       this.storeAnswer(true);
       setTimeout(() => { this.show_point_animation = false; }, 1500);
     }
@@ -250,6 +251,12 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     this.page = 'game_over';
     this.game_is_active = false;
 
+    clearInterval(this.timerInterval);
+    if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+
+  }
+
+  updateGameRecord(){
     //update game record
     var object = {
       game_id: this.game_id,
@@ -257,10 +264,6 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     }
 
     this.tablesService.UpdateItem('games', 'game_id', object).subscribe();
-
-    clearInterval(this.timerInterval);
-    if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
-
   }
 
   stopTimer() {

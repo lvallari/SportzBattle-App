@@ -1,9 +1,11 @@
+@if (user.account_type == 'player'){  
 <div class="user_stats">
     <img class="user_image" src="{{user.image}}">&nbsp;
     <!--
     {{user.name}}&nbsp;&nbsp;&nbsp;
     -->
-    <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} | {{user.daily_high}}
+    <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} | {{user.daily_high ?
+    user.daily_high:'-'}}
     &nbsp;
     @if (show_lives){
     <div class="life_circle" [ngClass]="{'green':(user.lives >= 1)}"></div>
@@ -16,11 +18,13 @@
     <i class="fa-solid fa-user user_icon"></i>&nbsp;{{active_players}}
     <button class="btn btn-default button_primary button_exit" (click)="confirmExit()">Exit</button>
 </div>
-
+}
+@else{
 <div class="game_stats">
     <em><i class="fa-solid fa-user user_icon"></i>&nbsp;&nbsp;Total Daily Plays: {{active_players}}</em>
+    <button class="btn btn-default button_primary button_exit" (click)="confirmExit()">Exit</button>
 </div>
-
+}
 <div class="modal fade" id="confirmExitModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
