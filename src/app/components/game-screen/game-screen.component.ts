@@ -95,9 +95,30 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         this.createGame();
         this.getUserDailyHighScore();
       }
+      else if (this.user.account_type == 'business'){
+        this.loadScreens();
+      }
     });
 
     this.subscribeToSocket();
+  }
+
+  loadScreens(){
+    this.tablesService.GetFiltered('screens','venue_id',this.user.venue_id).subscribe((data:any) => {
+      var screens = data;
+      var current_dimensions = window.innerWidth + ' x ' + window.innerHeight;
+      var record = screens.find((x:any) => { return x.dimensions == current_dimensions});
+      
+      if (!record){
+        //if that screen size not records, store
+        var screen_record = {
+          venue_id: this.user.venue_id,
+          dimensions: current_dimensions
+        }
+
+        this.tablesService.AddItem('screens', screen_record).subscribe();
+      }
+    })
   }
 
   ngOnDestroy() {
