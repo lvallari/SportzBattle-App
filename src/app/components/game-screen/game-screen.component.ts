@@ -303,7 +303,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       //date: this.commonService.getDateString(),
       venue_id: 1,
       timestamp: Date.now(),
-      score: 0
+      score: 0,
+      dimensions: window.innerWidth + ' x ' + window.innerHeight
     }
 
     this.tablesService.AddItem('games', game).subscribe((data:any) => {
