@@ -126,6 +126,27 @@ export class MyblobService {
     }
   }
 
+  uploadAdImageBlob(file:any, filename:any, type:string) {
+    console.log('upload ad image');
+    //var file = this.dataURItoBlob(data);
+    if (file !== null) {
+      // Create a unique name for the blob
+      const blobName = type + '/' + filename;
+      const containerClient = this.blobServiceClient.getContainerClient('advertisements');
+
+      // Get a block blob client
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+      // Upload data to the blob
+      blockBlobClient.upload(file, 1024 * 64).then((result: any) => {
+        this._profileImageUploaded.next(filename);
+        //optimize image for thumbnail width 150px
+        //this.krakenService.optimizeImage(filename, 'users', 150).subscribe(data => { });
+      });
+      
+    }
+  }
+
 
 
   deleteBlob(filename:any): Observable<any> {

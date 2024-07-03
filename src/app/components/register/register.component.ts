@@ -66,7 +66,9 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
 
-    if (!this.itemx.name || this.itemx.name.length == 0) this.itemx.invalid_name = 'Please enter a valid name';
+    console.log('here');
+
+    //if (!this.itemx.name || this.itemx.name.length == 0) this.itemx.invalid_name = 'Please enter a valid name';
     if (!this.itemx.username || this.itemx.username.length == 0) this.itemx.invalid_username = 'Please enter a valid username';
     
     if (!this.itemx.email || this.itemx.email.length == 0) this.itemx.invalid_email = 'Please enter a valid email';
@@ -80,7 +82,10 @@ export class RegisterComponent implements OnInit {
 
     if (this.itemx.password != this.itemx.password_confirm) this.itemx.invalid_password_confirm = 'Passwords do not match';
 
-    if (this.itemx.invalid_name || this.itemx.invalid_email || this.itemx.invalid_password 
+    console.log(this.itemx.invalid_username,this.itemx.invalid_email,this.itemx.invalid_password 
+      ,this.itemx.invalid_password_confirm,this.itemx.invalid_agency_name);
+
+    if (this.itemx.invalid_username || this.itemx.invalid_email || this.itemx.invalid_password 
       || this.itemx.invalid_password_confirm || this.itemx.invalid_agency_name) return;
 
     this.tablesService.GetFiltered('users','email',this.itemx.email.toLowerCase()).subscribe((data:any) => {
@@ -95,10 +100,10 @@ export class RegisterComponent implements OnInit {
 
        
           this.userService.signUpUser({
-            name: this.itemx.name,
+            username: this.itemx.username,
             email: this.itemx.email,
             password: this.itemx.password,
-            account_type: 'user'
+            account_type: 'player'
           }).subscribe(() => {
             this.step = 'notification';
           })

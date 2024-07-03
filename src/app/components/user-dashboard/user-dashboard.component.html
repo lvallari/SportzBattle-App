@@ -16,7 +16,7 @@
             <div class="col-6">
                 <div class="box_title">Total Points</div>
                 <div class="box_number">{{stats.all_time_points}}</div>
-                @if(stats.all_time_points_number_players > 0){
+                @if(stats.all_time_points_number_players > 0 && stats.number_of_games > 0){
                     <div class="box_rank">{{stats.all_time_points_rank_suffix}} out of {{stats.all_time_points_number_players}}</div>
                 }
                 @else{
@@ -26,7 +26,7 @@
             <div class="col-6">
                 <div class="box_title">Daily High Points</div>
                 <div class="box_number">{{stats.high_points_today}}</div>
-                @if(stats.high_points_today_number_players > 0){
+                @if(stats.high_points_today_number_players > 0 && stats.games_today > 0){
                 <div class="box_rank">{{stats.high_points_today_rank_suffix}} out of {{stats.high_points_today_number_players}}</div>
                 }
                 @else{
@@ -39,7 +39,7 @@
             <div class="col-6">
                 <div class="box_title">Monthly Points</div>
                 <div class="box_number">{{stats.monthly_points}}</div>
-                @if(stats.monthly_points_number_players > 0){
+                @if(stats.monthly_points_number_players > 0 && stats.number_of_games > 0){
                     <div class="box_rank">{{stats.monthly_points_rank_suffix}} out of {{stats.monthly_points_number_players}}</div>
                 }
                 @else{
@@ -50,7 +50,7 @@
             <div class="col-6">
                 <div class="box_title">All-time Top Score</div>
                 <div class="box_number">{{stats.top_score_all_time}}</div>
-                @if(stats.top_score_all_time_number_players > 0){
+                @if(stats.top_score_all_time_number_players > 0 && stats.number_of_games > 0){
                     <div class="box_rank">{{stats.top_score_all_time_rank_suffix}} out of {{stats.top_score_all_time_number_players}}</div>
                 }
                 @else{
@@ -62,7 +62,7 @@
             <div class="col-6">
                 <div class="box_title">Today Games</div>
                 <div class="box_number">{{stats.games_today}}</div>
-                @if(stats.games_today_number_players > 0){
+                @if(stats.games_today_number_players > 0 && stats.games_today > 0){
                     <div class="box_rank">{{stats.games_today_rank_suffix}} out of {{stats.games_today_number_players}}</div>
                 }
                 @else{
@@ -72,7 +72,7 @@
             <div class="col-6">
                 <div class="box_title">Total Games</div>
                 <div class="box_number">{{stats.number_of_games}}</div>
-                @if(stats.number_of_games_number_players > 0){
+                @if(stats.number_of_games_number_players > 0 && stats.number_of_games > 0){
                     <div class="box_rank">{{stats.number_of_games_rank_suffix}} out of {{stats.number_of_games_number_players}}</div>
                 }
                 @else{

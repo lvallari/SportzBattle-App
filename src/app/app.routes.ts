@@ -11,6 +11,9 @@ import { BusinessDashboardComponent } from './components/business-dashboard/busi
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { BusinessProfileComponent } from './components/business-profile/business-profile.component';
 import { BusinessUsersComponent } from './components/business-users/business-users.component';
+import { UserVerificationComponent } from './components/user-verification/user-verification.component';
+import { AdminEditAdvertisementAccountComponent } from './components/admin-edit-advertisement-account/admin-edit-advertisement-account.component';
+
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -24,6 +27,8 @@ export const routes: Routes = [
     { path: 'business-dashboard', component: BusinessDashboardComponent},
     { path: 'business-profile', component: BusinessProfileComponent},
     { path: 'business-users', component: BusinessUsersComponent},
-    { path: 'database', component: DatabaseComponent}
+    { path: 'user-verification', component: UserVerificationComponent},
+    { path: 'database', component: DatabaseComponent},
+    { path: 'admin/edit-advertisement-account', component: AdminEditAdvertisementAccountComponent}
 
 ];

@@ -18,7 +18,7 @@
                         <th class="tc"></th>
                         <th class="tc">Username</th>
                         <th class="tc">Games</th>
-                        <th class="tc">Total Points</th>
+                        <th class="tc">{{tab == 'daily' ? 'High Score':'Total Points'}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,7 +29,7 @@
                         </td>
                         <td class="tc">{{x.username}}</td>
                         <td class="tc">{{x.games}}</td>
-                        <td class="tc">{{x.points}}</td>
+                        <td class="tc">{{tab == 'daily' ? x.max_score:x.points}}</td>
                     </tr>
                     }
                 </tbody>

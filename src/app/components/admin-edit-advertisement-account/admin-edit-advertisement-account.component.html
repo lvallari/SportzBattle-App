@@ -1,0 +1,71 @@
+<div class="contentsx">
+    <div class="page_title">Account Settings</div>
+    
+    <div class="form_container">
+        <div class="input_container">
+            <div class="labelf">Account Name</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.name">
+            <div [hidden]="!itemx.invalid_name" class="form_alert">{{itemx.invalid_name}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">Status</div>
+            <select class="form-control dropdown-toggle sort_dropdown" [(ngModel)]="itemx.status"
+                (ngModelChange)="clearAlerts()">
+                <option class="dropdown_option" *ngFor="let y of ['Active','Paused']" [value]="y">
+                    {{ y }}
+                </option>
+            </select>
+            <div [hidden]="!itemx.invalid_status" class="form_alert">{{itemx.invalid_status}}
+            </div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">Full Page Ads</div>
+            <div class="field_description">
+                Upload here full page images for this advertisement account. We recommend images with a ratio of 16:9 (width to height)
+            </div>
+            <input type="file" (change)="fileChangeEvent($event,'full-page-large-screen')">
+        </div>
+        <div class="input_container">
+            <div class="labelf">Mobile Full Page Ads</div>
+            <div class="field_description">
+                Upload here full page mobile images for this advertisement account. We recommend images with a ratio of 1:2 (width to height)
+            </div>
+            <input type="file" (change)="fileChangeEvent($event,'full-page-mobile-screen')">
+        </div>
+        <div class="input_container">
+            <div class="labelf">Banners</div>
+            <div class="field_description">
+                Upload here banners for this advertisement account. We recommend images with a ratio of 3:1 (width to height)
+            </div>
+            <input type="file" (change)="fileChangeEvent($event,'banner')">
+        </div>
+        
+    </div>
+</div>
+
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('imagePreviewModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div *ngIf="ratio_ok != true" class="invalid_ratio_alert">
+                    Image ratio is invalid. For {{type_text}} use images with ratio {{ratio_per_type}}.
+                </div>
+
+                <div id="image_preview">
+                    <span>No image selected</span>
+                </div>
+
+                
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="uploadImage()">SELECT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

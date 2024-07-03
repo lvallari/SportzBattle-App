@@ -90,9 +90,17 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       var player_games = games.filter((n: any) => { return n.user_id == x.user_id });
       x.games = player_games.length;
       var points = 0;
-      player_games.forEach((n: any) => { points += (n.score ? n.score : 0) });
+      var max_score = 0;
+      player_games.forEach((n: any) => { 
+        points += (n.score ? n.score : 0);
+        if (n.score > max_score) max_score = n.score; 
+      });
       x.points = points;
+      x.max_score = max_score;
     });
+
+    //sort by points
+    this.players = this.players.sort((a:any,b:any) => { return b.points - a.points});
 
     this.data_ready =true;
 

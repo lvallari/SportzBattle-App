@@ -1,0 +1,79 @@
+<div class="contentsx">
+    <div class="page_title">User Verification</div>
+    <p>We are required to verify our users identity before we submit a money prize. Please fill out the following form
+        and upload the requested documents.</p>
+
+    <div class="form_container">
+        <div class="input_container">
+            <div class="labelf">1. Full Name</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.full_name">
+            <div [hidden]="!itemx.invalid_full_name" class="form_alert">{{itemx.invalid_full_name}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">2. State of Residence</div>
+            <select class="form-control dropdown-toggle sort_dropdown" [(ngModel)]="itemx.state_of_residence"
+                (ngModelChange)="clearAlerts()">
+                <option class="dropdown_option" *ngFor="let y of states" [value]="y">
+                    {{ y }}
+                </option>
+            </select>
+            <div [hidden]="!itemx.invalid_state_of_residence" class="form_alert">{{itemx.invalid_state_of_residence}}
+            </div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">3. Date of birth</div>
+            <div class="row">
+                <div class="col-4">
+                    <small><em>Month</em></small>
+                    <select class="form-control dropdown-toggle sort_dropdown"
+                        [(ngModel)]="itemx.date_of_birth_month" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of months" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <small><em>Day</em></small>
+                    <select class="form-control dropdown-toggle sort_dropdown"
+                        [(ngModel)]="itemx.date_of_birth_day" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of days" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <small><em>Year</em></small>
+                    <select class="form-control dropdown-toggle sort_dropdown"
+                        [(ngModel)]="itemx.date_of_birth_year" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of years" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div [hidden]="!itemx.invalid_date_of_birth" class="form_alert">{{itemx.invalid_date_of_birth}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">4. Venmo</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.venmo">
+            <div [hidden]="!itemx.invalid_venmo" class="form_alert">{{itemx.invalid_venmo}}</div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="input_container">
+                    <div class="labelf">5. Drivers License</div>
+                   <input type="file" (change)="fileChangeEvent($event)">
+                    
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="input_container">
+                    <div class="labelf">6. Selfie</div>
+                    <input type="file" (change)="fileChangeEvent($event)" >
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

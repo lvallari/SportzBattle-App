@@ -1,0 +1,27 @@
+@import '../../../globals.scss';
+
+.contentsx{
+    padding: 40px 100px;
+}
+
+.form_container{
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+}
+
+.labelf{
+    color:grey;
+}
+
+.field_description{
+    font-style: italic;
+    font-size: 16px;
+    color: grey;
+}
+
+.invalid_ratio_alert{
+    padding: 20px;
+    background-color: lightyellow;
+    font-style: italic;
+}
