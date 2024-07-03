@@ -156,13 +156,15 @@ export class UserService {
 
 signUpUser(user:any){
   var user_object = {
-    name: user.name,
+    username: user.username,
     email: user.email.toLowerCase(),
     password: sha512.sha512(user.password),
     signup_timestamp: Date.now(),
     account_type: user.account_type,
     venue_id: user.venue_id ? user.venue_id:null
   }
+
+  //console.log('user_object', user_object)
 
   return this.http.post<any>(this.baseurl+'/createUser', user_object, this.httpOptions)
   .pipe(

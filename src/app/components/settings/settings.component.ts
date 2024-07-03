@@ -114,7 +114,7 @@ export class SettingsComponent {
   }
 
   showEditName(){
-    this.user_name = this.user.name;
+    this.user_name = this.user.username;
     $('#editNameModal').modal('show');
   }
 
@@ -152,12 +152,12 @@ export class SettingsComponent {
     }
 
     var user_object = {
-      id: this.user.id,
-      name: this.user_name
+      user_id: this.user.user_id,
+      username: this.user_name
     }
 
     this.tablesService.UpdateItem('users', 'user_id',user_object).subscribe(() => {
-      this.user.name = this.user_name;
+      this.user.username = this.user_name;
       $('#editNameModal').modal('hide');
       this.saveUserObjectInMemory();
     });
@@ -392,7 +392,7 @@ export class SettingsComponent {
     if (this.location) {
       
       var user_object = {
-        id: this.user.id,
+        user_id: this.user.user_id,
         location_zipcode: this.user_zipcode,
         location_city: this.location.city,
         location_state: this.location.state,
@@ -456,10 +456,8 @@ export class SettingsComponent {
     //this.myblobService.setContainer('users');
     var thisx = this;
     this.commonService.resizeImage(base64,200,0.75,this.profile_image_filename).then(function(x:any){
-      console.log('aaa');
       thisx.user.image = x.base64;
       thisx.image_is_preview = true;
-      console.log('bbb');
       thisx.myblobService.uploadProfileImageBlob(x.base64, thisx.user.user_id + '/' + x.filename);
 
       var user_object = {
@@ -556,7 +554,7 @@ clearDigits(){
   notifyViaSMS(){
     setTimeout(() => {
       var user_object = {
-        id: this.user.id,
+        user_id: this.user.user_id,
         notify_by_sms: this.notify_via_sms
       }
 
