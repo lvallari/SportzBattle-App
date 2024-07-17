@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+//@import '~@angular/cdk/overlay-prebuilt.css';
 
 @font-face{
     font-family: roboto-regular;
@@ -30,3 +31,57 @@
     src:url(../src/assets/fonts/Orbitron/Orbitron-Regular.ttf) format('opentype');
   }
  
+  
+dp-day-calendar .dp-calendar-day {
+    
+  font-family: 'source-code-pro-regular';
+  text-align: center;
+  border: none;
+  font-size: 17px;
+  width:39px !important;
+}
+
+dp-day-calendar .dp-calendar-weekday {
+  border:none !important;
+  width:39px !important;
+}
+
+dp-calendar-nav .dp-nav-header-btn {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-family: 'source-code-pro-regular';
+  width:39px !important;
+}
+
+dp-calendar-nav .dp-calendar-nav-left, dp-calendar-nav .dp-calendar-nav-right {
+  line-height: 0;
+  border: none;
+  background-color: transparent;
+}
+
+
+.dp-picker-input{
+  background-color: transparent;
+  color: black;
+  /*width: 279px;*/
+  margin: 0 0 30px 0;
+  height: 36px;
+  border: none;
+  font-family: 'source-code-pro-bold';
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  border: solid 1px lightgrey;
+}
+
+.dp-picker-input:focus{
+  border: solid 1px #0c110f;
+  outline: none;
+  box-shadow: none;
+}
+
+dp-day-calendar .dp-selected {
+  background: #0f3e2b !important;
+  color: #fff;
+}

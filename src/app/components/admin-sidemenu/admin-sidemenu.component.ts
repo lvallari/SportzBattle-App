@@ -1,0 +1,51 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+
+@Component({
+  selector: 'app-admin-sidemenu',
+  standalone: true,
+  imports: [ CommonModule ],
+  templateUrl: './admin-sidemenu.component.html',
+  styleUrl: './admin-sidemenu.component.scss'
+})
+export class AdminSidemenuComponent implements OnInit {
+
+  page!:string;
+  user!:any;
+
+  constructor(
+    public userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ){ }
+
+  ngOnInit(): void {
+
+    /*
+    this.userService._getUser.subscribe((currentUser) => {
+      this.user = currentUser;
+    });
+    */
+
+    this.page = this.router.url.replace('/a/','');
+    console.log('page', this.page);
+  }
+
+  goto(route:string){
+    this.router.navigate(['admin/' + route]);
+  }
+
+  
+  signOut(){
+    this.userService.logoutUser();
+  }
+
+  gotoUserAccount(){
+    this.router.navigate(['user-dashboard']);
+  }
+  
+
+}
+

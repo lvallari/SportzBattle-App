@@ -1,0 +1,43 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contents">
+    <div class="page_title">Users</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th class="text-center">Total Points</th>
+                <th class="text-center">Daily High Points</th>
+                <th class="text-center">Monthly Points</th>
+                <th class="text-center">All-Time Top Score</th>
+                <th class="text-center">Today Games</th>
+                <th class="text-center">Total Games</th>
+                <th class="text-center">Max Days Played in a Row</th>
+                <th class="text-center">Max Questions Answered in a Row</th>
+                <th class="text-center">Last Played</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(x of users;track x.user_id){
+            <tr>
+                <td>
+                    <img class="user_image" src="{{x.image}}">
+                    {{x.username}}
+                </td>
+                <td class="text-center">{{x.all_time_points}}</td>
+                <td class="text-center">{{x.high_points_today}}</td>
+                <td class="text-center">{{x.monthly_points}}</td>
+                <td class="text-center">{{x.top_score_all_time}}</td>
+                <td class="text-center">{{x.games_today}}</td>
+                <td class="text-center">{{x.number_of_games}}</td>
+                <td class="text-center">{{x.number_of_days_played_in_a_row}}</td>
+                <td class="text-center">{{x.longest_streak_questions_in_a_row}}</td>
+                <td class="text-center">
+                    <em>{{x.last_played}}</em>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</div>

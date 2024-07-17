@@ -1,0 +1,24 @@
+<div class="sidemenu">
+    <div class="text-end">
+        <small class="user_link" (click)="gotoUserAccount()">User</small>
+    </div>
+    <img class="logo" src="../../../../assets/images/logo_words.png" (click)="goto('home')">
+    <ul class="ulx">
+        <li class="sidemenu_item"  (click)="goto('winners')" [ngClass]="{'selectedx':page == 'winners'}">Winners</li>
+        <li class="sidemenu_item"  (click)="goto('users')" [ngClass]="{'selectedx':page == 'users'}">Users</li>
+        <li class="sidemenu_item"  (click)="goto('venues')" [ngClass]="{'selectedx':page == 'venues'}">Venues</li>
+        <li class="sidemenu_item"  (click)="goto('advertisements-manager')" [ngClass]="{'selectedx':page == 'advertisement_accounts'}">Ad Accounts</li>
+        <li class="sidemenu_item"  (click)="goto('database')" [ngClass]="{'selectedx':page == 'questions'}">Questions</li>
+        
+
+        <!--
+        <li class="sidemenu_item" (click)="goto('a/projects')" [ngClass]="{'selectedx':page == 'projects'}">Projects</li>
+        
+        <li class="sidemenu_item" (click)="goto('a/users')" [ngClass]="{'selectedx':page == 'users'}">Users</li>
+        <li class="sidemenu_item" (click)="goto('a/logs')" [ngClass]="{'selectedx':page == 'logs'}">Logs</li>
+        -->
+
+       
+        <li class="sidemenu_item logout" (click)="signOut()">Log out</li>
+    </ul>
+</div>

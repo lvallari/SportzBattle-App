@@ -5,15 +5,15 @@ import { QuestionsService } from '../../services/questions.service';
 import { TablesService } from '../../services/tables.service';
 import { MyblobService } from '../../services/myblob.service';
 import { UploadService } from '../../services/upload.service';
-import { SidemenuComponent } from '../../components/sidemenu/sidemenu.component';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { AdminSidemenuComponent } from '../admin-sidemenu/admin-sidemenu.component';
 declare var $: any;
 
 @Component({
   selector: 'app-database',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,  SidemenuComponent, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule,  AdminSidemenuComponent, CommonModule],
   templateUrl: './database.component.html',
   styleUrl: './database.component.scss'
 })

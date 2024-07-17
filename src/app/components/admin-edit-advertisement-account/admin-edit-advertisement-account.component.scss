@@ -1,9 +1,5 @@
 @import '../../../globals.scss';
 
-.contentsx{
-    padding: 40px 100px;
-}
-
 .form_container{
     width: 100%;
     max-width: 480px;
@@ -24,4 +20,27 @@
     padding: 20px;
     background-color: lightyellow;
     font-style: italic;
+}
+
+.preview{
+    width:100px;
+    height:100px;
+    object-fit: contain;
+    margin:5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.images_container{
+    padding: 30px 0;
+}
+
+.spinner{
+    height:120px;
+    margin:auto;
+    display: block;
+}
+
+.image_preview{
+    width:100%;
 }

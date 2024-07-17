@@ -1,0 +1,39 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contents">
+    <div class="page_title">Winners</div>
+    <div class="labelfd">Select date</div>
+    <dp-date-picker [(ngModel)]="selected_date" [config]="datePickerConfig" (ngModelChange)="evalSelectedDate()"></dp-date-picker>
+    
+    @if (players.length > 0){
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th class="text-center">Games</th>
+                <th class="text-center">Max Score</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (user of players;track user.user_id){
+            <tr>
+                <td>
+                    <img class="user_image" src={{user.image}}>{{user.username}}
+                </td>
+                <td class="text-center">{{user.number_of_games}}</td>
+                <td class="text-center">{{user.max_score}}</td>
+                <td>
+                    <button class="btn btn-default button_primary" (click)="requestInfo()">Request Identity Verification</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+    @else {
+        <div class="text-center" style="padding:30px 0;">
+            <em>There were no games on this date.</em>
+        </div>
+    }
+
+</div>

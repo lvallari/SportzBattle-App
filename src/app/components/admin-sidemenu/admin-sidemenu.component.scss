@@ -1,0 +1,61 @@
+@import '../../../globals.scss';
+
+.sidemenu {
+    /*background-color: $color-one;*/
+    background: linear-gradient(0deg, #33ccff, #000000);
+    height: 100vh;
+    color: $color-one;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: 'roboto-medium';
+    width:220px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.sidemenu_item {
+    cursor: pointer;
+    padding-left: 15px;
+    border-bottom: solid 2px transparent;
+    color:white;
+    font-family: 'roboto-medium';
+}
+
+.sidemenu_item:hover{
+    border-bottom: solid 2px $color-one;
+}
+
+.logo {
+    cursor: pointer;
+    /* width: 100%; */
+    height: 35px;
+    max-width: 160px;
+    margin: auto;
+    display: block;
+}
+
+.ulx{
+    list-style-type: none;
+    padding:60px 0 0 0; 
+}
+
+.selectedx{
+    background-color: $color-one;
+    color: white;
+}
+
+.logout{
+    padding-top:40px;
+}
+
+.user_link{
+    color:white;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.user_link:hover{
+    text-decoration: underline;
+}

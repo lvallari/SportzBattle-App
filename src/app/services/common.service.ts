@@ -301,11 +301,15 @@ formatDateLabel(monthIdx:number, date:number) {
   const month = monthNames[monthIdx];
   return `${month} ${date}`;
 }
-formatDateToYYYYMMDD(val:string){
+formatDateToYYYYMMDD(item:any){
+
+  console.log('item', item);
 
   //val has value MM-DD-YYYY
-  var tags = val.split('-');
-  return tags[2] + '-' + tags[0] + '-' + tags[1];
+  //var tags = val.split(' ');
+  //console.log('tags', tags);
+  if (item) return (item.$M+1) + '/' + item.$D + '/' + item.$y;
+  else return '0';
 }
 
 formatMonthLabel(monthIdx:number, year:number) {

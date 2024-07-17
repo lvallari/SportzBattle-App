@@ -27,6 +27,7 @@ export class UserSidemenuComponent {
 
     this.userService._getUser.subscribe((currentUser) => {
       this.user = currentUser;
+      console.log('this.user', this.user);
     });
 
     //console.log(this.router.url);
@@ -40,6 +41,11 @@ export class UserSidemenuComponent {
   signOut(){
     this.userService.logoutUser();
   }
+
+  gotoAdminAccount(){
+    this.router.navigate(['admin/winners']);
+  }
+  
 
 
 }

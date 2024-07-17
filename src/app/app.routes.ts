@@ -13,6 +13,12 @@ import { BusinessProfileComponent } from './components/business-profile/business
 import { BusinessUsersComponent } from './components/business-users/business-users.component';
 import { UserVerificationComponent } from './components/user-verification/user-verification.component';
 import { AdminEditAdvertisementAccountComponent } from './components/admin-edit-advertisement-account/admin-edit-advertisement-account.component';
+import { AdminAdvertisementsManagerComponent } from './components/admin-advertisements-manager/admin-advertisements-manager.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminVenuesComponent } from './components/admin-venues/admin-venues.component';
+import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { AdminWinnersComponent } from './components/admin-winners/admin-winners.component';
 
 
 export const routes: Routes = [
@@ -23,12 +29,18 @@ export const routes: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'leaderboard', component: LeaderboardComponent},
     { path: 'play', component: GameScreenComponent},
+    { path: 'terms-of-service', component: TermsOfServiceComponent},
+    { path: 'privacy-policy', component: PrivacyPolicyComponent},
     { path: 'user-dashboard', component: UserDashboardComponent},
     { path: 'business-dashboard', component: BusinessDashboardComponent},
     { path: 'business-profile', component: BusinessProfileComponent},
     { path: 'business-users', component: BusinessUsersComponent},
     { path: 'user-verification', component: UserVerificationComponent},
-    { path: 'database', component: DatabaseComponent},
-    { path: 'admin/edit-advertisement-account', component: AdminEditAdvertisementAccountComponent}
+    { path: 'admin/database', component: DatabaseComponent},
+    { path: 'admin/edit-advertisement-account/:advertisement_account_id', component: AdminEditAdvertisementAccountComponent},
+    { path: 'admin/advertisements-manager', component: AdminAdvertisementsManagerComponent},
+    { path: 'admin/users', component: AdminUsersComponent},
+    { path: 'admin/venues', component: AdminVenuesComponent},
+    { path: 'admin/winners', component: AdminWinnersComponent}
 
 ];

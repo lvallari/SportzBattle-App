@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
 //import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class SidemenuComponent implements OnInit {
     //public userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
+    public userService: UserService
   ){ }
 
   ngOnInit(): void {
@@ -39,7 +41,11 @@ export class SidemenuComponent implements OnInit {
 
   
   signOut(){
-    //this.userService.logoutUser();
+    this.userService.logoutUser();
+  }
+
+  gotoAdminAccount(){
+    this.router.navigate(['admin/winners']);
   }
   
 

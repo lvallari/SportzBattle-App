@@ -189,6 +189,22 @@ getUserStats(user_id:number){
   )
 }
 
+getUserStatsForAdmin(){
+  return this.http.get<any>(this.baseurl+'/stats-users', this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getVenueStatsForAdmin(){
+  return this.http.get<any>(this.baseurl+'/stats-venues', this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
 getGamesByVenue(venue_id:number){
   return this.http.get<any>(this.baseurl+'/gamesByVenue?id=' + venue_id, this.httpOptions)
   .pipe(
@@ -223,6 +239,14 @@ getUsersByVenue(venue_id:number){
 
 downloadUsersByVenue(venue_id:number){
   return this.http.get<any>(this.baseurl+'/downloadUsersByVenue?id=' + venue_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getPlayersByDate(date:string){
+  return this.http.get<any>(this.baseurl+'/getPlayersByDate?date=' + date, this.httpOptions)
   .pipe(
     retry(0),
     catchError(this.errorHandl),

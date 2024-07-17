@@ -1,0 +1,26 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contents">
+    <div class="page_title">Venues</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Venue</th>
+                <th class="text-center">Number of Players</th>
+                <th class="text-center">Total Games</th>
+                <th class="text-center">Today Games</th>
+                <th class="text-center">Monthly Games</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (x of venues;track x.venue_id){
+            <tr>
+                <td>{{x.business_name}}</td>
+                <td class="text-center">{{x.number_of_players}}</td>
+                <td class="text-center">{{x.total_games}}</td>
+                <td class="text-center">{{x.today_games}}</td>
+                <td class="text-center">{{x.monthly_games}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

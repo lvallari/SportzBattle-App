@@ -1,4 +1,7 @@
 <div class="sidemenu">
+    <div class="text-end">
+        <small class="user_link" (click)="gotoAdminAccount()">Admin</small>
+    </div>
     <img class="logo" src="../../../../assets/images/logo_words.png" (click)="goto('home')">
     <ul class="ulx">
         <li class="sidemenu_item"  (click)="goto('questions')" [ngClass]="{'selectedx':page == 'questions'}">Questions</li>
