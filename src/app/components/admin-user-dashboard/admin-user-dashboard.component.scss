@@ -1,0 +1,102 @@
+@import '../../../globals.scss';
+
+
+.user_details {
+    padding: 60px 40px 0px 40px;
+    position: relative;
+    margin: auto;
+    display: block;
+}
+
+.dashboard_contents{
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    display: block;
+    padding-bottom: 100px;
+}
+
+.user_image{
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.user_name{
+    font-size: 20px;
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:20px;
+    color: white;
+}
+
+.box_title{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 24px;
+    text-align: center;
+    padding: 7px 0;
+    margin: auto;
+}
+
+.box_number{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 20px;
+    text-align: center;
+    background-color: #33ccff;
+    padding: 25px 0px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+
+.box_rank{
+    font-style: italic;
+    font-size:18px;
+    color:white;
+    text-align: center;
+}
+
+
+.rowx{
+    margin:0;
+    border-bottom: solid 1px white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: solid 1px white;
+}
+
+.play_now_button{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table_container{
+    padding: 30px 0;
+}
+
+.back_button{
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+   .backgroundx{
+    padding:0px;
+   }
+
+   .box_title{
+        max-width:166px;
+   }
+}

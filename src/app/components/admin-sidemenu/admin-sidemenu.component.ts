@@ -37,6 +37,16 @@ export class AdminSidemenuComponent implements OnInit {
     this.router.navigate(['admin/' + route]);
   }
 
+  gotoWinners(){
+    //pass current date as parameter
+    var month = new Date().getMonth() + 1;
+    var day = new Date().getDate();
+    var year = new Date().getFullYear();
+    var str = month + '-' + day + '-' + year;
+    
+    this.router.navigate(['admin/winners/' + str]);
+  }
+
   
   signOut(){
     this.userService.logoutUser();

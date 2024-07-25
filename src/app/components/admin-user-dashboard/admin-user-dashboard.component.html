@@ -1,0 +1,141 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="background backgroundx">
+    <div class="dashboard_contents">
+        
+        @if (userx){
+        <div class="user_details">
+            <div class="text-start">
+                <button class="btn btn-default back_button" (click)="goBack()">
+                    <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
+                </button>
+            </div>
+            <img class="user_image" src="{{userx.image}}">
+            <div class="user_name">{{userx.name}}</div>
+            <!--
+            <div class="text-end">
+                <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
+            </div>
+            -->
+        </div>
+        }
+
+        <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
+
+
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Total Points</div>
+                <div class="box_number">{{stats.all_time_points}}</div>
+                @if(stats.all_time_points_number_players > 0 && stats.number_of_games > 0){
+                    <div class="box_rank">{{stats.all_time_points_rank_suffix}} out of {{stats.all_time_points_number_players}}</div>
+                }
+                @else{
+                    <div class="box_rank">-</div>
+                }
+            </div>
+            <div class="col-6">
+                <div class="box_title">Daily High Points</div>
+                <div class="box_number">{{stats.high_points_today}}</div>
+                @if(stats.high_points_today_number_players > 0 && stats.games_today > 0){
+                <div class="box_rank">{{stats.high_points_today_rank_suffix}} out of {{stats.high_points_today_number_players}}</div>
+                }
+                @else{
+                    <div class="box_rank">-</div>
+                }
+            </div>
+            
+        </div>
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Monthly Points</div>
+                <div class="box_number">{{stats.monthly_points}}</div>
+                @if(stats.monthly_points_number_players > 0 && stats.number_of_games > 0){
+                    <div class="box_rank">{{stats.monthly_points_rank_suffix}} out of {{stats.monthly_points_number_players}}</div>
+                }
+                @else{
+                    <div class="box_rank">-</div>
+                }
+                
+            </div>
+            <div class="col-6">
+                <div class="box_title">All-time Top Score</div>
+                <div class="box_number">{{stats.top_score_all_time}}</div>
+                @if(stats.top_score_all_time_number_players > 0 && stats.number_of_games > 0){
+                    <div class="box_rank">{{stats.top_score_all_time_rank_suffix}} out of {{stats.top_score_all_time_number_players}}</div>
+                }
+                @else{
+                    <div class="box_rank">-</div>
+                }
+            </div>
+        </div>
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Today Games</div>
+                <div class="box_number">{{stats.games_today}}</div>
+                @if(stats.games_today_number_players > 0 && stats.games_today > 0){
+                    <div class="box_rank">{{stats.games_today_rank_suffix}} out of {{stats.games_today_number_players}}</div>
+                }
+                @else{
+                    <div class="box_rank">-</div>
+                }
+            </div>
+            <div class="col-6">
+                <div class="box_title">Total Games</div>
+                <div class="box_number">{{stats.number_of_games}}</div>
+                @if(stats.number_of_games_number_players > 0 && stats.number_of_games > 0){
+                    <div class="box_rank">{{stats.number_of_games_rank_suffix}} out of {{stats.number_of_games_number_players}}</div>
+                }
+                @else{
+                    <div class="box_rank">-</div>
+                }
+            </div>
+            
+        </div>
+       
+
+        <div class="table_container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="tc"></th>
+                        <th class="tc">Questions</th>
+                        <th class="tc">Correct</th>
+                        <th class="tc">Pct %</th>
+                        <th class="tc">Ranking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tc">All</td>
+                        <td class="tc">{{stats.all_questions}}</td>
+                        <td class="tc">{{stats.all_correct}}</td>
+                        <td class="tc">{{stats.all_pct}}%</td>
+                        <td class="tc">{{stats.all_pct_rank_suffix}}</td>
+                    </tr>
+                    <tr>
+                        <td class="tc">NBA</td>
+                        <td class="tc">{{stats.all_nba}}</td>
+                        <td class="tc">{{stats.nba_correct}}</td>
+                        <td class="tc">{{stats.nba_pct}}%</td>
+                        <td class="tc">{{stats.nba_pct_rank_suffix}}</td>
+                    </tr>
+                    <tr>
+                        <td class="tc">NFL</td>
+                        <td class="tc">{{stats.all_nfl}}</td>
+                        <td class="tc">{{stats.nfl_correct}}</td>
+                        <td class="tc">{{stats.nfl_pct}}%</td>
+                        <td class="tc">{{stats.nfl_pct_rank_suffix}}</td>
+                    </tr>
+                    <tr>
+                        <td class="tc">MLB</td>
+                        <td class="tc">{{stats.all_mlb}}</td>
+                        <td class="tc">{{stats.mlb_correct}}</td>
+                        <td class="tc">{{stats.mlb_pct}}%</td>
+                        <td class="tc">{{stats.mlb_pct_rank_suffix}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>

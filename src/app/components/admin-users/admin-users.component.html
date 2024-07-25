@@ -2,10 +2,24 @@
 <div class="contents">
     <div class="page_title">Users</div>
 
+    <div class="search_container">
+        <input type="text" class="form-control inputx" placeholder="Search by username or email" [(ngModel)]="query" (ngModelChange)="filter()">
+        <div class="search_icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        @if (query){
+        <div class="clear_icon" (click)="query='';filter()">
+            <i class="fa-solid fa-times"></i>
+        </div>
+        }
+    </div>
+
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Username</th>
+                <th>Email</th>
                 <th class="text-center">Total Points</th>
                 <th class="text-center">Daily High Points</th>
                 <th class="text-center">Monthly Points</th>
@@ -20,10 +34,12 @@
         <tbody>
             @for(x of users;track x.user_id){
             <tr>
-                <td>
+                <td>{{x.user_id}}</td>
+                <td class="clickable" (click)="gotoUser(x)">
                     <img class="user_image" src="{{x.image}}">
                     {{x.username}}
                 </td>
+                <td class="clickable" (click)="gotoUser(x)">{{x.email}}</td>
                 <td class="text-center">{{x.all_time_points}}</td>
                 <td class="text-center">{{x.high_points_today}}</td>
                 <td class="text-center">{{x.monthly_points}}</td>

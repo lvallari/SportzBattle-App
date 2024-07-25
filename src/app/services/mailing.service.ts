@@ -37,15 +37,16 @@ export class MailingService {
   }
 
   
-  passwordReset(user:any){
+  passwordReset(user:any, token:string){
     //console.log('mailing.resetPassword');
-      
+
       var data = {
         user_id: user.user_id,
-        email: user.email
+        email: user.email, 
+        link_url: 'https://sportzbattle.azurewebsites.net/password-reset?token=' + token
       }
       
-      this.sendMailRequest('passwordReset',data).subscribe((data: any) => { 
+      this.sendMailRequest('passwordReset', data).subscribe((data: any) => { 
         console.log('Password reset has been sent');
       });
   }

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TablesService } from '../../services/tables.service';
 import { UserService } from '../../services/user.service';
+import { CommonService } from '../../services/common.service';
 import { MailingService } from '../../services/mailing.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -31,7 +32,8 @@ export class LoginComponent {
   constructor(
     public userService: UserService,
     public mailingService: MailingService,
-    public tablesService: TablesService
+    public tablesService: TablesService,
+    public commonService: CommonService
   ){
 
     this.userService._loginStatus.subscribe((data) => {
@@ -87,7 +89,20 @@ export class LoginComponent {
   sendResetPassword(){
     this.tablesService.GetFilteredX('users','email',this.reset_email,'user_id,email').subscribe((data:any) => {
       var user = data[0];
-      if(user) this.mailingService.passwordReset(user);
+      if(user) {
+        
+        //write token and expiration date
+        var user_object = {
+          user_id: user.user_id,
+          password_reset_token: this.commonService.generateToken(),
+          password_reset_expiration: Date.now() + (1000 * 60 * 60 * 24 * 1)
+        }
+
+        this.tablesService.UpdateItem('users', 'user_id', user_object).subscribe();
+
+        this.mailingService.passwordReset(user, user_object.password_reset_token);
+
+      }
       $('#passwordResetModal').modal('hide');
       //$('#emailVerificationLinkSentModal').modal('show');
       this.page = 'notification';

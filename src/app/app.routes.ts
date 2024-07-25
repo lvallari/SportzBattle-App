@@ -19,6 +19,8 @@ import { AdminVenuesComponent } from './components/admin-venues/admin-venues.com
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { AdminWinnersComponent } from './components/admin-winners/admin-winners.component';
+import { AdminUserDashboardComponent } from './components/admin-user-dashboard/admin-user-dashboard.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 
 export const routes: Routes = [
@@ -36,11 +38,14 @@ export const routes: Routes = [
     { path: 'business-profile', component: BusinessProfileComponent},
     { path: 'business-users', component: BusinessUsersComponent},
     { path: 'user-verification', component: UserVerificationComponent},
+    { path: 'password-reset', component: PasswordResetComponent},
     { path: 'admin/database', component: DatabaseComponent},
     { path: 'admin/edit-advertisement-account/:advertisement_account_id', component: AdminEditAdvertisementAccountComponent},
     { path: 'admin/advertisements-manager', component: AdminAdvertisementsManagerComponent},
     { path: 'admin/users', component: AdminUsersComponent},
     { path: 'admin/venues', component: AdminVenuesComponent},
-    { path: 'admin/winners', component: AdminWinnersComponent}
+    { path: 'admin/winners/:date', component: AdminWinnersComponent},
+    { path: 'admin/user-dashboard/:user_id', component: AdminUserDashboardComponent},
+    { path: '**', component: HomeComponent}
 
 ];
