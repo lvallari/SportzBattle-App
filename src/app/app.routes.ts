@@ -21,6 +21,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { AdminWinnersComponent } from './components/admin-winners/admin-winners.component';
 import { AdminUserDashboardComponent } from './components/admin-user-dashboard/admin-user-dashboard.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { AdminUserVerificationComponent } from './components/admin-user-verification/admin-user-verification.component';
 
 
 export const routes: Routes = [
@@ -37,7 +38,7 @@ export const routes: Routes = [
     { path: 'business-dashboard', component: BusinessDashboardComponent},
     { path: 'business-profile', component: BusinessProfileComponent},
     { path: 'business-users', component: BusinessUsersComponent},
-    { path: 'user-verification', component: UserVerificationComponent},
+    { path: 'user-verification/:token', component: UserVerificationComponent},
     { path: 'password-reset', component: PasswordResetComponent},
     { path: 'admin/database', component: DatabaseComponent},
     { path: 'admin/edit-advertisement-account/:advertisement_account_id', component: AdminEditAdvertisementAccountComponent},
@@ -46,6 +47,7 @@ export const routes: Routes = [
     { path: 'admin/venues', component: AdminVenuesComponent},
     { path: 'admin/winners/:date', component: AdminWinnersComponent},
     { path: 'admin/user-dashboard/:user_id', component: AdminUserDashboardComponent},
+    { path: 'admin/user-verification/:user_id', component: AdminUserVerificationComponent},
     { path: '**', component: HomeComponent}
 
 ];

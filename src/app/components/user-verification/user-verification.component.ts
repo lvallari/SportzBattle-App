@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ActivatedRoute, Router} from "@angular/router";
+import { CommonService } from '../../services/common.service';
+import { TablesService } from '../../services/tables.service';
+import { MyblobService } from '../../services/myblob.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-user-verification',
@@ -9,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './user-verification.component.html',
   styleUrl: './user-verification.component.scss'
 })
-export class UserVerificationComponent {
+export class UserVerificationComponent implements OnInit{
 
   months:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   states:string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 
@@ -33,12 +39,135 @@ export class UserVerificationComponent {
     state_of_residence: 'Alabama'
   };
 
+  token!:string;
+  user_id!:number;
+  user:any;
+
+  image_type!:string;
+  file!:File;
+  show_spinner:boolean = false;
+  page:string = 'form';
+
+  constructor(
+    public commonService: CommonService,
+    public tablesService: TablesService,
+    public myblobService: MyblobService,
+    public router: Router,
+    public route: ActivatedRoute
+  ){
+    this.route.params.subscribe( (params:any) => {
+      this.token = params['token'];
+    });
+  }
+
+  ngOnInit(): void {
+    var userx = JSON.parse(this.commonService.decrypt('sb2024', this.token));
+    this.user_id = userx.user_id;
+    this.loadUser();
+  }
+
   clearAlerts(){
+    this.itemx.invalid_full_name = '';
+    this.itemx.invalid_state_of_residence = '';
+    this.itemx.invalid_date_of_birth = '';
+    this.itemx.invalid_venmo = '';
+    this.itemx.invalid_drivers_license = '';
+    this.itemx.invalid_selfie = '';
+  }
+
+  fileChangeEvent(event: any, type: string) {
+    console.log('event', event);
+    this.image_type = type;
+    //this.image_preview = event.target.result;
+    const file = event.target.files[0];
+    this.file = file;
+    const preview = document.getElementById('image_preview');
+    const reader = new FileReader();
+   
+    if (file) {
+      reader.onload = function (e) {
+        const img = new Image();
+        //img.onload = function() { }
+        if (e.target) img.src = <string>e.target.result;
+        
+        //if (e.target) img.src = <string>e.target.result;
+        if (preview && e.target) {
+          preview.innerHTML = `<img style="margin:auto;display:block;max-width:100%;" src="${e.target.result}" alt="Image Preview">`;
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      if (preview) preview.innerHTML = '<span>No image selected</span>';
+    }
+    $('#imagePreviewModal').modal('show');
+  }
+
+  loadUser(){
+    this.tablesService.GetFiltered('users','user_id', this.user_id).subscribe((data:any) => {
+      this.user = data[0];
+    })
+  }
+
+  submit(){
+
+    /*
+    invalid_state_of_residence
+invalid_date_of_birth
+invalid_venmo
+invalid_drivers_license
+invalid_selfie
+    */
+
+    if (!this.itemx.full_name) this.itemx.invalid_full_name = 'Please enter a valid full name.';
+    if (!this.itemx.state_of_residence) this.itemx.invalid_state_of_residence = 'Please enter a valid state of residence.';
+    if (!this.itemx.date_of_birth_day || !this.itemx.date_of_birth_month || !this.itemx.date_of_birth_year) this.itemx.invalid_date_of_birth = 'Please enter a valid date of birth.';
+    if (!this.itemx.venmo) this.itemx.invalid_venmo = 'Please enter a valid venmo.';
+    if (!this.itemx.drivers_license) this.itemx.invalid_drivers_license = 'Please upload your drivers license.';
+    if (!this.itemx.selfie) this.itemx.invalid_selfie = 'Please enter a valid selfie.';
+
+    if (this.itemx.invalid_full_name || this.itemx.invalid_state_of_residence || this.itemx.invalid_date_of_birth || 
+      this.itemx.invalid_venmo || this.itemx.invalid_drivers_license || this.itemx.invalid_selfie) return;
+
+  
+    var object = {
+      user_id: this.user_id,
+      full_name: this.itemx.full_name,
+      state_of_residence: this.itemx.state_of_residence,
+      date_of_birth: this.itemx.date_of_birth_month + '-' +  this.itemx.date_of_birth_day + '-' + this.itemx.date_of_birth_year,
+      venmo: this.itemx.venmo,
+      drivers_license: this.itemx.drivers_license,
+      selfie: this.itemx.selfie
+    }
+
+    this.tablesService.AddItem('user_verifications', object).subscribe(() => {
+      this.page = 'thank-you';
+    })
+
 
   }
 
-  fileChangeEvent(event:any){
+  async uploadImage(){
 
+    this.show_spinner = true;
+
+    await this.myblobService.uploadVerificationDocument(this.file, this.user_id + '/' + this.file.name);
+
+    
+    await this.timeout(2000);
+
+    if (this.image_type == 'drivers-license') this.itemx.drivers_license = 'https://sportzbattle.blob.core.windows.net/verification-docs/' + this.user_id + '/' + this.file.name;
+    else if (this.image_type == 'selfie') this.itemx.selfie = 'https://sportzbattle.blob.core.windows.net/verification-docs/' + this.user_id + '/' + this.file.name;
+    //this.getImages();
+    this.show_spinner = false;
+    $('#imagePreviewModal').modal('hide');
+  }
+
+  closeModal(name: string) {
+    $('#' + name).modal('hide');
+  }
+
+  timeout(ms:number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 

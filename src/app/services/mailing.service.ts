@@ -51,6 +51,23 @@ export class MailingService {
       });
   }
 
+  requestInfo(data:any){
+    //console.log('mailing.resetPassword');
+
+      var object = {
+        user_id: data.user_id,
+        email: data.email, 
+        verification_link: 'https://sportzbattle.azurewebsites.net/user-verification/' + data.token,
+        rank: data.rank,
+        prize: data.prize,
+        date: data.date
+      }
+      
+      this.sendMailRequest('requestInfo', object).subscribe((data: any) => { 
+        console.log('Password reset has been sent');
+      });
+  }
+
   accountCreated(user:any){
     //console.log('mailing.resetPassword');
       
