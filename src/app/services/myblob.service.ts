@@ -185,7 +185,13 @@ export class MyblobService {
       catchError(this.errorHandl),
     )
   }
-
+  getActiveFiles(): Observable<any> {
+    return this.http.get<any>( environment.baseurl + '/blob/getActiveAdvertisementFiles', this.httpOptions).pipe(
+      retry(1),
+      catchError(this.errorHandl),
+    )
+  }
+  
   // Error handling
   errorHandl(error:any) {
     let errorMessage = '';

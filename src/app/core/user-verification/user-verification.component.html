@@ -1,0 +1,146 @@
+<div class="contentsx">
+
+    @if (page == 'form'){
+    <div class="page_title">User Verification</div>
+    @if (user){
+        <strong>{{user.username}}</strong><br>
+    }
+    <p>We are required to verify our users identity before we submit a money prize. Please fill out the following form
+        and upload the requested documents.</p>
+
+    <div class="form_container">
+        <div class="input_container">
+            <div class="labelf">1. Full Name</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.full_name" (ngModelChange)="clearAlerts()">
+            <div [hidden]="!itemx.invalid_full_name" class="form_alert">{{itemx.invalid_full_name}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">2. State of Residence</div>
+            <select class="form-control dropdown-toggle sort_dropdown" [(ngModel)]="itemx.state_of_residence"
+                (ngModelChange)="clearAlerts()">
+                <option class="dropdown_option" *ngFor="let y of states" [value]="y">
+                    {{ y }}
+                </option>
+            </select>
+            <div [hidden]="!itemx.invalid_state_of_residence" class="form_alert">{{itemx.invalid_state_of_residence}}
+            </div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">3. Date of birth</div>
+            <div class="row">
+                <div class="col-4">
+                    <small><em>Month</em></small>
+                    <select class="form-control dropdown-toggle sort_dropdown"
+                        [(ngModel)]="itemx.date_of_birth_month" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of months" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <small><em>Day</em></small>
+                    <select class="form-control dropdown-toggle sort_dropdown"
+                        [(ngModel)]="itemx.date_of_birth_day" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of days" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <small><em>Year</em></small>
+                    <select class="form-control dropdown-toggle sort_dropdown"
+                        [(ngModel)]="itemx.date_of_birth_year" (ngModelChange)="clearAlerts()">
+                        <option class="dropdown_option" *ngFor="let y of years" [value]="y">
+                            {{ y }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div [hidden]="!itemx.invalid_date_of_birth" class="form_alert">{{itemx.invalid_date_of_birth}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">4. Preferred Payment Method</div>
+            <!--
+            <input type="text" class="form-control" [(ngModel)]="itemx.venmo" (ngModelChange)="clearAlerts()">
+            <div [hidden]="!itemx.invalid_venmo" class="form_alert">{{itemx.invalid_venmo}}</div>
+            -->
+            <div class="row">
+                <div class="col-6">
+                    <label>
+                        <input type="radio" name="options" [(ngModel)]="itemx.payment_method" value="venmo"> Venmo
+                        &nbsp;<input type="text" class="form-control" [(ngModel)]="itemx.venmo" placeholder="@venmo-username" (ngModelChange)="clearAlerts()">
+                    </label>
+                </div>
+                <div class="col-6">
+                    <label>
+                        <input type="radio" name="options" [(ngModel)]="itemx.payment_method" value="cashapp"> Cash App
+                        &nbsp;<input type="text" class="form-control" [(ngModel)]="itemx.cashtag" placeholder="@cashtag" (ngModelChange)="clearAlerts()">
+                    </label>
+                </div>
+            </div>
+            <div [hidden]="!itemx.invalid_payment" class="form_alert">{{itemx.invalid_payment}}</div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="input_container">
+                    <div class="labelf">5. Drivers License</div>
+                    <small><em>Upload a photo of the front of your drivers license.</em></small>
+                    <input type="file" (change)="fileChangeEvent($event,'drivers-license')" (ngModelChange)="clearAlerts()">
+                    <img *ngIf="itemx.drivers_license" class="image" src="{{itemx.drivers_license}}">
+                    
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="input_container">
+                    <div class="labelf">6. Selfie</div>
+                    <small><em>Upload a selfie photo that shows your face.</em></small>
+                    <input type="file" (change)="fileChangeEvent($event, 'selfie')" (ngModelChange)="clearAlerts()">
+                    <img *ngIf="itemx.selfie" class="image" src="{{itemx.selfie}}">
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="padding:40px 0;">
+            <button class="btn btn-default button_primary" (click)="submit()">SUBMIT</button>
+        </div>
+    </div>
+}
+@else if (page == 'thank-you'){
+    <div class="text-center" style="padding:50px 0;">
+        <img class="check" src="../../../assets/images/green_checkmark.png">
+        <p><em>Thank you. Your information has been submitted. Someone from the Sportzbattle team will be in touch shortly. You can now close this tab.</em></p>
+    </div>
+}
+</div>
+
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('imagePreviewModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div *ngIf="show_spinner == false" id="image_preview">
+                    <span>No image selected</span>
+                </div>
+
+                <div *ngIf="show_spinner == true">
+                    <img class="spinner" src="../../../assets/images/spinner.gif">
+                </div>
+
+                @if (show_spinner == false){
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="uploadImage()">SELECT</button>
+                </div>
+                }
+                @else {
+                <div class="text-center" style="padding: 25px 0;">
+                    <p><em>Uploading image...</em></p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

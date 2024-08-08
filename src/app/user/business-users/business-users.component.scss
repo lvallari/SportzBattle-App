@@ -1,0 +1,44 @@
+@import '../../../globals.scss';
+
+.backgroundx{
+    /*padding-left: 200px;*/
+}
+
+.title{
+    font-family: 'orbitron-bold';
+    font-size: 36px;
+    color: $color-one;
+    text-align: center;
+    padding: 40px 0 0 0;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    /*text-align: center;*/
+    font-weight: 600;
+}
+
+.table_container{
+    padding: 30px 0;
+}
+
+.graph_title{
+    font-family: 'orbitron-bold';
+    font-size:20px;
+    color: white;
+    text-align: center;
+}
+
+.tablex{
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.user_image{
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

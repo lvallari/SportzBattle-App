@@ -1,0 +1,76 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contentsx">
+
+    <div class="text-start">
+        <button class="btn btn-default" (click)="goBack()">
+            <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
+        </button>
+    </div>
+
+    <div class="page_title">User Details</div>
+    
+    <div class="form_container">
+        <div class="input_container">
+            <div class="labelfd">1. Full Name</div>
+            <input disabled type="text" class="form-control" [(ngModel)]="itemx.full_name">
+        </div>
+
+        
+        <div class="input_container">
+            <div class="labelfd">2. State of Residence</div>
+            <input disabled type="text" class="form-control" [(ngModel)]="itemx.state_of_residence">
+        </div>
+
+        <div class="input_container">
+            <div class="labelfd">3. Date of birth</div>
+            <input disabled type="text" class="form-control" [(ngModel)]="itemx.date_of_birth">
+        </div>
+
+
+        <div class="input_container">
+            <div class="labelfd">4. Payment Method</div>
+            @if (itemx.payment_method == 'venmo'){
+                <div class="payment_method">Venmo</div>
+                <input disabled type="text" class="form-control method_username" [(ngModel)]="itemx.venmo">
+            }
+            @else if (itemx.payment_method == 'cashapp'){
+                <div class="payment_method">Cash App</div>
+                <input disabled type="text" class="form-control method_username" [(ngModel)]="itemx.cashapp">
+            }
+        </div>
+
+        <div class="input_container">
+            <div class="labelfd">5. Drivers License</div>
+            <img class="thumbnail" src="{{itemx.drivers_license}}" (click)="seeImage(itemx.drivers_license)">
+        </div>
+
+        <div class="input_container">
+            <div class="labelfd">6. Selfie</div>
+            <img class="thumbnail" src="{{itemx.selfie}}" (click)="seeImage(itemx.selfie)">
+        </div>
+        
+    </div>
+</div>
+
+
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('imagePreviewModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <img class="image" src="{{image}}">
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary"
+                        (click)="closeModal('imagePreviewModal')">CLOSE</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

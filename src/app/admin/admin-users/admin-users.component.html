@@ -1,0 +1,76 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contents">
+    <div class="page_title">Users</div>
+
+    <div class="search_container">
+        <input type="text" class="form-control inputx" placeholder="Search by username or email" [(ngModel)]="query" (ngModelChange)="filter()">
+        <div class="search_icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        @if (query){
+        <div class="clear_icon" (click)="query='';filter()">
+            <i class="fa-solid fa-times"></i>
+        </div>
+        }
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th class="text-center">Total Points
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('all_time_points')"></i>
+                </th>
+                <th class="text-center">Daily High Points
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('high_points_today')"></i>
+                </th>
+                <th class="text-center">Monthly Points
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('monthly_points')"></i>
+                </th>
+                <th class="text-center">All-Time Top Score
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('top_score_all_time')"></i>
+                </th>
+                <th class="text-center">Today Games
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('games_today')"></i>
+                </th>
+                <th class="text-center">Total Games
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('number_of_games')"></i>
+                </th>
+                <th class="text-center">Max Days Played in a Row
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('number_of_days_played_in_a_row')"></i>
+                </th>
+                <th class="text-center">Max Questions Answered in a Row
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('longest_streak_questions_in_a_row')"></i>
+                </th>
+                <th class="text-center">Last Played
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('last_played')"></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(x of users;track x.user_id){
+            <tr>
+                <td>{{x.user_id}}</td>
+                <td class="clickable" (click)="gotoUser(x)">
+                    <img class="user_image" src="{{x.image}}">
+                    {{x.username}}
+                </td>
+                <td class="clickable" (click)="gotoUser(x)">{{x.email}}</td>
+                <td class="text-center">{{x.all_time_points}}</td>
+                <td class="text-center">{{x.high_points_today}}</td>
+                <td class="text-center">{{x.monthly_points}}</td>
+                <td class="text-center">{{x.top_score_all_time}}</td>
+                <td class="text-center">{{x.games_today}}</td>
+                <td class="text-center">{{x.number_of_games}}</td>
+                <td class="text-center">{{x.number_of_days_played_in_a_row}}</td>
+                <td class="text-center">{{x.longest_streak_questions_in_a_row}}</td>
+                <td class="text-center"><em>{{x.last_played}}</em>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</div>

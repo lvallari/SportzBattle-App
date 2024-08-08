@@ -1,0 +1,27 @@
+@import '../../../globals.scss';
+
+
+.contentsx{
+    padding-left: 250px;
+    padding-right: 20px;
+}
+
+.thumbnail{
+    width:175px;
+    cursor:pointer;
+}
+
+.image{
+    width:100%;
+}
+
+.payment_method{
+    display: inline-block;
+}
+
+.method_username{
+    width: 250px;
+    display: inline-block;
+    margin: 0 20px;
+}
+

@@ -96,10 +96,9 @@ export class UserService {
           }
           //else this.router.navigate(['/admin/profile/' + this.user.id]);
           else {
-            if (this.user.account_type == 'player') this.router.navigate(['user-dashboard']);
-            else if (this.user.account_type == 'business') this.router.navigate(['business-dashboard']);
-            else if (this.user.account_type == 'admin') this.router.navigate(['admin-dashboard']);
-
+            if (this.user.account_type == 'player') this.router.navigate(['user/user-dashboard']);
+            else if (this.user.account_type == 'business') this.router.navigate(['business/business-dashboard']);
+            else if (this.user.account_type == 'admin') this.router.navigate(['admin/admin-dashboard']);
             //$('#loginModal').modal('hide');
           }
         //}
