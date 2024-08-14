@@ -303,7 +303,7 @@ formatDateLabel(monthIdx:number, date:number) {
 }
 formatDateToYYYYMMDD(item:any){
 
-  console.log('item', item);
+  //console.log('item', item);
 
   //val has value MM-DD-YYYY
   //var tags = val.split(' ');

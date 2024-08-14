@@ -17,6 +17,7 @@ import { LeaderboardTableComponent } from './leaderboard-table/leaderboard-table
 import { AdvertisementPageComponent } from './advertisement-page/advertisement-page.component';
 import { PrepareScreenComponent } from './prepare-screen/prepare-screen.component';
 import { GameOverComponent } from './game-over/game-over.component';
+import { QrcodeComponent } from './qrcode/qrcode.component';
 
 
 
@@ -30,7 +31,8 @@ import { GameOverComponent } from './game-over/game-over.component';
     LeaderboardTableComponent,
     AdvertisementPageComponent,
     PrepareScreenComponent,
-    GameOverComponent
+    GameOverComponent, 
+    QrcodeComponent
   ],
   imports: [
     CommonModule,

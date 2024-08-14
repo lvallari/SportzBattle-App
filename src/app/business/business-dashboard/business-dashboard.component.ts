@@ -18,7 +18,7 @@ export class BusinessDashboardComponent implements OnInit, OnDestroy {
   daily_start_time: number = this.commonService.getEpochTimeForTodayAtMidnight();
   monthly_start_time: number = this.commonService.getFirstDayOfMonthEpoch();
 
-  games:any[] = [];
+  games!:any[];
   activity:any[] = [];
   max_score!:number;
   venue:any;
@@ -62,7 +62,7 @@ export class BusinessDashboardComponent implements OnInit, OnDestroy {
   getData(){
     this.userService.getGamesByVenue(this.user.venue_id).subscribe((data:any) => {
       this.games = data;
-      //console.log('this.games', this.games);
+      console.log('this.games', this.games);
       //console.log('daily_start_time', this.daily_start_time);
       this.players = [];
 

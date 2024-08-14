@@ -31,7 +31,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   user:any;
 
   ads:any[] = [];
-  banners:any[] = [];
+  banners!:any[];
 
   show_point_animation: boolean = false;
   points_value: number = 0;
@@ -70,7 +70,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.user.lives = 5;
       this.user.points = 0;
       this.user.rank = 3;
-      console.log('this.user', this.user);
+      //console.log('this.user', this.user);
       if (this.user.account_type == 'player'){
         this.createGame();
         this.getUserDailyHighScore();
@@ -111,7 +111,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   subscribeToSocket() {
     this.messagesSubscription = this.socketioService._getMessage.subscribe((message: any) => {
-      console.log('message', message);
+      //console.log('message', message);
 
       //check that a minimum of 5 sec have passed since loading
       var delta = Date.now() - this.start_timestamp;
@@ -138,8 +138,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
           this.page = 'advertisement';
           this.cycle_counter += 1;
         }
+        else if (this.message.message == 'qrcode') this.page = 'qrcode';
         else if (this.message.message == 'question') {
-          console.log('game logic');
           this.counter += 1;
           this.page = 'prepare_screen';
           this.question_notification = this.message.value_points + ' Pts';
@@ -184,7 +184,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                   
                   var questions = data.filter((x:any) => { return x.timestamp_question > time_threshold });
 
-                  console.log('questions', questions);
+                  //console.log('questions', questions);
 
                   var got_right_ctr = 0;
                   questions.forEach((x:any) => {
@@ -225,7 +225,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     //if (this.screen_width > 768 || this.question_active == false) return;
     if (this.user.account_type == 'business' || this.question_active == false) return;
 
-    console.log('answer selected');
+    //console.log('answer selected');
 
     this.question_active = false;
     //clearInterval(this.timerInterval);
@@ -284,8 +284,6 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   storeAnswer(value:boolean){
 
-    console.log('storeAnswer');
-    
     if (this.game_is_active != true) return;
 
     var object = {
@@ -296,7 +294,6 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     }
 
     this.tablesService.StoreUserActivity(object).subscribe();
-    console.log('answer stored');
   }
 
   createGame(){
@@ -333,6 +330,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       else this.ads = data.filter((x:any) => {return x.indexOf('/desktop/') > -1});
 
       this.banners = data.filter((x:any) => {return x.indexOf('/banner/') > -1});
+
+      //console.log('this.banners', this.banners);
     })
     
 

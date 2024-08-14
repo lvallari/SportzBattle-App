@@ -78,7 +78,7 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
     //this.userService.getGamesByVenue(1).subscribe((data: any) => {
     this.userService.getAllGames().subscribe((data: any) => {
       this.games = data.filter((x: any) => { return x.timestamp >= this.daily_start_time });
-      console.log('this.games', this.games);
+      //console.log('this.games', this.games);
       this.filterPlayers();
     })
   }
@@ -119,9 +119,6 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
     })
 
     this.data_ready =true;
-
-    console.log('this.games', this.games);
-    console.log('this.players', this.players);
 
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 
@@ -8,7 +8,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
   templateUrl: './business-dashboard-graph.component.html',
   styleUrl: './business-dashboard-graph.component.scss'
 })
-export class BusinessDashboardGraphComponent implements OnChanges {
+export class BusinessDashboardGraphComponent implements OnInit {
 
   @Input() games!: any[];
 
@@ -55,7 +55,9 @@ export class BusinessDashboardGraphComponent implements OnChanges {
       config: { displayModeBar: false, responsive: true, editable: false }
   };
 
-  ngOnChanges(): void {
+  ngOnInit(): void {
+
+    console.log('games',this.games);
 
       //organize graph data
       this.graph_data = [];

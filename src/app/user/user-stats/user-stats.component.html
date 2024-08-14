@@ -5,7 +5,7 @@
     {{user.name}}&nbsp;&nbsp;&nbsp;
     -->
     <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} | {{user.daily_high ?
-    user.daily_high:'-'}}
+    user.daily_high:user.points}}
     &nbsp;
     @if (show_lives){
     <div class="life_circle" [ngClass]="{'green':(user.lives >= 1)}"></div>

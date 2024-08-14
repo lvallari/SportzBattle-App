@@ -49,7 +49,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   getData(){
 
     this.userService.getUserStats(this.user.user_id).subscribe((data:any) => {
-      console.log('stats', data);
+      //console.log('stats', data);
       this.stats = data;
     })
 

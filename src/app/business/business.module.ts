@@ -4,6 +4,7 @@ import { BusinessRoutingModule, routingComponents } from './business-routing.mod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { BusinessDashboardGraphComponent } from './business-dashboard-graph/business-dashboard-graph.component';
+import { PlotlyModule } from 'angular-plotly.js';
 
 
 
@@ -17,7 +18,8 @@ import { BusinessDashboardGraphComponent } from './business-dashboard-graph/busi
     BusinessRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule, 
+    PlotlyModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

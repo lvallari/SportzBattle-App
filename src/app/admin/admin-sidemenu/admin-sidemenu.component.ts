@@ -11,6 +11,7 @@ export class AdminSidemenuComponent implements OnInit {
 
   page!:string;
   user!:any;
+  show_menu:boolean = false;
 
   constructor(
     public userService: UserService,
@@ -20,11 +21,9 @@ export class AdminSidemenuComponent implements OnInit {
 
   ngOnInit(): void {
 
-    /*
     this.userService._getUser.subscribe((currentUser) => {
       this.user = currentUser;
     });
-    */
 
     this.page = this.router.url.replace('/a/','');
     console.log('page', this.page);

@@ -28,12 +28,12 @@ export class UserStatsComponent implements OnChanges{
   }
 
   confirmExit(){
-    console.log('exitGame');
+    //console.log('exitGame');
     $('#confirmExitModal').modal('show');
   }
 
   exitGame(){
-    console.log('exit game');
+    //console.log('exit game');
     $('#confirmExitModal').modal('hide');
     if (this.user.account_type == 'player') this.router.navigate(['user/user-dashboard']);
     else this.router.navigate(['business/business-dashboard']);

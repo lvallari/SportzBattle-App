@@ -100,9 +100,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
     this.data_ready =true;
 
-    console.log('this.games', this.games);
-    console.log('this.players', this.players);
-
   }
 
 }

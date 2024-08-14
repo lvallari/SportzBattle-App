@@ -123,9 +123,7 @@ ngOnChanges(changes: SimpleChanges): void {
   ];
 
   var doc = document.getElementById('myrow');
-  console.log('doc', doc);
   if (doc) {
-    console.log('width', doc.offsetWidth);
     var width = doc.offsetWidth;
     this.graph.layout.width = width;
   }
@@ -134,7 +132,7 @@ ngOnChanges(changes: SimpleChanges): void {
   //this.graph.layout.width = this.graph.layout.width - 500;
   this.ready = true;
 
-  console.log('this.graph', this.graph);
+  //console.log('this.graph', this.graph);
 
 }
 

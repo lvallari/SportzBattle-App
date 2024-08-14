@@ -1,0 +1,7 @@
+<div class="join_text">{{message}}</div>
+<div class="text-center" style="padding:40px 0;">
+    <qrcode [qrdata]="'sptzba.com/join/' + venue_id" [width]="width" [margin]="2" [errorCorrectionLevel]="'M'"></qrcode>
+   
+</div>
+<div class="join_url">{{'sptzba.com/join/' + venue_id}}</div>
+<img class="banner" src="{{banner}}">

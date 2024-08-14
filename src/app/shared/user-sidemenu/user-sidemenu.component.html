@@ -36,6 +36,10 @@
         <i class="fa-solid fa-times"></i>
     </button>
 
+    <div class="text-end" *ngIf="user.is_admin == 1">
+        <small class="user_link" (click)="gotoAdminAccount()">Admin</small>
+    </div>
+
     <img class="logo" src="../../../assets/images/logo_words.jpeg">
 
     @if (user.account_type == 'player'){

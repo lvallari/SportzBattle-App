@@ -59,3 +59,42 @@
 .user_link:hover{
     text-decoration: underline;
 }
+
+
+.sidemenu_sm {
+    /*background-color: $color-one;*/
+    background: linear-gradient(0deg, #33ccff, #000000);
+    height: 100vh;
+    padding-top: 35px;
+    color: white;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: 'source-code-pro-regular';
+    width:185px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 2px solid white;
+    z-index: 100;
+}
+
+.close_menu{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: white;
+}
+
+.blue{
+    background-color: #3ccff0 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .sidemenu {
+      display: none;
+    }
+
+    .bottom_menu{
+        display: block;
+    }
+}

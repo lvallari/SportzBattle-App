@@ -22,3 +22,29 @@
         <li class="sidemenu_item logout" (click)="signOut()">Log out</li>
     </ul>
 </div>
+
+<button class="btn btn-default bottom_menu" (click)="show_menu = true;">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="sidemenu_sm" *ngIf="show_menu == true">
+
+    <button class="btn btn-default close_menu" (click)="show_menu = false;">
+        <i class="fa-solid fa-times"></i>
+    </button>
+
+    <div class="text-end" *ngIf="user.is_admin == 1">
+        <small class="user_link" (click)="gotoUserAccount()">User</small>
+    </div>
+
+    <img class="logo" src="../../../assets/images/logo_words.jpeg">
+
+    <ul class="ulx">
+        <li class="sidemenu_item"  (click)="gotoWinners()" [ngClass]="{'selectedx':page == 'winners'}">Winners</li>
+        <li class="sidemenu_item"  (click)="goto('users')" [ngClass]="{'selectedx':page == 'users'}">Users</li>
+        <li class="sidemenu_item"  (click)="goto('venues')" [ngClass]="{'selectedx':page == 'venues'}">Venues</li>
+        <li class="sidemenu_item"  (click)="goto('advertisements-manager')" [ngClass]="{'selectedx':page == 'advertisement_accounts'}">Ad Accounts</li>
+        <li class="sidemenu_item"  (click)="goto('database')" [ngClass]="{'selectedx':page == 'questions'}">Questions</li>
+    </ul>
+    
+</div>

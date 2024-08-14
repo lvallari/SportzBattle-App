@@ -17,7 +17,7 @@ export class QuestionFooter4Component implements OnChanges {
   banner!:string;
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('banners', this.banners);
+    //console.log('banners', this.banners);
     var index = Math.floor(Math.random() * this.banners.length);
     if (index == this.banners.length) index -= 1;
     this.banner = 'https://sportzbattle.blob.core.windows.net/advertisements/' + this.banners[index];

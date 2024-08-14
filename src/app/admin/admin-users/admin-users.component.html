@@ -1,5 +1,5 @@
 <app-admin-sidemenu></app-admin-sidemenu>
-<div class="contents">
+<div class="contents contentsx">
     <div class="page_title">Users</div>
 
     <div class="search_container">
@@ -20,6 +20,7 @@
                 <th>Id</th>
                 <th>Username</th>
                 <th>Email</th>
+                <th>Venue</th>
                 <th class="text-center">Total Points
                     &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('all_time_points')"></i>
                 </th>
@@ -58,6 +59,7 @@
                     {{x.username}}
                 </td>
                 <td class="clickable" (click)="gotoUser(x)">{{x.email}}</td>
+                <td>{{x.venue_name}}</td>
                 <td class="text-center">{{x.all_time_points}}</td>
                 <td class="text-center">{{x.high_points_today}}</td>
                 <td class="text-center">{{x.monthly_points}}</td>
@@ -69,7 +71,7 @@
                 <td class="text-center"><em>{{x.last_played}}</em>
                 </td>
             </tr>
-        }
+            }
         </tbody>
     </table>
 

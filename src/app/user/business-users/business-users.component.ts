@@ -25,7 +25,7 @@ export class BusinessUsersComponent implements OnInit {
 
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
       this.user = currentUser;
-      console.log('this.user', this.user);
+      //console.log('this.user', this.user);
       if (this.user.account_type == 'business')  this.loadPlayers();
      
     });
@@ -34,7 +34,7 @@ export class BusinessUsersComponent implements OnInit {
   loadPlayers(){
     this.userService.getUsersByVenue(this.user.venue_id).subscribe((data:any) => {
       this.players = data;
-      console.log('players', this.players);
+      //console.log('players', this.players);
     })
   }
 

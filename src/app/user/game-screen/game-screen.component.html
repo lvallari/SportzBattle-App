@@ -3,7 +3,9 @@
     <app-timer [time]="time"></app-timer>
    
     -->
+     
     @if (has_joined){
+       
     @if (page == 'game'){
     <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
@@ -32,17 +34,7 @@
         </div>
     </div>
 
-    <!--
-    @if (cycle_counter % 3 == 1){
-    <app-question-footer></app-question-footer>
-    }
-    @if (cycle_counter % 3 == 2){
-    <app-question-footer2 [counter]="counter"></app-question-footer2>
-    }
-    @if (cycle_counter % 3 == 0){
-    <app-question-footer3></app-question-footer3>
-    }
-    -->
+  
     @if (banners){
         <app-question-footer4 [counter]="counter" [venue_id]="user.venue_id" [banners]="banners"></app-question-footer4>
     }
@@ -50,10 +42,12 @@
     @else if (page == 'leaderboard'){
     <app-user-stats [user]="user" [show_lives]="false" [active_players]="active_players"></app-user-stats>
     <app-leaderboard-table [banners]="banners"></app-leaderboard-table>
-
     }
     @else if (page == 'advertisement' && ads){
     <app-advertisement-page [ads]="ads"></app-advertisement-page>
+    }
+    @else if (page == 'qrcode'){
+    <app-qrcode [banners]="banners" [venue_id]="user.venue_id"></app-qrcode>
     }
     @else if (page == 'prepare_screen'){
     <app-prepare-screen [banners]="banners"></app-prepare-screen>
@@ -65,4 +59,5 @@
     @else {
     <app-splash></app-splash>
     }
+    
 </div>

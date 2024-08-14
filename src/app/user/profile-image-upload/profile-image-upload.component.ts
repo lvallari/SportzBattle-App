@@ -39,13 +39,13 @@ export class ProfileImageUploadComponent implements OnChanges {
   }
 
   imageCropped(event: any) {
-    console.log('imageCropped', event);
+    //console.log('imageCropped', event);
     this.croppedImage = event.base64;
     this.previewUrl = event.base64;
     this.image_is_preview = true;
     //this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
     //this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl as string);
-    console.log('this.previewUrl',this.previewUrl);
+    //console.log('this.previewUrl',this.previewUrl);
   }
 
   imageLoaded() {
