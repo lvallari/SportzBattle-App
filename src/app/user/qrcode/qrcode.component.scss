@@ -35,6 +35,13 @@
     padding:40px 0;
 }
 
+.logo{
+    width: 320px;
+    margin:auto;
+    display: block;
+    padding: 20px 0;
+}
+
 
 @media screen and (max-width: 768px) {
 
@@ -50,6 +57,10 @@
 
     .join_url{
         font-size: 2em;
+    }
+
+    .logo{
+        width: 220px;
     }
 
 }

@@ -112,6 +112,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   subscribeToSocket() {
     this.messagesSubscription = this.socketioService._getMessage.subscribe((message: any) => {
       //console.log('message', message);
+      if (document.hidden) return;
 
       //check that a minimum of 5 sec have passed since loading
       var delta = Date.now() - this.start_timestamp;
@@ -137,10 +138,12 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         else if (this.message.message == 'advertisement') {
           this.page = 'advertisement';
           this.cycle_counter += 1;
+          console.log('cycle_counter',this.cycle_counter);
         }
         else if (this.message.message == 'qrcode') this.page = 'qrcode';
         else if (this.message.message == 'question') {
           this.counter += 1;
+          console.log('this.counter', this.counter);
           this.page = 'prepare_screen';
           this.question_notification = this.message.value_points + ' Pts';
 
@@ -166,6 +169,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
             this.show_timer = true;
             var elapsed_time = 0;
             
+            if (this.timerInterval) clearInterval(this.timerInterval);
             this.timerInterval = setInterval(() => {
               this.time -= 1;
               elapsed_time += 1;
@@ -183,7 +187,6 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                   var time_threshold = Date.now() - 11000;
                   
                   var questions = data.filter((x:any) => { return x.timestamp_question > time_threshold });
-
                   //console.log('questions', questions);
 
                   var got_right_ctr = 0;

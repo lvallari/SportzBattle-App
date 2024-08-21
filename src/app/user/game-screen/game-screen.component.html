@@ -5,7 +5,6 @@
     -->
      
     @if (has_joined){
-       
     @if (page == 'game'){
     <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation">+{{points_value}}</div>
@@ -34,7 +33,6 @@
         </div>
     </div>
 
-  
     @if (banners){
         <app-question-footer4 [counter]="counter" [venue_id]="user.venue_id" [banners]="banners"></app-question-footer4>
     }
@@ -48,7 +46,7 @@
     }
     @else if (page == 'qrcode'){
     <app-qrcode [banners]="banners" [venue_id]="user.venue_id"></app-qrcode>
-    }
+    } 
     @else if (page == 'prepare_screen'){
     <app-prepare-screen [banners]="banners"></app-prepare-screen>
     }
