@@ -34,6 +34,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   banners!:any[];
 
   show_point_animation: boolean = false;
+  show_on_fire_animation:boolean = false;
   points_value: number = 0;
   screen_width: number = window.innerWidth;
   question_active: boolean = false;
@@ -46,6 +47,10 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   game_id!:number;
   game_is_active:boolean = false;
   active_players!:number;
+  hiding_order!:any[];
+  user_on_fire:boolean = false;
+
+  correct_answers_in_a_row:number = 0;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -133,17 +138,19 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         }
 
         this.message = message;
+        console.log('this.message', this.message);
+        
         this.has_joined = true;
         if (this.message.message == 'leaderboard') this.page = 'leaderboard';
         else if (this.message.message == 'advertisement') {
           this.page = 'advertisement';
           this.cycle_counter += 1;
-          console.log('cycle_counter',this.cycle_counter);
+          //console.log('cycle_counter',this.cycle_counter);
         }
         else if (this.message.message == 'qrcode') this.page = 'qrcode';
         else if (this.message.message == 'question') {
           this.counter += 1;
-          console.log('this.counter', this.counter);
+          //console.log('this.counter', this.counter);
           this.page = 'prepare_screen';
           this.question_notification = this.message.value_points + ' Pts';
 
@@ -155,7 +162,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
             this.message.question = this.commonService.decrypt('sb', message.question);
             this.right_answer = this.commonService.decrypt('sb', message.key);
+            this.hiding_order = JSON.parse(this.commonService.decrypt('sb',message.hiding_order));
 
+            //console.log('this.hiding_order', this.hiding_order);
 
             this.options = [];
             this.message.answers.forEach((x: any) => {
@@ -165,7 +174,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
               })
             });
 
-            this.time = 7;
+            this.time = 10;
             this.show_timer = true;
             var elapsed_time = 0;
             
@@ -179,8 +188,19 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                 if (this.question_active == true) this.answerSelected(undefined);
               }
 
+              if (elapsed_time == 4){
+                this.options[this.hiding_order[0]].hide = true;
+                this.message.value_points = 75;
+                this.question_notification = this.message.value_points + ' Pts';
+              }
+              if (elapsed_time == 7){
+                this.options[this.hiding_order[1]].hide = true;
+                this.message.value_points = 50;
+                this.question_notification = this.message.value_points + ' Pts';
+              } 
+
               
-              if (elapsed_time == 9) {
+              if (elapsed_time == 12) {
                 this.tablesService.GetFiltered('user_activity', 'question_id', this.message.question_id).subscribe((data: any) => {
                   //console.log('user_activity',data);
                   //console.log(Date.now(), data[0].timestamp_question);
@@ -207,7 +227,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                
               }
 
-              if (elapsed_time == 11) {
+              if (elapsed_time == 14) {
                 if (this.user.lives <= 0) {
                   this.gameOver();
                   return;
@@ -235,21 +255,34 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
     if (option?.text == this.right_answer) {
       option.show_green = true;
-      this.user.points += this.message.value_points;
-      this.points_value = this.message.value_points;
+      this.user.points += this.user_on_fire ? (2*this.message.value_points):this.message.value_points;
+      this.points_value = this.user_on_fire ? (2*this.message.value_points):this.message.value_points;
       this.show_point_animation = true;
       this.updateGameRecord();
       this.storeAnswer(true);
-      setTimeout(() => { this.show_point_animation = false; }, 1500);
+      //if (this.correct_answers_in_a_row >= 3) this.user_on_fire = true;
+      this.correct_answers_in_a_row += 1;
+      setTimeout(() => { 
+        this.show_point_animation = false;
+        if (this.correct_answers_in_a_row == 3) {
+          this.show_on_fire_animation = true;
+          this.user_on_fire = true;
+        }
+        setTimeout(() => {
+          this.show_on_fire_animation = false;
+        },3000)
+      }, 1500);
+      
     }
     else {
       if (option) option.show_red = true;
       this.storeAnswer(false);
       this.user.lives -= 1;
+      this.user_on_fire = false;
+      this.correct_answers_in_a_row = 0;
     }
 
     //console.log('this.lives', this.user.lives);
-
     this.stopTimer();
 
   }
@@ -316,6 +349,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.game_id = data.id;
       this.game_is_active = true;
     });
+
+    this.user_on_fire = false;
   }
 
   getUserDailyHighScore(){

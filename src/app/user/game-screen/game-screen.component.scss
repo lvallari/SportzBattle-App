@@ -28,6 +28,11 @@
     color: white;
     width: fit-content;
     margin: 1.5% auto;
+    display: inline-block;
+}
+
+.pts100{
+    font-size: 0.8em;
 }
 
 .green{
@@ -143,6 +148,27 @@
     transform: translateX(-50%);
     opacity: 0;
     animation: flash 1s ease-in-out forwards;
+}
+
+.on_fire_animation{
+    position: absolute;
+    width: 200px;
+    background: linear-gradient(45deg, red, orange);
+    color: white;
+    top: 100px;
+    left: calc(50%);
+    font-size: 24px;
+    padding: 10px 4px;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: flash 3s ease-in-out forwards;
+    border-radius:10px;
+    text-align: center;
+}
+
+.user_on_fire{
+    width:40px;
+    display: inline-block;
 }
 
 /*  

@@ -2,6 +2,11 @@
 <div class="user_stats">
     <img class="user_image" src="{{user.image}}">&nbsp;
     <!--
+    @if(on_fire){
+        <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+    }
+    -->
+    <!--
     {{user.name}}&nbsp;&nbsp;&nbsp;
     -->
     <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} | {{user.daily_high ?
