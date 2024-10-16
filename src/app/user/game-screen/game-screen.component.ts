@@ -27,6 +27,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   time_is_up: boolean = false;
 
   timerInterval: any;
+  timer2Interval: any;
 
   user:any;
 
@@ -50,7 +51,10 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   hiding_order!:any[];
   user_on_fire:boolean = false;
 
+  question_start_time!:number;
+
   correct_answers_in_a_row:number = 0;
+  value_points!:number;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -131,6 +135,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
       if (message && delta > 5000) {
         clearInterval(this.timerInterval);
+        clearInterval(this.timer2Interval);
 
         if (this.user.lives <= 0) {
           this.gameOver();
@@ -164,7 +169,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
             this.right_answer = this.commonService.decrypt('sb', message.key);
             this.hiding_order = JSON.parse(this.commonService.decrypt('sb',message.hiding_order));
 
-            //console.log('this.hiding_order', this.hiding_order);
+            console.log('this.hiding_order', this.hiding_order);
 
             this.options = [];
             this.message.answers.forEach((x: any) => {
@@ -177,8 +182,15 @@ export class GameScreenComponent implements OnInit, OnDestroy {
             this.time = 10;
             this.show_timer = true;
             var elapsed_time = 0;
+            this.question_start_time = Date.now();
             
             if (this.timerInterval) clearInterval(this.timerInterval);
+            if (this.timer2Interval) clearInterval(this.timer2Interval);
+
+            this.timer2Interval = setInterval(() => {
+              this.value_points = (100 - Math.round((Date.now() - this.question_start_time)/100)); 
+            },200);
+            
             this.timerInterval = setInterval(() => {
               this.time -= 1;
               elapsed_time += 1;
@@ -190,13 +202,13 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
               if (elapsed_time == 4){
                 this.options[this.hiding_order[0]].hide = true;
-                this.message.value_points = 75;
-                this.question_notification = this.message.value_points + ' Pts';
+                //this.message.value_points = 75;
+                //this.question_notification = this.message.value_points + ' Pts';
               }
               if (elapsed_time == 7){
                 this.options[this.hiding_order[1]].hide = true;
-                this.message.value_points = 50;
-                this.question_notification = this.message.value_points + ' Pts';
+                //this.message.value_points = 50;
+                //this.question_notification = this.message.value_points + ' Pts';
               } 
 
               
@@ -251,12 +263,12 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     //console.log('answer selected');
 
     this.question_active = false;
-    //clearInterval(this.timerInterval);
+    if (this.timer2Interval) clearInterval(this.timer2Interval);
 
     if (option?.text == this.right_answer) {
       option.show_green = true;
-      this.user.points += this.user_on_fire ? (2*this.message.value_points):this.message.value_points;
-      this.points_value = this.user_on_fire ? (2*this.message.value_points):this.message.value_points;
+      this.user.points += this.user_on_fire ? (2*this.value_points):this.value_points;
+      this.points_value = this.user_on_fire ? (2*this.value_points):this.value_points;
       this.show_point_animation = true;
       this.updateGameRecord();
       this.storeAnswer(true);
@@ -292,6 +304,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     this.game_is_active = false;
 
     clearInterval(this.timerInterval);
+    clearInterval(this.timer2Interval);
     if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
 
   }

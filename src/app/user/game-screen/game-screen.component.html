@@ -8,7 +8,7 @@
     @if (page == 'game'){
     <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players" [on_fire]="user_on_fire"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation" 
-    [ngStyle]="{'font-size': points_value > 99 ? '40px':'48px','padding-top': points_value > 99? '15px':'10px'}">+{{points_value}}</div>
+    [ngStyle]="{'font-size': points_value > 99 ? '40px':'48px','padding-top': value_points > 99? '30px':'10px'}">+{{user_on_fire ? 2*value_points:value_points}}</div>
     <div class="on_fire_animation" *ngIf="show_on_fire_animation">
         <img class="user_on_fire" style="margin:auto;display:block;" src="../../../assets/images/fire-flame.gif">
         You are on fire!
@@ -18,27 +18,30 @@
     <div class="question_container">
         <div class="question">{{message.question}}</div>
         
-        @switch (message.value_points) {
-
-        @case (100) { 
+        @if(user_on_fire){
+        <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+        }
+        <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div> 
+        <!--
+        @if (question_active && value_points > 75) { 
             @if(user_on_fire){
                 <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
             }
-            <div class="question_value green"><em>{{question_notification}}</em></div>
+            <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points}}</em></div>
          }
-        @case (75) {
+        @else if(question_active && value_points > 50) {
             @if(user_on_fire){
                 <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
             } 
-            <div class="question_value orange"><em>{{question_notification}}</em></div> 
+            <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points}}</em></div> 
         }
-        @case (50) { 
+        @else{ 
             @if(user_on_fire){
                 <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
             }
-            <div class="question_value red"><em>{{question_notification}}</em></div> 
+            <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div> 
         }
-        }
+        -->
 
         <!--
         @switch (message.value_points) {
