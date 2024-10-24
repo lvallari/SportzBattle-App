@@ -1,0 +1,15 @@
+.double_or_nothing_failed_animation{
+    position: absolute;
+    width: fit-content;
+    background: linear-gradient(45deg, grey, red);
+    color: white;
+    top: 100px;
+    left: calc(50%);
+    font-size: 24px;
+    padding: 10px 4px;
+    transform: translateX(-50%);
+    opacity: 1;
+    animation: flash 3s ease-in-out forwards;
+    border-radius:10px;
+    text-align: center;
+}

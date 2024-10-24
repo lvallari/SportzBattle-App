@@ -9,17 +9,17 @@
     <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players" [on_fire]="user_on_fire"></app-user-stats>
     <div class="points_animation" *ngIf="show_point_animation" 
     [ngStyle]="{'font-size': points_value > 99 ? '40px':'48px','padding-top': value_points > 99? '30px':'10px'}">+{{user_on_fire ? 2*value_points:value_points}}</div>
-    <div class="on_fire_animation" *ngIf="show_on_fire_animation">
-        <img class="user_on_fire" style="margin:auto;display:block;" src="../../../assets/images/fire-flame.gif">
-        You are on fire!
-        <strong>2X Points!</strong> 
-    </div>
+    
+    @if(show_on_fire_animation){ <app-on-fire-popup></app-on-fire-popup> }
+    @if(show_double_or_nothing_animation){ <app-double-or-nothing-popup></app-double-or-nothing-popup> }
+    @if(show_double_or_nothing_failed_animation){ <app-double-or-nothing-failed-popup></app-double-or-nothing-failed-popup> }
+        
     <app-timer *ngIf="show_timer" [time]="time"></app-timer>
     <div class="question_container">
         <div class="question">{{message.question}}</div>
         
-        @if(user_on_fire){
-        <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+        @if(user_on_fire && question_active){
+            <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
         }
         <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div> 
         <!--
@@ -83,7 +83,7 @@
     <app-qrcode [banners]="banners" [venue_id]="user.venue_id"></app-qrcode>
     } 
     @else if (page == 'prepare_screen'){
-    <app-prepare-screen [banners]="banners"></app-prepare-screen>
+    <app-prepare-screen [banners]="banners" [double_option_has_been_used]="double_option_has_been_used" (make_double)="makeDouble()"></app-prepare-screen>
     }
     @else if (page == 'game_over'){
     <app-game-over (playAgain)="playAgain()"></app-game-over>

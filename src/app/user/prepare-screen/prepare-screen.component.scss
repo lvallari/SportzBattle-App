@@ -29,6 +29,29 @@
     display: block;
 }
 
+.double_or_nothing{
+    position:absolute;
+    top: 10px;
+    right:10px;
+    background-color: #33ccff;
+    border-radius: 0;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.double_or_nothing_selected{
+    position:absolute;
+    top: 10px;
+    right:10px;
+    color: #33ccff;
+    background-color: transparent;
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 16px;
+    border:none;
+}
+
 @media screen and (max-width: 768px) {
 
     .countdown_timer{

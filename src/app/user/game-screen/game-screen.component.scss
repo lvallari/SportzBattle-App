@@ -22,7 +22,7 @@
 
 .question_value{
     text-align: center;
-    padding: 10px 15px;
+    padding: 10px 25px;
     font-family: 'orbitron-medium';
     font-size: 1.2em;
     color: white;
@@ -31,6 +31,8 @@
     display: inline-block;
     border-radius:10px;
     background-color: transparent;
+    border:solid 2px gold;
+    width:150px;
 }
 
 .pts100{
@@ -106,7 +108,7 @@
 .question{
     color: white;
     font-size: 3.5em;
-    margin: 0 0 1% 0px;
+    margin: 0 0 0% 0px;
     min-height: 150px;
 }
 
@@ -154,30 +156,11 @@
     animation: flash 1s ease-in-out forwards;
 }
 
-.on_fire_animation{
-    position: absolute;
-    width: 200px;
-    background: linear-gradient(45deg, red, orange);
-    color: white;
-    top: 100px;
-    left: calc(50%);
-    font-size: 24px;
-    padding: 10px 4px;
-    transform: translateX(-50%);
-    opacity: 0;
-    animation: flash 3s ease-in-out forwards;
-    border-radius:10px;
-    text-align: center;
-}
-
 .user_on_fire{
     width:40px;
     display: inline-block;
 }
 
-/*  
-
-*/
 .question{
     font-size:2.7em;
 }

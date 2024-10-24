@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-prepare-screen',
@@ -8,8 +8,12 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 export class PrepareScreenComponent implements OnInit, OnDestroy{
 
   @Input() banners!:any[];
+  @Input() double_option_has_been_used!:boolean;
+  @Output() make_double = new EventEmitter();
 
   banner!:string;
+
+  option_selected:boolean = false;
 
   timerInterval:any;
   countdown_timer:number = 4;
@@ -29,5 +33,9 @@ export class PrepareScreenComponent implements OnInit, OnDestroy{
     clearInterval(this.timerInterval);
   }
 
+  makeDouble(){
+    this.option_selected = true;
+    this.make_double.emit();
+  }
 
 }

@@ -18,6 +18,9 @@ import { AdvertisementPageComponent } from './advertisement-page/advertisement-p
 import { PrepareScreenComponent } from './prepare-screen/prepare-screen.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { QrcodeComponent } from './qrcode/qrcode.component';
+import { OnFirePopupComponent } from './on-fire-popup/on-fire-popup.component';
+import { DoubleOrNothingPopupComponent } from './double-or-nothing-popup/double-or-nothing-popup.component';
+import { DoubleOrNothingFailedPopupComponent } from './double-or-nothing-failed-popup/double-or-nothing-failed-popup.component';
 
 
 
@@ -32,7 +35,10 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
     AdvertisementPageComponent,
     PrepareScreenComponent,
     GameOverComponent, 
-    QrcodeComponent
+    QrcodeComponent,
+    OnFirePopupComponent,
+    DoubleOrNothingPopupComponent,
+    DoubleOrNothingFailedPopupComponent
   ],
   imports: [
     CommonModule,

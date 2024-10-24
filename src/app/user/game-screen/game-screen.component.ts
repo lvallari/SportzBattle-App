@@ -36,6 +36,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   show_point_animation: boolean = false;
   show_on_fire_animation:boolean = false;
+  show_double_or_nothing_animation:boolean = false;
+  show_double_or_nothing_failed_animation:boolean = false;
+
   points_value: number = 0;
   screen_width: number = window.innerWidth;
   question_active: boolean = false;
@@ -55,6 +58,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   correct_answers_in_a_row:number = 0;
   value_points!:number;
+
+  is_double_or_nothing:boolean = false;
+  double_option_has_been_used:boolean = false;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -157,6 +163,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
           this.counter += 1;
           //console.log('this.counter', this.counter);
           this.page = 'prepare_screen';
+          this.is_double_or_nothing = false;
+
           this.question_notification = this.message.value_points + ' Pts';
 
           setTimeout(() => {
@@ -255,7 +263,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     });
   }
 
-  answerSelected(option: any) {
+  async answerSelected(option: any) {
 
     //if (this.screen_width > 768 || this.question_active == false) return;
     if (this.user.account_type == 'business' || this.question_active == false) return;
@@ -269,21 +277,35 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       option.show_green = true;
       this.user.points += this.user_on_fire ? (2*this.value_points):this.value_points;
       this.points_value = this.user_on_fire ? (2*this.value_points):this.value_points;
+
       this.show_point_animation = true;
       this.updateGameRecord();
       this.storeAnswer(true);
       //if (this.correct_answers_in_a_row >= 3) this.user_on_fire = true;
       this.correct_answers_in_a_row += 1;
-      setTimeout(() => { 
-        this.show_point_animation = false;
-        if (this.correct_answers_in_a_row == 3) {
-          this.show_on_fire_animation = true;
-          this.user_on_fire = true;
-        }
-        setTimeout(() => {
-          this.show_on_fire_animation = false;
-        },3000)
-      }, 1500);
+      
+      await this.delay(1500);
+      this.show_point_animation = false;
+      
+      if (this.correct_answers_in_a_row == 3) {
+        this.show_on_fire_animation = true;
+        this.user_on_fire = true;
+        await this.delay(3000);
+        this.show_on_fire_animation = false;
+      }
+
+      if(this.is_double_or_nothing){
+        this.user.points += this.user.points;
+        this.show_double_or_nothing_animation = true;
+        await this.delay(3000);
+        this.show_double_or_nothing_animation = false;
+      }
+
+      //setTimeout(() => { 
+        //this.show_point_animation = false;
+        //this.checkOnFireStatus();
+        
+      //}, 1500);
       
     }
     else {
@@ -292,12 +314,26 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.user.lives -= 1;
       this.user_on_fire = false;
       this.correct_answers_in_a_row = 0;
+
+      if(this.is_double_or_nothing){
+        this.user.points = 0;
+        this.show_double_or_nothing_failed_animation = true;
+        await this.delay(3000);
+        this.show_double_or_nothing_failed_animation = false;
+      }
+
     }
 
     //console.log('this.lives', this.user.lives);
     this.stopTimer();
 
   }
+
+  async delay(ms:number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+ 
 
   gameOver() {
     this.page = 'game_over';
@@ -384,9 +420,11 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
       //console.log('this.banners', this.banners);
     })
-    
+  }
 
-    
+  makeDouble(){
+    this.is_double_or_nothing = true;
+    this.double_option_has_been_used = true;
   }
 
 }
