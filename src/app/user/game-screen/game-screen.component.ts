@@ -362,6 +362,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   playAgain() {
     this.user.lives = 5;
     this.has_joined = false;
+    this.double_option_has_been_used = false;
     this.page = 'game';
     this.getUserDailyHighScore();
     this.subscribeToSocket();
