@@ -18,10 +18,15 @@
     <div class="question_container">
         <div class="question">{{message.question}}</div>
         
-        @if(user_on_fire && question_active){
-            <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+        @if(!question_notification){
+            @if(user_on_fire && question_active){
+                <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+            }
+            <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div>
         }
-        <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div> 
+        @else {
+            <div class="question_valuex blue"><em>{{question_notification}}</em></div>
+        }
         <!--
         @if (question_active && value_points > 75) { 
             @if(user_on_fire){
@@ -42,9 +47,9 @@
             <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div> 
         }
         -->
-
+        
         <!--
-        @switch (message.value_points) {
+        @switch (percent_correct) {
         @case (10) { <div class="question_value blue"><em>{{question_notification}}</em></div> }
         @case (20) { <div class="question_value blue"><em>{{question_notification}}</em></div> }
         @case (30) { <div class="question_value green"><em>{{question_notification}}</em></div> }
@@ -53,7 +58,7 @@
         @case (60) { <div class="question_value orange"><em>{{question_notification}}</em></div> }
         @case (70) { <div class="question_value red"><em>{{question_notification}}</em></div> }
         }
-        -->
+    -->
         
        
         <div class="row">

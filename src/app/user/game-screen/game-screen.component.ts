@@ -47,7 +47,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   start_timestamp = Date.now();
   counter:number = 0;
   cycle_counter:number = 1;
-  question_notification!:string;
+  question_notification:string | undefined;
   game_id!:number;
   game_is_active:boolean = false;
   active_players!:number;
@@ -61,6 +61,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   is_double_or_nothing:boolean = false;
   double_option_has_been_used:boolean = false;
+
+  percent_correct!:number;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -165,13 +167,14 @@ export class GameScreenComponent implements OnInit, OnDestroy {
           this.page = 'prepare_screen';
           this.is_double_or_nothing = false;
 
-          this.question_notification = this.message.value_points + ' Pts';
+          this.question_notification = undefined;
 
           setTimeout(() => {
             this.page = 'game';
             this.time_is_up = false;
             this.has_joined = true;
             this.question_active = true;
+            
 
             this.message.question = this.commonService.decrypt('sb', message.question);
             this.right_answer = this.commonService.decrypt('sb', message.key);
@@ -240,6 +243,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                     got_right: got_right_ctr,
                     total_players: questions.length
                   }
+
+                  this.percent_correct = object.percent;
                   //this.question_notification = object.got_right + ' out of ' + object.total_players + ' answered correctly';
                   if (questions.length > 0) this.question_notification = object.percent + '% answered correctly';
                   this.active_players = object.total_players;
