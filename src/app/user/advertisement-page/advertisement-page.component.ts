@@ -14,7 +14,7 @@ export class AdvertisementPageComponent implements OnInit {
   ngOnInit(): void {
     var index = Math.floor(Math.random() * this.ads.length);
     if (index == this.ads.length) index -= 1;
-    this.advertisement = 'https://sportzbattle.blob.core.windows.net/advertisements/' + this.ads[index];
+    this.advertisement = this.ads[index];
   }
 
 }

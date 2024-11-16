@@ -62,7 +62,7 @@ export class BusinessDashboardComponent implements OnInit, OnDestroy {
   getData(){
     this.userService.getGamesByVenue(this.user.venue_id).subscribe((data:any) => {
       this.games = data;
-      console.log('this.games', this.games);
+      //console.log('this.games', this.games);
       //console.log('daily_start_time', this.daily_start_time);
       this.players = [];
 

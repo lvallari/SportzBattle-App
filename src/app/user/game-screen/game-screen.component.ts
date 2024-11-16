@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SocketioService } from '../../services/socketio.service';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { CommonService } from '../../services/common.service';
 import { UserService } from '../../services/user.service';
 import { TablesService } from '../../services/tables.service';
@@ -417,12 +417,39 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   }
 
   loadAdvertisements(){
-    this.myblobService.getActiveFiles().subscribe((data:any) => {
-      //console.log('active files', data);
-      if (this.screen_width < 540) this.ads = data.filter((x:any) => {return x.indexOf('/mobile/') > -1});
-      else this.ads = data.filter((x:any) => {return x.indexOf('/desktop/') > -1});
+    forkJoin([
+      this.myblobService.getActiveFiles(),
+      this.tablesService.GetFiltered('advertisement_accounts','venue_id',this.user.venue_id)
+    ]).subscribe((data:any) => {
+      var advertisement_account = data[1][0];
+      var files = data[0].filter((x:any) => {
+        return x.indexOf(advertisement_account.advertisement_account_id + '/') == 0;
+      });
 
-      this.banners = data.filter((x:any) => {return x.indexOf('/banner/') > -1});
+      console.log('active files', files);
+      if (this.screen_width < 540) {
+        this.ads = files.filter((x:any) => {return x.indexOf('/mobile/') > -1}).map((x:any) => {
+          return 'https://sportzbattle.blob.core.windows.net/advertisements/' + x;
+        });
+        if (this.ads.length == 0) {
+          this.ads.push('https://sportzbattle.blob.core.windows.net/system/mobile_ad.jpg')
+        }
+      }
+      else {
+        this.ads = files.filter((x:any) => {return x.indexOf('/desktop/') > -1}).map((x:any) => {
+          return 'https://sportzbattle.blob.core.windows.net/advertisements/' + x;
+        });
+        if (this.ads.length == 0) {
+          this.ads.push('https://sportzbattle.blob.core.windows.net/system/desktop_ad.jpg')
+        }
+      }
+
+      this.banners = files.filter((x:any) => {return x.indexOf('/banner/') > -1}).map((x:any) => {
+        return 'https://sportzbattle.blob.core.windows.net/advertisements/' + x;
+      });
+      if (this.banners.length == 0) {
+        this.banners.push('https://sportzbattle.blob.core.windows.net/system/banner_ad.jpg')
+      }
 
       //console.log('this.banners', this.banners);
     })

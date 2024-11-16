@@ -57,7 +57,7 @@ export class BusinessDashboardGraphComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('games',this.games);
+    //console.log('games',this.games);
 
       //organize graph data
       this.graph_data = [];

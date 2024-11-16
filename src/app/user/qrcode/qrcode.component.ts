@@ -29,7 +29,7 @@ export class QrcodeComponent implements OnInit, OnChanges {
   getBanner(){
     var index = Math.floor(Math.random() * this.banners.length);
     if (index == this.banners.length) index -= 1;
-    this.banner = 'https://sportzbattle.blob.core.windows.net/advertisements/' + this.banners[index];
+    this.banner = this.banners[index];
   }
 
 

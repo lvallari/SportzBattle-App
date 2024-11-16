@@ -96,15 +96,28 @@ export class RegisterBusinessComponent implements OnInit {
 
           var venue_id = data.id;
 
-          this.userService.signUpUser({
-            name: this.itemx.name,
-            email: this.itemx.email,
-            password: this.itemx.password,
-            account_type: 'business',
+          var advertisement_object = {
+            name: business_object.business_name,
+            is_active: true,
             venue_id: venue_id
-          }).subscribe(() => {
-            this.step = 'notification';
+          }
+
+          this.tablesService.AddItem('advertisement_accounts', advertisement_object).subscribe((data2:any) => {
+
+            this.userService.signUpUser({
+              name: this.itemx.name,
+              email: this.itemx.email,
+              password: this.itemx.password,
+              account_type: 'business',
+              venue_id: venue_id
+            }).subscribe(() => {
+              this.step = 'notification';
+            });
+
           })
+
+          
+
         });
      
       }

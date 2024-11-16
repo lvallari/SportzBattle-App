@@ -1,0 +1,57 @@
+@import '../../../globals.scss';
+
+.form_container{
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+}
+
+.labelf{
+    color: white;
+}
+
+.field_description{
+    font-style: italic;
+    font-size: 16px;
+    color: white;
+}
+
+.invalid_ratio_alert{
+    padding: 20px;
+    background-color: lightyellow;
+    font-style: italic;
+}
+
+.preview{
+    width:100px;
+    height:100px;
+    object-fit: contain;
+    margin:5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.images_container{
+    padding: 30px 0;
+}
+
+.spinner{
+    height:120px;
+    margin:auto;
+    display: block;
+}
+
+.image_preview{
+    width:100%;
+}
+
+.upload_input{
+    color: white;
+    padding-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .contentsx{
+        padding-left:5px;
+    }
+}
