@@ -18,13 +18,18 @@
             </td>
             <td class="tc" style="text-align:center;">{{x.max_score}}</td>
             <td class="tc" style="text-align:center;">
-                
+                <!--
                 <div *ngIf="x.position == 1">$50</div>
                 <div *ngIf="x.position == 2">$25</div>
                 <div *ngIf="x.position == 3">$15</div>
                 <div *ngIf="x.position == 4">$10</div>
                 <div *ngIf="x.position > 4">$0</div>
-                
+                -->
+                <div *ngIf="x.position == 1">$0</div>
+                <div *ngIf="x.position == 2">$0</div>
+                <div *ngIf="x.position == 3">$0</div>
+                <div *ngIf="x.position == 4">$0</div>
+                <div *ngIf="x.position > 4">$0</div>
             </td>
         </tr>
         }

@@ -84,7 +84,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         return;
       }
       this.user = currentUser;
-      this.user.lives = 5;
+      this.user.lives = 3;
       this.user.points = 0;
       this.user.rank = 3;
       //console.log('this.user', this.user);
@@ -365,7 +365,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   }
 
   playAgain() {
-    this.user.lives = 5;
+    this.user.lives = 3;
     this.has_joined = false;
     this.double_option_has_been_used = false;
     this.page = 'game';

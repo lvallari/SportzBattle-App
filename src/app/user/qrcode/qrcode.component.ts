@@ -12,13 +12,15 @@ export class QrcodeComponent implements OnInit, OnChanges {
 
 
   width!:number;
-  message:string = window.innerWidth >= 768 ? 'Scan here and play for free. You just may win some money!':'Share with a friend!';
+  message!:string; //= window.innerWidth >= 768 ? 'Scan here and play for free. You just may win some money!':'Share with a friend!';
   banner!:string;
 
   
   ngOnInit(): void {
 
-    this.width = window.innerWidth/2 > 350 ? 350:(window.innerWidth/2);
+    //this.message = 'Advertise with SportzBattle today via full page and banner advertisements'
+
+    this.width = window.innerWidth/2 > 275 ? 275:(window.innerWidth/2);
     this.getBanner();
   }
 

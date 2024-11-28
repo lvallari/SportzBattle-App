@@ -9,6 +9,8 @@ export class PrepareScreenComponent implements OnInit, OnDestroy{
 
   @Input() banners!:any[];
   @Input() double_option_has_been_used!:boolean;
+  @Input() account_type!:string;
+
   @Output() make_double = new EventEmitter();
 
   banner!:string;

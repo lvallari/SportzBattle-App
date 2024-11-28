@@ -1,9 +1,16 @@
 
 <img class="logo" src="../../../assets/images/logo.png">
-<div class="join_text">{{message}}</div>
-<div class="text-center" style="padding:40px 0;">
-    <qrcode [qrdata]="'sptzba.com/join/' + venue_id" [width]="width" [margin]="2" [errorCorrectionLevel]="'M'"></qrcode>
-   
+<div class="join_text text-center">Advertise with SportzBattle today via full page and banner advertisements<br><br>
+Contact:&nbsp;tony&#64;sportzbattle.com<br>
+551-486-2793
 </div>
+<div class="text-center" style="padding:40px 0;">
+    <!--
+    <qrcode [qrdata]="'sptzba.com/join/' + venue_id" [width]="width" [margin]="2" [errorCorrectionLevel]="'M'"></qrcode>
+    -->
+    <qrcode [qrdata]="'sportzbattle.com/contact-8'" [width]="width" [margin]="2" [errorCorrectionLevel]="'M'"></qrcode>
+</div>
+<!--
 <div class="join_url">{{'sptzba.com/join/' + venue_id}}</div>
+-->
 <img class="banner" src="{{banner}}">

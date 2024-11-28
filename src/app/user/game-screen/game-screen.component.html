@@ -88,7 +88,7 @@
     <app-qrcode [banners]="banners" [venue_id]="user.venue_id"></app-qrcode>
     } 
     @else if (page == 'prepare_screen'){
-    <app-prepare-screen [banners]="banners" [double_option_has_been_used]="double_option_has_been_used" (make_double)="makeDouble()"></app-prepare-screen>
+    <app-prepare-screen [banners]="banners" [account_type]="user.account_type" [double_option_has_been_used]="double_option_has_been_used" (make_double)="makeDouble()"></app-prepare-screen>
     }
     @else if (page == 'game_over'){
     <app-game-over (playAgain)="playAgain()"></app-game-over>

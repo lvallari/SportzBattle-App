@@ -1,10 +1,14 @@
 <h1 class="countdown_timer">{{countdown_timer}}</h1>
+
+@if(account_type == 'player'){
 @if(double_option_has_been_used == false){
-    <button class="btn btn-default button_primary double_or_nothing" (click)="makeDouble()">Double or Nothing</button>
+<!-- double_or_nothing -->
+<button class="btn btn-default button_primary shiny-button" (click)="makeDouble()">Double or Nothing</button>
 }
 
 @if(option_selected){
-    <button disabled class="btn btn-default button_primary double_or_nothing_selected">Double or Nothing</button>
+<button disabled class="btn btn-default button_primary double_or_nothing_selected">Double or Nothing</button>
+}
 }
 <img class="logo_prepare" src="../../../assets/images/logo.png">
 <img class="logo_words_prepare" src="../../../assets/images/logo_words.png">
