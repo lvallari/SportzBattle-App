@@ -134,6 +134,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       //check that a minimum of 5 sec have passed since loading
       var delta = Date.now() - this.start_timestamp;
 
+      //return ping to avoid idle disconnet
+      if (this.user.account_type == 'business') this.socketioService.sendMessage('ping');
+
       /*
       if (message == 'results') {
         this.question_notification = this.message.percent + '% answered correctly';

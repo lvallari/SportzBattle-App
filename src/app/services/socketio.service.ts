@@ -37,7 +37,7 @@ export class SocketioService {
   }
 
   sendMessage(message: string): void {
-    this.socket.emit('message', message);
+    this.socket.emit('ping', message);
   }
 
   /*
