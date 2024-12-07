@@ -64,6 +64,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   percent_correct!:number;
 
+  debug_ctr:number = 0;
+
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
   
@@ -77,6 +79,23 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        console.log('Tab is in the background');
+        // Optionally adjust ping interval or handle disconnection logic
+      } else {
+        console.log('Tab is active again');
+        // Reconnect or re-establish the socket if necessary
+        
+        /*
+        if (!this.socketioService.connected) {
+          this.socketioService.connect();
+        }
+        */
+        
+      }
+    });
 
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
       if (!currentUser){
@@ -129,7 +148,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   subscribeToSocket() {
     this.messagesSubscription = this.socketioService._getMessage.subscribe((message: any) => {
       //console.log('message', message);
-      if (document.hidden) return;
+      //if (document.hidden) return;
 
       //check that a minimum of 5 sec have passed since loading
       var delta = Date.now() - this.start_timestamp;
@@ -144,6 +163,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       }
       */
 
+      //this.debug_ctr=0;
+      //console.log('this.message ----', this.debug_ctr);
+
       if (message && delta > 5000) {
         clearInterval(this.timerInterval);
         clearInterval(this.timer2Interval);
@@ -154,7 +176,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         }
 
         this.message = message;
-        console.log('this.message', this.message);
+        
         
         this.has_joined = true;
         if (this.message.message == 'leaderboard') this.page = 'leaderboard';
@@ -262,6 +284,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
                 }
               }
               //
+              //console.log('interval, 1000',this.debug_ctr);
+              //this.debug_ctr+=1;
             }, 1000);
           }, 4000);
         }

@@ -216,13 +216,13 @@ export class DatabaseComponent implements OnInit {
     }
 
     if (question_object.question_id){
-      this.tablesService.UpdateItem('questions','question_id', question_object).subscribe(() => {
+      this.tablesService.UpdateItem('questions2','question_id', question_object).subscribe(() => {
         $('#editQuestionModal').modal('hide');
         $('#changesSavedModal').modal('show');
       })
     }
     else {
-      this.tablesService.AddItem('questions', question_object).subscribe(() => {
+      this.tablesService.AddItem('questions2', question_object).subscribe(() => {
         $('#editQuestionModal').modal('hide');
         $('#questionAddedModal').modal('show');
       })
@@ -236,7 +236,7 @@ export class DatabaseComponent implements OnInit {
   }
 
   deleteQuestion(){
-    this.tablesService.DeleteFiltered('questions','question_id',this.questionx.question_id).subscribe(() => {
+    this.tablesService.DeleteFiltered('questions2','question_id',this.questionx.question_id).subscribe(() => {
       $('#confirmDeleteModal').modal('hide');
       $('#questionDeletedModal').modal('show');
       this.getData(0);
