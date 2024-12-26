@@ -49,6 +49,14 @@ export class UserSidemenuComponent {
     
     this.router.navigate(['admin/winners/' + str]);
   }
+
+  gotoContact(){
+    window.open('https://www.sportzbattle.com/contact-8', '_blank');
+  }
+
+  gotoHowToWin(){
+    window.open('https://www.sportzbattle.com/different-ways-to-win', '_blank');
+  }
   
 
 
