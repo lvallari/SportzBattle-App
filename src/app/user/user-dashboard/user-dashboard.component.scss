@@ -32,6 +32,23 @@
     color: white;
 }
 
+.level_icon{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.level_name{
+    font-size: 16px;
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:20px;
+    color: white;
+}
+
 .box_title{
     color: white;
     font-family: "orbitron-bold";

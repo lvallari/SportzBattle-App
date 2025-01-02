@@ -17,6 +17,7 @@
                     <tr>
                         <th class="tc"></th>
                         <th class="tc">Username</th>
+                        <th class="tc">Level</th>
                         <th class="tc">Games</th>
                         <th class="tc">{{tab == 'daily' ? 'High Score':'Total Points'}}</th>
                     </tr>
@@ -28,6 +29,8 @@
                             <img class="player_image" src="{{x.image}}">
                         </td>
                         <td class="tc">{{x.username}}</td>
+                        <td class="tc">
+                            <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}</td>
                         <td class="tc">{{x.games}}</td>
                         <td class="tc">{{tab == 'daily' ? x.max_score:x.points}}</td>
                     </tr>

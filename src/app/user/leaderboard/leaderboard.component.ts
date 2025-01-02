@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TablesService } from '../../services/tables.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -12,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LeaderboardComponent implements OnInit, OnDestroy {
 
   players: any[] = [];
+  players_map!: any[];
   user: any;
   data: any[] = [];
   games: any[] = [];
@@ -29,6 +31,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   constructor(
     public userService: UserService,
     public commonService: CommonService,
+    public tablesService: TablesService,
     public router: Router
   ) { }
 
@@ -98,8 +101,35 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     //sort by points
     this.players = this.players.sort((a:any,b:any) => { return b.points - a.points});
 
+    if (this.tab == 'all-time' && !this.players_map) {
+      this.players_map = this.players.map((x:any) => { 
+        return {
+          user_id: x.user_id,
+          all_time_points: x.points
+        };
+      });
+      
+    }
+
+    this.players.forEach((x:any) => {
+      //find record
+      var record = this.players_map.find((n:any) => { return n.user_id == x.user_id});
+      if (record) x.all_time_points = record.all_time_points;
+    })
+
+    this.assignLevels();
+
+
     this.data_ready =true;
 
+  }
+
+  assignLevels(){
+    this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
+      this.players.forEach((x:any) => {
+        this.commonService.assignLevel(x,data);
+      })
+    })
   }
 
 }

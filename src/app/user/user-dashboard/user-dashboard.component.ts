@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
+import { TablesService } from '../../services/tables.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -25,6 +26,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   constructor(
     public userService: UserService,
     public commonService: CommonService,
+    public tablesService: TablesService,
     public router: Router
   ){
 
@@ -39,6 +41,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.user = currentUser;
       //console.log('this.user', this.user);
       this.getData();
+      
     });
   }
 
@@ -51,6 +54,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.userService.getUserStats(this.user.user_id).subscribe((data:any) => {
       //console.log('stats', data);
       this.stats = data;
+      this.user.all_time_points = data.all_time_points;
+      this.getLevel();
     })
 
     
@@ -96,6 +101,12 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   goPlay(){
     this.router.navigate(['user/play']);
+  }
+
+  getLevel(){
+    this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
+      this.commonService.assignLevel(this.user, data);
+    })
   }
 
   /*

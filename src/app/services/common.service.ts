@@ -372,6 +372,27 @@ formatMonthLabel(monthIdx:number, year:number) {
     return midnight.getTime();
   }
 
-  
+  assignLevel(user:any, levels:any){
+
+    console.log('levels', levels, user);
+
+    //find correct level
+    var skill_level:any;
+    for (var i=0; i<levels.length; i++) {
+      if (user.all_time_points >= levels[i].points) {
+        skill_level = levels[i];
+        break;
+      }
+    }
+
+    console.log('skill_level', skill_level, user.points);
+
+    //var skill_level = levels[0];
+    if (skill_level){
+      user.level = skill_level.level;
+      user.level_icon = skill_level.icon;
+    }
+
+  }
 
 }
