@@ -1,0 +1,33 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contents contentsx">
+    <div class="page_title">Pop Ups</div>
+
+    <div class="buttons_container">
+        <button class="btn btn-default" (click)="show('on-fire')">On Fire</button>
+        <button class="btn btn-default" (click)="show('double-or-nothing')">Double or Nothing</button>
+        <button class="btn btn-default" (click)="show('double-or-nothing-failed')">Double or Nothing failed</button>
+        <button class="btn btn-default" (click)="show('warrior')">Warrior</button>
+        <button class="btn btn-default" (click)="show('gridion')">Gridion</button>
+        <button class="btn btn-default" (click)="show('hardwood')">Hardwood</button>
+        <button class="btn btn-default" (click)="show('park')">Park</button>
+        <button class="btn btn-default" (click)="show('high-roller')">High Roller</button>
+        <button class="btn btn-default" (click)="show('brainiac')">Brainiac</button>
+        <button class="btn btn-default" (click)="show('hit-the-cycle')">Hit the hit-the-cycle</button>
+    </div>
+
+    @if (popup == 'on-fire'){ <app-on-fire-popup></app-on-fire-popup> }
+    @else if (popup == 'double-or-nothing'){ <app-double-or-nothing-popup></app-double-or-nothing-popup> }
+    @else if (popup == 'double-or-nothing-failed'){ <app-double-or-nothing-failed-popup></app-double-or-nothing-failed-popup> }
+    @else if (popup == 'warrior'){ <app-warrior-popup></app-warrior-popup> }
+    @else if (popup == 'gridion'){ <app-gridion-popup></app-gridion-popup> }
+    @else if (popup == 'hardwood'){ <app-hardwood-popup></app-hardwood-popup> }
+    @else if (popup == 'park'){ <app-park-popup></app-park-popup> }
+    @else if (popup == 'high-roller'){ <app-high-roller-popup></app-high-roller-popup> }
+    @else if (popup == 'brainiac'){ <app-brainiac-popup></app-brainiac-popup> }
+    @else if (popup == 'hit-the-cycle'){ <app-hit-the-cycle-popup></app-hit-the-cycle-popup> }
+    @else {
+        <div class="text-center" style="padding-top:100px;">
+            <p><em>Click on a popup selection. The popup will show for 4 seconds then dissapear.</em></p>
+        </div>
+    }
+</div>

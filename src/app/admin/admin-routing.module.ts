@@ -8,6 +8,7 @@ import { AdminVenuesComponent } from './admin-venues/admin-venues.component';
 import { AdminWinnersComponent } from './admin-winners/admin-winners.component';
 import { AdminUserDashboardComponent } from './admin-user-dashboard/admin-user-dashboard.component';
 import { AdminUserVerificationComponent } from './admin-user-verification/admin-user-verification.component';
+import { AdminPopUpsComponent } from './admin-pop-ups/admin-pop-ups.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'advertisements-manager', component: AdminAdvertisementsManagerComponent},
     { path: 'users', component: AdminUsersComponent},
     { path: 'venues', component: AdminVenuesComponent},
+    { path: 'popups', component: AdminPopUpsComponent},
     { path: 'winners/:date', component: AdminWinnersComponent},
     { path: 'user-dashboard/:user_id', component: AdminUserDashboardComponent},
     { path: 'user-verification/:user_id', component: AdminUserVerificationComponent},
@@ -35,5 +37,6 @@ export const routingComponents = [
     AdminVenuesComponent,
     AdminWinnersComponent,
     AdminUserDashboardComponent,
-    AdminUserVerificationComponent
+    AdminUserVerificationComponent,
+    AdminPopUpsComponent
 ]

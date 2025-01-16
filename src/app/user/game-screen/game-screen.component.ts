@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SocketioService } from '../../services/socketio.service';
-import { forkJoin, Subscription } from 'rxjs';
+import { forkJoin, lastValueFrom, Subscription } from 'rxjs';
 import { CommonService } from '../../services/common.service';
 import { UserService } from '../../services/user.service';
 import { TablesService } from '../../services/tables.service';
@@ -35,9 +35,9 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   banners!:any[];
 
   show_point_animation: boolean = false;
-  show_on_fire_animation:boolean = false;
-  show_double_or_nothing_animation:boolean = false;
-  show_double_or_nothing_failed_animation:boolean = false;
+  //show_on_fire_animation:boolean = false;
+  //show_double_or_nothing_animation:boolean = false;
+  ///show_double_or_nothing_failed_animation:boolean = false;
 
   points_value: number = 0;
   screen_width: number = window.innerWidth;
@@ -65,6 +65,16 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   percent_correct!:number;
 
   debug_ctr:number = 0;
+  
+  hit_football:boolean = false;
+  hit_basketball:boolean = false;
+  hit_baseball:boolean = false;
+
+  user_points_o:number = 0;
+  popup:string = 'none';
+
+  has_warrior_badge:boolean = false;
+  has_hit_the_cycle: boolean = false;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -110,6 +120,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       if (this.user.account_type == 'player'){
         this.createGame();
         this.getUserDailyHighScore();
+        this.getUserBadges();
       }
       else if (this.user.account_type == 'business'){
         this.loadScreens();
@@ -176,6 +187,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         }
 
         this.message = message;
+        console.log('this.message', this.message);
         
         
         this.has_joined = true;
@@ -279,6 +291,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
               if (elapsed_time == 14) {
                 if (this.user.lives <= 0) {
+
                   this.gameOver();
                   return;
                 }
@@ -320,24 +333,47 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.show_point_animation = false;
       
       if (this.correct_answers_in_a_row == 3) {
-        this.show_on_fire_animation = true;
+        //this.show_on_fire_animation = true;
         this.user_on_fire = true;
-        await this.delay(3000);
-        this.show_on_fire_animation = false;
+        //await this.delay(3000);
+        //this.show_on_fire_animation = false;
+        await this.showPopUp('on-fire');
       }
 
       if(this.is_double_or_nothing){
         this.user.points += this.user.points;
-        this.show_double_or_nothing_animation = true;
-        await this.delay(3000);
-        this.show_double_or_nothing_animation = false;
+        await this.showPopUp('double-or-nothing');
+        //this.show_double_or_nothing_animation = true;
+        //await this.delay(3000);
+        //this.show_double_or_nothing_animation = false;
       }
+
+      if (this.message.category == 'NFL') this.hit_football = true;
+      else if (this.message.category == 'NBA') this.hit_basketball = true;
+      else if (this.message.category == 'MLB') this.hit_baseball = true;
+
+      if (this.correct_answers_in_a_row == 7) await this.giveAward('brainiac');
+      if (this.hit_football == true && this.hit_baseball == true && this.hit_basketball == true) {
+        if (this.has_hit_the_cycle == false) await this.giveAward('hit-the-cycle');
+        this.has_hit_the_cycle = true;
+      }
+      if (this.user.points >= 1500 && this.user_points_o < 1500) await this.giveAward('high-roller');
+
+      var data =  await lastValueFrom(this.userService.updateBadgesCounter(this.user.user_id, this.message.category));
+      console.log('^^^^^^^^^^^^ update counters', data);
+      //this.userService.updateBadgesCounter(this.user.user_id, this.message.category).subscribe((data:any) => {
+        var award = data.award;
+        if (award == 'gridion') await this.giveAward('gridion');
+        else if (award == 'hardwood') await this.giveAward('hardwood');
+        else if (award == 'park') await this.giveAward('park');
+      //})
 
       //setTimeout(() => { 
         //this.show_point_animation = false;
         //this.checkOnFireStatus();
         
       //}, 1500);
+      this.user_points_o = this.user.points;
       
     }
     else {
@@ -349,9 +385,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
       if(this.is_double_or_nothing){
         this.user.points = 0;
-        this.show_double_or_nothing_failed_animation = true;
-        await this.delay(3000);
-        this.show_double_or_nothing_failed_animation = false;
+        this.showPopUp('double-or-nothing-failed');
       }
 
     }
@@ -368,13 +402,36 @@ export class GameScreenComponent implements OnInit, OnDestroy {
  
 
   gameOver() {
-    this.page = 'game_over';
-    this.game_is_active = false;
 
-    clearInterval(this.timerInterval);
-    clearInterval(this.timer2Interval);
-    if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+    /*
+    //award warrior badge if it doesnt have one
+    if (this.has_warrior_badge == false) {
+      this.has_warrior_badge = true;
+      this.giveAward('warrior');
+      setTimeout(() => {
+        this.page = 'game_over';
+        this.game_is_active = false;
 
+        clearInterval(this.timerInterval);
+        clearInterval(this.timer2Interval);
+        if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+      }, 4000)
+    }
+    */
+    //else {
+      this.page = 'game_over';
+      this.game_is_active = false;
+
+      if (this.has_warrior_badge == false) {
+        this.has_warrior_badge = true;
+        this.giveAward('warrior');
+      }
+
+      clearInterval(this.timerInterval);
+      clearInterval(this.timer2Interval);
+      if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+    //}
+    
   }
 
   updateGameRecord(){
@@ -395,6 +452,12 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     this.user.lives = 3;
     this.has_joined = false;
     this.double_option_has_been_used = false;
+
+    this.correct_answers_in_a_row = 0;
+    this.hit_football = false;
+    this.hit_basketball = false;
+    this.hit_baseball = false;
+
     this.page = 'game';
     this.getUserDailyHighScore();
     this.subscribeToSocket();
@@ -485,6 +548,47 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   makeDouble(){
     this.is_double_or_nothing = true;
     this.double_option_has_been_used = true;
+  }
+
+  async giveAward(type:string){
+
+    console.log('GIVE AWARD!', type);
+
+
+    var user_badge = {
+      user_id: this.user.user_id,
+      timestamp: Date.now(),
+      badge_name: type,
+      badge_icon: this.selectIcon(type),
+    }
+
+    this.tablesService.AddItem('user_badges',user_badge).subscribe();
+    await this.showPopUp(type);
+  }
+
+  async showPopUp(type:string){
+    this.popup = type;
+    await this.delay(3000);
+    this.popup = 'none';
+  }
+
+  getUserBadges(){
+    this.tablesService.GetFiltered('user_badges','user_id', this.user.user_id).subscribe((data:any) => {
+      var user_badges = data;
+      var warrior_badge = user_badges.find((x:any) => { return x.badge_name == 'warrior'});
+      if (warrior_badge) this.has_warrior_badge = true;
+    })
+  }
+
+  selectIcon(type:string){
+    if (type == 'high-roller') return 'https://sportzbattle.blob.core.windows.net/system/dice.png';
+    else if (type == 'brainiac') return 'https://sportzbattle.blob.core.windows.net/system/brain.png';
+    else if (type == 'hit-the-cycle') return 'https://sportzbattle.blob.core.windows.net/system/cycle.png';
+    else if (type == 'warrior') return 'https://sportzbattle.blob.core.windows.net/system/sword.png';
+    else if (type == 'gridion') return 'https://sportzbattle.blob.core.windows.net/system/football.png';
+    else if (type == 'hardwood') return 'https://sportzbattle.blob.core.windows.net/system/basketball.png';
+    else if (type == 'park') return 'https://sportzbattle.blob.core.windows.net/system/park.png';
+    else return;
   }
 
 }

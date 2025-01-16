@@ -4,6 +4,7 @@ import { AdminRoutingModule, routingComponents } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { AdminSidemenuComponent } from './admin-sidemenu/admin-sidemenu.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -16,6 +17,7 @@ import { AdminSidemenuComponent } from './admin-sidemenu/admin-sidemenu.componen
     CommonModule,
     AdminRoutingModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     DpDatePickerModule
   ],

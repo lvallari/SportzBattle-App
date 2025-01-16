@@ -252,6 +252,18 @@ getPlayersByDate(date:string){
   )
 }
 
+updateBadgesCounter(user_id:number, category:string){
+  var data = {
+    user_id: user_id,
+    category: category
+  }
+  return this.http.post<any>(this.baseurl+'/updateBadgesCounter', data,  this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
  // Error handling
  errorHandl(error:any) {
    

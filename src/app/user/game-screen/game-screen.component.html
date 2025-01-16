@@ -10,9 +10,16 @@
     <div class="points_animation" *ngIf="show_point_animation" 
     [ngStyle]="{'font-size': points_value > 99 ? '40px':'48px','padding-top': value_points > 99? '30px':'10px'}">+{{user_on_fire ? 2*value_points:value_points}}</div>
     
-    @if(show_on_fire_animation){ <app-on-fire-popup></app-on-fire-popup> }
-    @if(show_double_or_nothing_animation){ <app-double-or-nothing-popup></app-double-or-nothing-popup> }
-    @if(show_double_or_nothing_failed_animation){ <app-double-or-nothing-failed-popup></app-double-or-nothing-failed-popup> }
+    @if(popup == 'on-fire'){ <app-on-fire-popup></app-on-fire-popup> }
+    @if(popup == 'double-or-nothing'){ <app-double-or-nothing-popup></app-double-or-nothing-popup> }
+    @if(popup == 'double-or-nothing-failed'){ <app-double-or-nothing-failed-popup></app-double-or-nothing-failed-popup> }
+    @if(popup == 'gridion'){ <app-gridion-popup></app-gridion-popup> }
+    @if(popup == 'hardwood'){ <app-hardwood-popup></app-hardwood-popup> }
+    @if(popup == 'park'){ <app-park-popup></app-park-popup> }
+    @if(popup == 'high-roller'){ <app-high-roller-popup></app-high-roller-popup> }
+    @if(popup == 'brainiac'){ <app-brainiac-popup></app-brainiac-popup> }
+    @if(popup == 'hit-the-cycle'){ <app-hit-the-cycle-popup></app-hit-the-cycle-popup> }
+    
         
     <app-timer *ngIf="show_timer" [time]="time"></app-timer>
     <div class="question_container">
@@ -91,7 +98,8 @@
     <app-prepare-screen [banners]="banners" [account_type]="user.account_type" [double_option_has_been_used]="double_option_has_been_used" (make_double)="makeDouble()"></app-prepare-screen>
     }
     @else if (page == 'game_over'){
-    <app-game-over (playAgain)="playAgain()"></app-game-over>
+        @if(popup == 'warrior'){ <app-warrior-popup></app-warrior-popup> }
+        <app-game-over (playAgain)="playAgain()"></app-game-over>
     }
     }
     @else {

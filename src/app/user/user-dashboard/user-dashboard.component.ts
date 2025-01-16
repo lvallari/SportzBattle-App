@@ -22,6 +22,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   points_month!:number;
 
   stats:any ={};
+  badges!:any[];
 
   constructor(
     public userService: UserService,
@@ -95,7 +96,12 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       //this.calculateStats();
 
       //console.log('this.games', this.games);
-    })
+    });
+
+    this.tablesService.GetFiltered('user_badges','user_id', this.user.user_id).subscribe((data:any) => {
+      this.badges = data;
+      console.log('badges', this.badges);
+    });
     
   }
 

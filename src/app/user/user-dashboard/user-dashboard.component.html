@@ -4,10 +4,21 @@
         <div class="user_details">
             <img class="user_image" src="{{user.image}}">
             <div class="user_name">{{user.name}}</div>
-            <img class="level_icon" src="{{user.level_icon}}">
-            <div class="level_name">{{user.level}}</div>
+            <div class="level_container">
+                <img class="level_icon" src="{{user.level_icon}}">
+                <div class="level_name">{{user.level}}</div>
+            </div>
             <div class="text-end">
                 <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
+            </div>
+        </div>
+
+        <div class="user_badges">
+            <div class="user_name">Badges</div><br>
+            <div class="badge">
+                @for (x of badges; track x.user_badge_id){
+                    <img class="user_badge" src="{{x.badge_icon}}">
+                }
             </div>
         </div>
 

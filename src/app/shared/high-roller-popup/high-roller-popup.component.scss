@@ -1,0 +1,43 @@
+.roller_animation{
+    position: absolute;
+    width: fit-content;
+    background: linear-gradient(45deg, #e6c300, #4d4d4d);
+    color: white;
+    top: 100px;
+    left: calc(50%);
+    font-size: 24px;
+    padding: 10px 4px;
+    transform: translateX(-50%);
+    opacity: 1;
+    animation: flash 3s ease-in-out forwards;
+    border-radius:10px;
+    text-align: center;
+    padding:20px;
+}
+
+.icon_image{
+    display: block;
+    margin: auto;
+    max-height: 200px;
+}
+
+.banner_text{
+    animation: growFlash 2s infinite;
+    margin:20px 0;
+}
+
+/* Keyframes for growing and flashing animation */
+@keyframes growFlash {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }

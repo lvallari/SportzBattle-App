@@ -374,8 +374,6 @@ formatMonthLabel(monthIdx:number, year:number) {
 
   assignLevel(user:any, levels:any){
 
-    console.log('levels', levels, user);
-
     //find correct level
     var skill_level:any;
     for (var i=0; i<levels.length; i++) {
@@ -384,8 +382,6 @@ formatMonthLabel(monthIdx:number, year:number) {
         break;
       }
     }
-
-    console.log('skill_level', skill_level, user.points);
 
     //var skill_level = levels[0];
     if (skill_level){
