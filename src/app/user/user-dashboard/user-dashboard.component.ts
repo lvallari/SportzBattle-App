@@ -99,8 +99,23 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     });
 
     this.tablesService.GetFiltered('user_badges','user_id', this.user.user_id).subscribe((data:any) => {
-      this.badges = data;
+      var badges = data;
+      //group and count
+      this.badges = [];
+      badges.forEach((x:any) => {
+        //check that is not already added
+        var record = this.badges.find((n:any) => n.badge_name == x.badge_name);
+        if (!record){
+          var object = {
+            badge_name: x.badge_name,
+            badge_icon: x.badge_icon,
+            count: badges.filter((n:any) => { return n.badge_name == x.badge_name }).length
+          }
+          this.badges.push(object);
+        }
+      })
       console.log('badges', this.badges);
+
     });
     
   }

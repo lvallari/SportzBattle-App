@@ -17,7 +17,7 @@
             <div class="user_name">Badges</div><br>
             <div class="badge">
                 @for (x of badges; track x.user_badge_id){
-                    <img class="user_badge" src="{{x.badge_icon}}">
+                    <img class="user_badge" src="{{x.badge_icon}}">&nbsp;X{{x.count}}
                 }
             </div>
         </div>
