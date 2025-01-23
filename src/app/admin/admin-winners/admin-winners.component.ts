@@ -72,6 +72,7 @@ export class AdminWinnersComponent implements OnInit {
 
 
   loadPlayers(selected_date:string){
+    console.log('selected_date', selected_date);
 
     forkJoin([
       this.userService.getPlayersByDate(selected_date),

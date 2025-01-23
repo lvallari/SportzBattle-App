@@ -3,20 +3,29 @@
     <div class="dashboard_contents">
         
         @if (userx){
-        <div class="user_details">
-            <div class="text-start">
-                <button class="btn btn-default back_button" (click)="goBack()">
-                    <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
-                </button>
+            <div class="user_details">
+                <img class="user_image" src="{{userx.image}}">
+                <div class="user_name">{{userx.name}}</div>
+                <div class="level_container">
+                    <img class="level_icon" src="{{userx.level_icon}}">
+                    <div class="level_name">{{userx.level}}</div>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
+                </div>
             </div>
-            <img class="user_image" src="{{userx.image}}">
-            <div class="user_name">{{userx.name}}</div>
-            <!--
-            <div class="text-end">
-                <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
-            </div>
-            -->
-        </div>
+    
+            <div class="user_badges">
+                <div class="user_name" style="padding-bottom: 15px;">Badges</div><br>
+                
+                    @for (x of badges; track x.user_badge_id){
+                        <div class="badgex">
+                        <img class="user_badge" src="{{x.badge_icon}}">
+                        <div>X{{x.count}}</div>
+                    </div>
+                    }
+                </div>
+            
         }
 
         <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>

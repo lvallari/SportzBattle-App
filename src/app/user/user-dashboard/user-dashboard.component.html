@@ -14,13 +14,15 @@
         </div>
 
         <div class="user_badges">
-            <div class="user_name">Badges</div><br>
-            <div class="badge">
+            <div class="user_name" style="padding-bottom: 15px;">Badges</div><br>
+            
                 @for (x of badges; track x.user_badge_id){
-                    <img class="user_badge" src="{{x.badge_icon}}">&nbsp;X{{x.count}}
+                    <div class="badgex">
+                    <img class="user_badge" src="{{x.badge_icon}}">
+                    <div>X{{x.count}}</div>
+                </div>
                 }
             </div>
-        </div>
 
         <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
 

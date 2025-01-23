@@ -18,6 +18,7 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
 
   games:any[] = [];
   activity:any[] = [];
+  badges:any[] = [];
   max_score!:number;
   points_all_time!:number;
   points_month!:number;
@@ -60,7 +61,29 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
   getUser(){
     this.tablesService.GetFiltered('users','user_id', this.userx_id).subscribe((data:any) => {
       this.userx = data[0];
-    })
+
+      //get badges
+    this.tablesService.GetFiltered('user_badges','user_id', this.userx.user_id).subscribe((data:any) => {
+      var badges = data;
+      //group and count
+      this.badges = [];
+      badges.forEach((x:any) => {
+        //check that is not already added
+        var record = this.badges.find((n:any) => n.badge_name == x.badge_name);
+        if (!record){
+          var object = {
+            badge_name: x.badge_name,
+            badge_icon: x.badge_icon,
+            count: badges.filter((n:any) => { return n.badge_name == x.badge_name }).length
+          }
+          this.badges.push(object);
+        }
+      })
+      console.log('badges', this.badges);
+
+    });
+
+    });
   }
 
   getData(){
@@ -68,6 +91,8 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
     this.userService.getUserStats(this.userx_id).subscribe((data:any) => {
       console.log('stats', data);
       this.stats = data;
+      this.userx.all_time_points = data.all_time_points;
+      this.getLevel();
     })
 
     
@@ -108,7 +133,16 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
 
       //console.log('this.games', this.games);
     })
+
     
+    
+  }
+
+  getLevel(){
+    this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
+      this.commonService.assignLevel(this.userx, data);
+      console.log('this.userx',this.userx);
+    })
   }
 
   goPlay(){

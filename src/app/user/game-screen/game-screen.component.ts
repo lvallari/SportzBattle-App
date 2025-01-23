@@ -587,7 +587,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     else if (type == 'warrior') return 'https://sportzbattle.blob.core.windows.net/system/sword.png';
     else if (type == 'gridion') return 'https://sportzbattle.blob.core.windows.net/system/football.png';
     else if (type == 'hardwood') return 'https://sportzbattle.blob.core.windows.net/system/basketball.png';
-    else if (type == 'park') return 'https://sportzbattle.blob.core.windows.net/system/park.png';
+    else if (type == 'park') return 'https://sportzbattle.blob.core.windows.net/system/baseball.png';
     else return;
   }
 
