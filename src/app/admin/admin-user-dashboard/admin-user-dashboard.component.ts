@@ -61,6 +61,7 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
   getUser(){
     this.tablesService.GetFiltered('users','user_id', this.userx_id).subscribe((data:any) => {
       this.userx = data[0];
+      if (!this.userx.wallet) this.userx.wallet = 0;
 
       //get badges
     this.tablesService.GetFiltered('user_badges','user_id', this.userx.user_id).subscribe((data:any) => {

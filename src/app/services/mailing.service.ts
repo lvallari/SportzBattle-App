@@ -68,6 +68,21 @@ export class MailingService {
       });
   }
 
+  tokensAwarded(data:any){
+    //console.log('mailing.resetPassword');
+
+      var object = {
+        email: data.email,
+        username: data.username,
+        number_tokens: data.tokens,
+        message_number: Math.ceil(Math.random()*3)
+      }
+      
+      this.sendMailRequest('tokensAwarded', object).subscribe((data: any) => { 
+        console.log('Tokens awarded email has been sent');
+      });
+  }
+
   accountCreated(user:any){
     //console.log('mailing.resetPassword');
       

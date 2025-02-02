@@ -18,7 +18,9 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th></th>
                 <th>Username</th>
+                
                 <th>Email</th>
                 <th>Venue</th>
                 <th class="text-center">Total Points
@@ -42,22 +44,29 @@
                 <th class="text-center">Max Days Played in a Row
                     &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('number_of_days_played_in_a_row')"></i>
                 </th>
-                <th class="text-center">Max Questions Answered in a Row
+                <th class="text-center">Max Questions in a Row
                     &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('longest_streak_questions_in_a_row')"></i>
                 </th>
                 <th class="text-center">Last Played
                     &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('last_played')"></i>
                 </th>
+                <th class="text-center">Earned Tokens
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('wallet')"></i>
+                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @for(x of users;track x.user_id){
             <tr>
                 <td>{{x.user_id}}</td>
-                <td class="clickable" (click)="gotoUser(x)">
+                <td>
                     <img class="user_image" src="{{x.image}}">
-                    {{x.username}}
                 </td>
+                <td class="clickable" (click)="gotoUser(x)">
+                   {{x.username.slice(0,10)}}
+                </td>
+                
                 <td class="clickable" (click)="gotoUser(x)">{{x.email}}</td>
                 <td>{{x.venue_name}}</td>
                 <td class="text-center">{{x.all_time_points}}</td>
@@ -70,9 +79,43 @@
                 <td class="text-center">{{x.longest_streak_questions_in_a_row}}</td>
                 <td class="text-center"><em>{{x.last_played}}</em>
                 </td>
+                <td class="text-center">{{x.wallet}}</td>
+                <td>
+                    <button class="btn btn-default button_primary" (click)="awardTokens(x)">Award Tokens</button>
+                </td>
             </tr>
             }
         </tbody>
     </table>
+</div>
 
+<div class="modal fade" id="tokensModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (itemx){
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('tokensModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div class="input_container">
+                    <div class="labelfd">Select amount of tokens to be awarded</div>
+                    <div class="text-center ptb30">
+                        <button class="btn btn-default button_token_selector" [ngClass]="{'selected': tokens == 500}" (click)="tokens=500;">500 Tokens</button>
+                        <button class="btn btn-default button_token_selector" [ngClass]="{'selected': tokens == 1000}" (click)="tokens=1000;">1000 Tokens</button>
+                        <button class="btn btn-default button_token_selector" [ngClass]="{'selected': tokens == 2500}" (click)="tokens=2500;">2500 Tokens</button>
+                        <button class="btn btn-default button_token_selector" [ngClass]="{'selected': tokens == 5000}" (click)="tokens=5000;">5000 Tokens</button>
+                        <button class="btn btn-default button_token_selector" [ngClass]="{'selected': tokens == 10000}" (click)="tokens=10000;">10000 Tokens</button>
+                    </div>
+                </div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="saveTokens()">Award {{tokens}} tokens</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
 </div>

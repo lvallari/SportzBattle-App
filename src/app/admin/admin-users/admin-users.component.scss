@@ -6,7 +6,6 @@
     height:40px;
     border-radius: 50%;
     display: inline-block;
-    margin: 0 10px 0 0;
 }
 
 
@@ -32,6 +31,16 @@
 
 .sort_icon{
     cursor:pointer;
+}
+
+.button_token_selector{
+    background-color: lightgrey;
+    margin:3px;
+}
+
+.selected{
+    background-color: $color-one;
+    color: white;
 }
 
 @media screen and (max-width: 768px) {

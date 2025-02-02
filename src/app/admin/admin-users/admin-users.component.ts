@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { NavigationService } from '../../services/navigation.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TablesService } from '../../services/tables.service';
+import { MailingService } from '../../services/mailing.service';
+declare var $: any;
 
 
 @Component({
@@ -14,6 +17,10 @@ export class AdminUsersComponent implements OnInit {
   users!:any[];
   users_o:any[] = [];
   query:string = '';
+
+  itemx:any;
+
+  tokens:number = 500;
 
   // filtering direction
   sort_direction_all_time_points:string = 'desc';
@@ -28,7 +35,9 @@ export class AdminUsersComponent implements OnInit {
   
   constructor(
     public userService:UserService,
+    public tablesService: TablesService,
     public navigationService:NavigationService,
+    public mailingService:MailingService,
     private router: Router,
     private route: ActivatedRoute,
   ){}
@@ -40,6 +49,9 @@ export class AdminUsersComponent implements OnInit {
   loadUsers(){
     this.userService.getUserStatsForAdmin().subscribe((data:any) => {
       this.users = data;
+      this.users.forEach((x:any) => {
+        if (!x.wallet) x.wallet = 0;
+      })
       this.users_o = JSON.parse(JSON.stringify(this.users));
       console.log('this.users', this.users);
       this.sortBy('all_time_points');
@@ -147,6 +159,36 @@ export class AdminUsersComponent implements OnInit {
     }
     
   }
+
+  closeModal(name: string) {
+    $('#' + name).modal('hide');
+  }
+
+  saveTokens(){
+    var object = {
+      user_id: this.itemx.user_id,
+      wallet: this.itemx.wallet + this.tokens
+    }
+
+    this.tablesService.UpdateItem('users', 'user_id', object).subscribe((data:any) => {
+      this.itemx.wallet = this.itemx.wallet + this.tokens;
+      $('#tokensModal').modal('hide');
+
+      this.mailingService.tokensAwarded({
+        username: this.itemx.name,
+        email: this.itemx.email,
+        tokens: this.tokens
+      });
+
+    })
+    
+  }
+
+  awardTokens(item:any){
+    this.itemx = item;
+    $('#tokensModal').modal('show');
+  }
+
 
 
 }
