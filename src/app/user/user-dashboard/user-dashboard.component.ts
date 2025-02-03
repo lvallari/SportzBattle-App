@@ -40,6 +40,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         return;
       }
       this.user = currentUser;
+      if (!this.user.wallet) this.user.wallet = 0;
       //console.log('this.user', this.user);
       this.getData();
       
