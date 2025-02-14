@@ -24,6 +24,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   stats:any ={};
   badges!:any[];
 
+  number_of_badges!:number;
+
   constructor(
     public userService: UserService,
     public commonService: CommonService,
@@ -41,6 +43,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       }
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
+      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
       //console.log('this.user', this.user);
       this.getData();
       
@@ -101,6 +104,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
     this.tablesService.GetFiltered('user_badges','user_id', this.user.user_id).subscribe((data:any) => {
       var badges = data;
+      this.number_of_badges = badges.length;
       //group and count
       this.badges = [];
       badges.forEach((x:any) => {

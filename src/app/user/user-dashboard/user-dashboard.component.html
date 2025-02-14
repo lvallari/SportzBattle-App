@@ -11,6 +11,7 @@
             <div class="level_container">
                 <img class="level_icon" src="https://sportzbattle.blob.core.windows.net/system/tokens_logo.png">
                 <div class="level_name" style="text-align:center">{{user.wallet}}</div>
+                <div class="wallet_value">${{user.wallet_value}}</div>
             </div>
             <div class="text-end">
                 <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
@@ -18,7 +19,7 @@
         </div>
 
         <div class="user_badges">
-            <div class="user_name" style="padding-bottom: 15px;">Badges</div><br>
+            <div class="user_name" style="padding-bottom: 15px;">Badges ({{number_of_badges}})</div><br>
             
                 @for (x of badges; track x.user_badge_id){
                     <div class="badgex">

@@ -27,6 +27,7 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
   userx:any;
 
   stats:any ={};
+  number_of_badges!:number;
 
   constructor(
     public userService: UserService,
@@ -62,10 +63,12 @@ export class AdminUserDashboardComponent implements OnInit, OnDestroy {
     this.tablesService.GetFiltered('users','user_id', this.userx_id).subscribe((data:any) => {
       this.userx = data[0];
       if (!this.userx.wallet) this.userx.wallet = 0;
+      this.userx.wallet_value = (this.userx.wallet / 1000).toFixed(2);
 
       //get badges
     this.tablesService.GetFiltered('user_badges','user_id', this.userx.user_id).subscribe((data:any) => {
       var badges = data;
+      this.number_of_badges = badges.length;
       //group and count
       this.badges = [];
       badges.forEach((x:any) => {
