@@ -4,13 +4,15 @@ import { SettingsComponent } from './settings/settings.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { GameScreenComponent } from './game-screen/game-screen.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { ScoutingComponent } from './scouting/scouting.component';
 
 
 const routes: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'leaderboard', component: LeaderboardComponent},
     { path: 'play', component: GameScreenComponent},
-    { path: 'user-dashboard', component: UserDashboardComponent}
+    { path: 'user-dashboard', component: UserDashboardComponent},
+    { path: 'scouting', component: ScoutingComponent}
 ];
 
 @NgModule({
@@ -23,5 +25,6 @@ export const routingComponents = [
     SettingsComponent,
     LeaderboardComponent,
     GameScreenComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    ScoutingComponent
 ]

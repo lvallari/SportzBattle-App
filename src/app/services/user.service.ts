@@ -188,6 +188,14 @@ getUserStats(user_id:number){
   )
 }
 
+getUserScouts(user_id:number){
+  return this.http.get<any>(this.baseurl+'/scouts?id=' + user_id, this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
 getUserStatsForAdmin(){
   return this.http.get<any>(this.baseurl+'/stats-users', this.httpOptions)
   .pipe(

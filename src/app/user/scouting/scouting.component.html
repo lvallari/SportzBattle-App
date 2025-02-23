@@ -1,0 +1,267 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="dashboard_contents">
+        <div class="user_details">
+            <img class="user_image" src="{{user.image}}">
+            <div class="user_name">{{user.name}}</div>
+            <div class="level_container">
+                <img class="level_icon" src="{{user.level_icon}}">
+                <div class="level_name">{{user.level}}</div>
+            </div>
+            <div class="level_container">
+                <img class="level_icon" src="https://sportzbattle.blob.core.windows.net/system/tokens_logo.png">
+                <div class="level_name" style="text-align:center">{{user.wallet}}</div>
+                <div class="wallet_value">${{user.wallet_value}}</div>
+            </div>
+            
+        </div>
+
+        <div class="page_title">Scouting</div>
+
+        @if(scouts){
+        <div class="submenu_container">
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'search'}" (click)="tab = 'search'; filterPlayers()">Search</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouting'}" (click)="tab = 'scouting'; filterPlayers()">Scouting ({{scouts.scouts.length}})</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouted-by'}" (click)="tab = 'scouted-by'; filterPlayers()">Scouted by ({{scouts.prospects.length}})</div>
+        </div>
+        }
+
+        <div class="table_container">
+            <!--
+            <div class="graph_title">Top Players</div>
+            -->
+            @if (players.length > 0){
+            <table class="table tablex">
+                <thead>
+                    <tr>
+                        <th class="tc"></th>
+                        <th class="tc">Username</th>
+                        <th class="tc">Level</th>
+                        <!--<th class="tc">Games</th>-->
+                        <th class="tc">Total Points</th>
+                        @if(screen_large){
+                        <th class="tc"></th>
+                        <th class="tc"></th>
+                        <th class="tc"></th>
+                        }
+                        @else {
+                            <th class="tc"></th>
+                        }
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(x of players; track x.user_id){
+                    <tr>
+                        <td class="tc">
+                            <img class="player_image" src="{{x.image}}">
+                        </td>
+                        <td class="tc">{{x.username.slice(0,10)}}</td>
+                        @if(screen_large){
+                        <td class="tc">
+                            <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}
+                        </td>
+                        }
+                        @else {
+                            <td class="tc">
+                                <img class="player_image" src="{{x.level_icon}}">
+                            </td> 
+                        }
+                        <!--<td class="tc">{{x.games}}</td>-->
+                        <td class="tc">{{tab == 'daily' ? x.max_score:x.points}}</td>
+                        
+                        @if(screen_large){
+                        <td class="tc">
+                            <button class="btn btn-default button_primary table_button">BATTLE H2H</button>
+                        </td>
+                        <td class="tc">
+                            <button class="btn btn-default button_primary table_button" (click)="userMatchUp(x.user_id)">MATCH UP</button>
+                        </td>
+                        <td class="tc">
+                            @if (x.scouting == false){
+                                <button class="btn btn-default button_primary table_button" (click)="scoutPlayer(x)">SCOUT</button>
+                            }
+                            @else if (x.scouting == true && tab == 'scouting'){
+                                <button class="btn btn-default button_primary remove_button" (click)="removeScout(x)">REMOVE</button>
+                            }
+                        </td>
+                        }
+                        @else{
+                        <td class="tc">
+                            <button class="btn btn-default" (click)="openOptions(x)"><i class="fa-solid fa-ellipsis-vertical" style="color:white;"></i></button>
+                        </td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            @else{
+                <div class="note">There are no players to show</div>
+            }
+        </div>
+       
+    </div>
+</div>
+
+<div class="modal fade" id="scoutNotificationModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if(itemx){
+            <div class="modal-body modal_body modal_bodyx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('scoutNotificationModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <p class="text-center">{{itemx.username}} has been added to your scouting list</p>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('scoutNotificationModal')">Ok</button>
+                </div>
+
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="matchupModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if(matchup){
+            <div class="modal-body modal_body modal_bodyx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('matchupModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <table class="table">
+                    <tr>
+                        <td></td>
+                        <td class="text-center tc" >
+                            <strong class="tc">{{user.stats.username}}</strong>
+                        </td>
+                        <td class="text-center tc">
+                            <strong class="tc">{{matchup.username}}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center">
+                            <img class="table_image" src="{{user.image}}">
+                        </td>
+                        <td class="text-center">
+                            <img class="table_image" src="{{matchup.image}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>All-Time Points</td>
+                        <td class="text-center">{{user.stats.all_time_points}}</td>
+                        <td class="text-center">{{matchup.all_time_points}}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Games</td>
+                        <td class="text-center">{{user.stats.number_of_games}}</td>
+                        <td class="text-center">{{matchup.number_of_games}}</td>
+                    </tr>
+                    <tr>
+                        <td>All-Time Rank</td>
+                        <td class="text-center">{{user.stats.all_time_points_rank_suffix}}</td>
+                        <td class="text-center">{{matchup.all_time_points_rank_suffix}}</td>
+                    </tr>
+                    <tr>
+                        <td>Top Score All-Time</td>
+                        <td class="text-center">{{user.stats.top_score_all_time}}</td>
+                        <td class="text-center">{{matchup.top_score_all_time}}</td>
+                    </tr>
+                    <tr>
+                        <td>Football Pct (Rank)</td>
+                        <td class="text-center">{{user.stats.nfl_pct}}%&nbsp;({{user.stats.nfl_pct_rank_suffix}})</td>
+                        <td class="text-center">{{matchup.nfl_pct}}%&nbsp;({{matchup.nfl_pct_rank_suffix}})</td>
+                    </tr>
+                    <tr>
+                        <td>Basketball Pct (Rank)</td>
+                        <td class="text-center">{{user.stats.nba_pct}}%&nbsp;({{user.stats.nba_pct_rank_suffix}})</td>
+                        <td class="text-center">{{matchup.nba_pct}}%&nbsp;({{matchup.nba_pct_rank_suffix}})</td>
+                    </tr>
+                    <tr>
+                        <td>Baseball Pct (Rank)</td>
+                        <td class="text-center">{{user.stats.mlb_pct}}%&nbsp;({{user.stats.mlb_pct_rank_suffix}})</td>
+                        <td class="text-center">{{matchup.mlb_pct}}%&nbsp;({{matchup.mlb_pct_rank_suffix}})</td>
+                    </tr>
+                </table>
+
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('matchupModal')">Ok</button>
+                </div>
+
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="optionsModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if(itemx){
+            <div class="modal-body modal_body modal_bodyx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('optionsModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div style="padding: 20px 0;">
+                    <strong>{{itemx.username}}</strong>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-default button_primary">BATTLE H2H</button><br><br>
+                    <button class="btn btn-default button_primary" (click)="userMatchUp(itemx.user_id)">MATCH UP</button><br><br>
+                    @if (itemx.scouting == false){
+                        <button class="btn btn-default button_primary" (click)="scoutPlayer(itemx)">SCOUT</button><br><br>
+                    }
+                    @else if (itemx.scouting == true && tab == 'scouting'){
+                        <button class="btn btn-default button_primary" (click)="removeScout(itemx)">REMOVE</button><br><br>
+                    }
+                </div>
+
+                <!--
+                <div class="text-center" style="padding: 35px 0 0 0;">
+                    <button class="btn btn-default button_primary" (click)="closeModal('optionsModal')">Ok</button>
+                </div>
+                -->
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDeleteScoutModal" tabindex="-1" role="dialog" [hidden]=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if(itemx){
+            <div class="modal-body modal_body modal_bodyx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('confirmDeleteScoutModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div class="text-center" style="padding: 20px 0;">
+                    <p>Please confirm you wish to remove <em>{{itemx.username}}</em> from your scouting list.
+                </div>
+                
+                <div class="text-center">
+                    <button class="btn btn-default button_primary" (click)="deleteScoutingRecord()">REMOVE</button>
+                </div>
+                
+            </div>
+            }
+        </div>
+    </div>
+</div>
