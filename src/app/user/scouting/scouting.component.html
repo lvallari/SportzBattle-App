@@ -20,11 +20,19 @@
 
         @if(scouts){
         <div class="submenu_container">
-            <div class="submenu_item" [ngClass]="{'selected':tab == 'search'}" (click)="tab = 'search'; filterPlayers()">Search</div>
-            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouting'}" (click)="tab = 'scouting'; filterPlayers()">Scouting ({{scouts.scouts.length}})</div>
-            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouted-by'}" (click)="tab = 'scouted-by'; filterPlayers()">Scouted by ({{scouts.prospects.length}})</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'search'}" (click)="tab = 'search'; query = ''; filterByTab()">Search</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouting'}" (click)="tab = 'scouting'; query = ''; filterByTab()">Scouting ({{scouts.scouts.length}})</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouted-by'}" (click)="tab = 'scouted-by'; query = ''; filterByTab()">Scouted by ({{scouts.prospects.length}})</div>
         </div>
         }
+
+        <div class="input_container" style="position: relative;">
+            <input type="text" class="form-control search_inputx" [(ngModel)]="query" (ngModelChange)="filterPlayers()">
+            <i class="fa-solid fa-magnifying-glass search_icon search_iconx"></i>
+            @if (query){
+                <div class="clear_icon" (click)="query='';filterPlayers();"><i class="fa-solid fa-times"></i></div>
+            }
+        </div>
 
         <div class="table_container">
             <!--
@@ -34,6 +42,7 @@
             <table class="table tablex">
                 <thead>
                     <tr>
+                        <th class="tc">Rank</th>
                         <th class="tc"></th>
                         <th class="tc">Username</th>
                         <th class="tc">Level</th>
@@ -52,32 +61,34 @@
                 </thead>
                 <tbody>
                     @for(x of players; track x.user_id){
-                    <tr>
-                        <td class="tc">
+                    <tr><td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">{{x.rank}}</td>
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
                             <img class="player_image" src="{{x.image}}">
                         </td>
-                        <td class="tc">{{x.username.slice(0,10)}}</td>
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">{{x.username.slice(0,10)}}</td>
                         @if(screen_large){
-                        <td class="tc">
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
                             <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}
                         </td>
                         }
                         @else {
-                            <td class="tc">
+                            <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
                                 <img class="player_image" src="{{x.level_icon}}">
                             </td> 
                         }
                         <!--<td class="tc">{{x.games}}</td>-->
-                        <td class="tc">{{tab == 'daily' ? x.max_score:x.points}}</td>
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">{{tab == 'daily' ? x.max_score:x.points}}</td>
                         
                         @if(screen_large){
-                        <td class="tc">
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
                             <button class="btn btn-default button_primary table_button">BATTLE H2H</button>
                         </td>
-                        <td class="tc">
-                            <button class="btn btn-default button_primary table_button" (click)="userMatchUp(x.user_id)">MATCH UP</button>
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
+                            @if (x.user_id != user.user_id){
+                                <button class="btn btn-default button_primary table_button" (click)="userMatchUp(x.user_id)">MATCH UP</button>
+                            }
                         </td>
-                        <td class="tc">
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
                             @if (x.scouting == false){
                                 <button class="btn btn-default button_primary table_button" (click)="scoutPlayer(x)">SCOUT</button>
                             }
@@ -87,7 +98,7 @@
                         </td>
                         }
                         @else{
-                        <td class="tc">
+                        <td class="tc" [ngClass]="{'se': x.user_id == user.user_id}">
                             <button class="btn btn-default" (click)="openOptions(x)"><i class="fa-solid fa-ellipsis-vertical" style="color:white;"></i></button>
                         </td>
                         }
@@ -140,57 +151,71 @@
 
                 <table class="table">
                     <tr>
-                        <td></td>
-                        <td class="text-center tc" >
+                        <td class="text-center tc" style="font-size:20px;">
                             <strong class="tc">{{user.stats.username}}</strong>
                         </td>
-                        <td class="text-center tc">
+                        <td></td>
+                        <td class="text-center tc"style="font-size:20px;">
                             <strong class="tc">{{matchup.username}}</strong>
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td class="text-center">
                             <img class="table_image" src="{{user.image}}">
                         </td>
+                        <td></td>
                         <td class="text-center">
                             <img class="table_image" src="{{matchup.image}}">
                         </td>
                     </tr>
                     <tr>
-                        <td>All-Time Points</td>
-                        <td class="text-center">{{user.stats.all_time_points}}</td>
-                        <td class="text-center">{{matchup.all_time_points}}</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.all_time_points > matchup.all_time_points }">
+                            {{user.stats.all_time_points}}
+                        </td>
+                        <td class="text-center stat_label">All-Time Points</td>
+                        <td class="text-center"  [ngClass]="{'ar': matchup.all_time_points > user.stats.all_time_points }">{{matchup.all_time_points}}</td>
                     </tr>
                     <tr>
-                        <td>Number of Games</td>
-                        <td class="text-center">{{user.stats.number_of_games}}</td>
-                        <td class="text-center">{{matchup.number_of_games}}</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.number_of_games > matchup.number_of_games }">{{user.stats.number_of_games}}</td>
+                       
+                        <td class="text-center stat_label">Number of Games</td>
+                       
+                        <td class="text-center" [ngClass]="{'ar': matchup.number_of_games > user.stats.number_of_games }">{{matchup.number_of_games}}</td>
                     </tr>
                     <tr>
-                        <td>All-Time Rank</td>
-                        <td class="text-center">{{user.stats.all_time_points_rank_suffix}}</td>
-                        <td class="text-center">{{matchup.all_time_points_rank_suffix}}</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.all_time_points_rank_suffix < matchup.all_time_points_rank_suffix }">{{user.stats.all_time_points_rank_suffix}}</td>
+                      
+                        <td class="text-center stat_label">All-Time Rank</td>
+                       
+                        <td class="text-center" [ngClass]="{'ar': matchup.all_time_points_rank_suffix < user.stats.all_time_points_rank_suffix }">{{matchup.all_time_points_rank_suffix}}</td>
                     </tr>
                     <tr>
-                        <td>Top Score All-Time</td>
-                        <td class="text-center">{{user.stats.top_score_all_time}}</td>
-                        <td class="text-center">{{matchup.top_score_all_time}}</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.top_score_all_time > matchup.top_score_all_time }">{{user.stats.top_score_all_time}}</td>
+                       
+                        <td class="text-center stat_label">Top Score All-Time</td>
+                       
+                        <td class="text-center" [ngClass]="{'ar': matchup.top_score_all_time > user.stats.top_score_all_time }">{{matchup.top_score_all_time}}</td>
                     </tr>
                     <tr>
-                        <td>Football Pct (Rank)</td>
-                        <td class="text-center">{{user.stats.nfl_pct}}%&nbsp;({{user.stats.nfl_pct_rank_suffix}})</td>
-                        <td class="text-center">{{matchup.nfl_pct}}%&nbsp;({{matchup.nfl_pct_rank_suffix}})</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.nfl_pct > matchup.nfl_pct }">{{user.stats.nfl_pct}}%&nbsp;({{user.stats.nfl_pct_rank_suffix}})</td>
+                        
+                        <td class="text-center stat_label">Football Pct (Rank)</td>
+                       
+                        <td class="text-center" [ngClass]="{'ar': matchup.nfl_pct > user.stats.nfl_pct  }">{{matchup.nfl_pct}}%&nbsp;({{matchup.nfl_pct_rank_suffix}})</td>
                     </tr>
                     <tr>
-                        <td>Basketball Pct (Rank)</td>
-                        <td class="text-center">{{user.stats.nba_pct}}%&nbsp;({{user.stats.nba_pct_rank_suffix}})</td>
-                        <td class="text-center">{{matchup.nba_pct}}%&nbsp;({{matchup.nba_pct_rank_suffix}})</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.nba_pct > matchup.nba_pct }">{{user.stats.nba_pct}}%&nbsp;({{user.stats.nba_pct_rank_suffix}})</td>
+                       
+                        <td class="text-center stat_label">Basketball Pct (Rank)</td>
+                       
+                        <td class="text-center" [ngClass]="{'ar': matchup.nba_pct > user.stats.nba_pct  }">{{matchup.nba_pct}}%&nbsp;({{matchup.nba_pct_rank_suffix}})</td>
                     </tr>
                     <tr>
-                        <td>Baseball Pct (Rank)</td>
-                        <td class="text-center">{{user.stats.mlb_pct}}%&nbsp;({{user.stats.mlb_pct_rank_suffix}})</td>
-                        <td class="text-center">{{matchup.mlb_pct}}%&nbsp;({{matchup.mlb_pct_rank_suffix}})</td>
+                        <td class="text-center" [ngClass]="{'al': user.stats.mlb_pct > matchup.mlb_pct }">{{user.stats.mlb_pct}}%&nbsp;({{user.stats.mlb_pct_rank_suffix}})</td>
+                       
+                        <td class="text-center stat_label">Baseball Pct (Rank)</td>
+                       
+                        <td class="text-center" [ngClass]="{'ar': matchup.mlb_pct > user.stats.mlb_pct  }">{{matchup.mlb_pct}}%&nbsp;({{matchup.mlb_pct_rank_suffix}})</td>
                     </tr>
                 </table>
 

@@ -372,23 +372,37 @@ formatMonthLabel(monthIdx:number, year:number) {
     return midnight.getTime();
   }
 
-  assignLevel(user:any, levels:any){
+  assignLevel(user: any, levels: any) {
 
     //find correct level
-    var skill_level:any;
-    for (var i=0; i<levels.length; i++) {
-      if (user.all_time_points >= levels[i].points) {
-        skill_level = levels[i];
-        break;
+    var skill_level: any;
+    for (var i = 0; i < levels.length; i++) {
+      if (user.all_time_points) {
+        if (user.all_time_points >= levels[i].points) {
+          skill_level = levels[i];
+          break;
+        }
+      }
+      else {
+        if (user.points >= levels[i].points) {
+          skill_level = levels[i];
+          break;
+        }
       }
     }
 
     //var skill_level = levels[0];
-    if (skill_level){
+    if (skill_level) {
       user.level = skill_level.level;
       user.level_icon = skill_level.icon;
     }
 
+  }
+
+  getOrdinalSuffix(number:number) {
+    const suffixes = ["th", "st", "nd", "rd"];
+    const value = number % 100;
+    return number + (suffixes[(value - 20) % 10] || suffixes[value] || suffixes[0]);
   }
 
 }

@@ -262,6 +262,49 @@
     margin: 0 2px;
 }
 
+.search_inputx{
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    max-width: 320px;
+}
+
+.search_iconx{
+    color: white;
+    top: 7px;
+}
+
+.search_inputx{
+    padding-left: 45px;
+}
+
+.clear_icon{
+    position: absolute;
+    top: 5px;
+    background-color: lightgrey;
+    padding: 2px 8px;
+    border-radius: 50%;
+    left: 269px;
+    color: white;
+    cursor: pointer;
+}
+
+.se{
+    background-color: #B3B291;
+}
+
+.stat_label{
+    font-weight: 600;
+}
+
+.al{
+    border-right: solid 10px green;
+}
+
+.ar {
+    border-left: solid 10px green;
+}
+
 @media screen and (max-width: 768px) {
     
     .contentsx{
