@@ -298,12 +298,29 @@
 }
 
 .al{
-    border-right: solid 10px green;
+    background-color: green !important;
+    width: fit-content;
+    margin: auto;
+    padding: 2px 15px;
+    border-radius: 8px;
+    color: white;
 }
 
 .ar {
-    border-left: solid 10px green;
+    background-color: green !important;
+    width: fit-content;
+    margin: auto;
+    padding: 2px 15px;
+    border-radius: 8px;
+    color: white;
 }
+
+.tcm {
+    background-color: transparent;
+    color:white;
+}
+
+
 
 @media screen and (max-width: 768px) {
     
