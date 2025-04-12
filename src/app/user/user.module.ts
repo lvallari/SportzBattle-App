@@ -34,8 +34,7 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
     AdvertisementPageComponent,
     PrepareScreenComponent,
     GameOverComponent, 
-    QrcodeComponent,
-    
+    QrcodeComponent
 
   ],
   imports: [
