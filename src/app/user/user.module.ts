@@ -18,6 +18,7 @@ import { AdvertisementPageComponent } from './advertisement-page/advertisement-p
 import { PrepareScreenComponent } from './prepare-screen/prepare-screen.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { QrcodeComponent } from './qrcode/qrcode.component';
+import { AdsterraComponent } from "./adsterra/adsterra.component";
 
 
 
@@ -41,15 +42,16 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
     CommonModule,
     UserRoutingModule,
     FormsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     QRCodeModule,
     PlotlyModule,
     SharedModule,
-    ImageCropperComponent, 
+    ImageCropperComponent,
     TimerComponent,
     UserStatsComponent,
-    QuestionFooter4Component
-  ],
+    QuestionFooter4Component,
+    AdsterraComponent
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UserModule { }
