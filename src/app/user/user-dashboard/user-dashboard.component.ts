@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
 import { TablesService } from '../../services/tables.service';
+declare var $: any;
 
 @Component({
   selector: 'app-user-dashboard',
@@ -133,6 +134,19 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
       this.commonService.assignLevel(this.user, data);
     })
+  }
+
+  closeModal(name:string){
+    $('#' + name).modal('hide');
+  }
+
+  showGameTypeModal(){
+     $('#gameTypeModal').modal('show');
+  }
+
+  goPlayH2H(){
+    $('#gameTypeModal').modal('hide');
+    this.router.navigate(['user/lobby']);
   }
 
   /*

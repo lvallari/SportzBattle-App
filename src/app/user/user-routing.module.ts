@@ -5,6 +5,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { GameScreenComponent } from './game-screen/game-screen.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ScoutingComponent } from './scouting/scouting.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
     { path: 'leaderboard', component: LeaderboardComponent},
     { path: 'play', component: GameScreenComponent},
     { path: 'user-dashboard', component: UserDashboardComponent},
-    { path: 'scouting', component: ScoutingComponent}
+    { path: 'scouting', component: ScoutingComponent},
+    { path: 'lobby', component: LobbyComponent}
 ];
 
 @NgModule({
@@ -26,5 +28,6 @@ export const routingComponents = [
     LeaderboardComponent,
     GameScreenComponent,
     UserDashboardComponent,
-    ScoutingComponent
+    ScoutingComponent,
+    LobbyComponent
 ]

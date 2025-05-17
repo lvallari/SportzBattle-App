@@ -9,6 +9,7 @@ import { MyblobService } from './services/myblob.service';
 import { UploadService } from './services/upload.service';
 import { UserService } from './services/user.service';
 import { MailingService } from './services/mailing.service';
+import { ApisService } from './services/apis.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ import { MailingService } from './services/mailing.service';
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers:[ QuestionsService, TablesService, CommonService, MyblobService, UploadService, UserService, MailingService ]
+  providers:[ QuestionsService, TablesService, CommonService, MyblobService, UploadService, UserService, MailingService, ApisService ]
 })
 export class AppComponent {
   title = 'sportzbattle';

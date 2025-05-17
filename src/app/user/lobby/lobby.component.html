@@ -1,0 +1,182 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="dashboard_contents">
+        
+        <div class="page_title">Battle Lobby</div>
+
+        <!--
+        @if(scouts){
+        <div class="submenu_container">
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'search'}" (click)="tab = 'search'; query = ''; filterByTab()">Search</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouting'}" (click)="tab = 'scouting'; query = ''; filterByTab()">Scouting ({{scouts.scouts.length}})</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'scouted-by'}" (click)="tab = 'scouted-by'; query = ''; filterByTab()">Scouted by ({{scouts.prospects.length}})</div>
+        </div>
+        }
+        -->
+        <!--
+        <div class="input_container" style="position: relative;">
+            <input type="text" class="form-control search_inputx" [(ngModel)]="query" (ngModelChange)="filterPlayers()">
+            <i class="fa-solid fa-magnifying-glass search_icon search_iconx"></i>
+            @if (query){
+                <div class="clear_icon" (click)="query='';filterPlayers();"><i class="fa-solid fa-times"></i></div>
+            }
+        </div>
+        -->
+        <div class="text-end" style="padding:30px 0;">
+            <button class="btn btn-default button_primary" (click)="showCreateGameModal()">
+                <i class="fa fa-plus"></i>&nbsp;Create Game
+            </button>
+        </div>
+        
+        <div class="table_container">
+            <!--
+            <div class="graph_title">Top Players</div>
+            -->
+            @if (games.length > 0){
+            <table class="table tablex">
+                <thead>
+                    <tr>
+                        <th class="tc">Host</th>
+                        <th class="tc">Rank</th>
+                        
+                        <th class="tc">Sport</th>
+                        <th class="tc">Ante</th>
+                        <th class="tc">Expires in</th>
+                        <!--<th class="tc">Games</th>-->
+                        <th  class="tc"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(x of games; track x.game_id){
+                    <tr>
+                        <td class="tc" >
+                            <img class="player_image" src="{{x.user_image}}">&nbsp;{{x.username.slice(0,10)}}
+                        </td>
+                        <td class="tc">
+                                <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}
+                        </td> 
+                        <td  class="tc">{{x.sport}}</td>
+                       
+                        <td class="tc">{{x.amount}}&nbsp;{{x.bet_mode}}</td>
+                         <td class="tc"><em>{{x.expires_in}}</em></td>
+                        <td class="tc">
+                            @if(x.game_access == 'public'){
+                            <button class="btn btn-default button_primary">
+                                JOIN
+                            </button>
+                            }
+                            @else {
+                            <button class="btn btn-default button_secondary" disabled>
+                                <i class="fa-solid fa-lock"></i>&nbsp;Private
+                            </button>
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            @else{
+                <div class="note">There are no games in the lobby</div>
+            }
+        </div>
+       
+    </div>
+</div>
+
+<div class="modal fade" id="createGameModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('createGameModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                @if (gamex){
+                <p class="game_create_field">Select Access</p>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.game_access == 'private'}"
+                            (click)="gamex.game_access = 'private'">Private</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.game_access == 'public'}"
+                            (click)="gamex.game_access = 'public'">Public</button>
+                    </div>
+                </div>
+                @if(gamex.game_access){
+               <p class="game_create_field">Select Sport</p>
+               <div class="row">
+                <div class="col-4">
+                    <button class="btn btn-default" [ngClass]="{'selected': gamex.sport == 'football'}" (click)="gamex.sport = 'football'">Football</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-default" [ngClass]="{'selected': gamex.sport == 'baseball'}" (click)="gamex.sport = 'baseball'">Baseball</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-default" [ngClass]="{'selected': gamex.sport == 'basketball'}" (click)="gamex.sport = 'basketball'">Basketball</button>
+                </div>
+               </div>
+               @if (gamex.sport){
+                <p class="game_create_field">Select Ante Type</p>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.bet_mode == 'tokens'}"
+                            (click)="gamex.bet_mode = 'tokens'">Play for tokens</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.bet_mode == 'points'}"
+                            (click)="gamex.bet_mode = 'points'">Play for battle points</button>
+                    </div>
+                </div>
+                @if (gamex.bet_mode){
+                <p class="game_create_field">Select Amount</p>
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 50}"
+                            (click)="gamex.amount = 50">50</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 100}"
+                            (click)="gamex.amount = 100">100</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 200}"
+                            (click)="gamex.amount = 200">200</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 250}"
+                            (click)="gamex.amount = 250">250</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 500}"
+                            (click)="gamex.amount = 500">500</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 750}"
+                            (click)="gamex.amount = 750">750</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 1000}"
+                            (click)="gamex.amount = 1000">1000</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 1500}"
+                            (click)="gamex.amount = 1500">1500</button>
+                    </div>
+                </div>
+                @if (gamex.amount){
+                <div class="text-center" style="padding:40px 0 0 0;">
+                    <button class="btn btn-default button_primary btn-lg" (click)="createGame()">Create Game</button>
+                </div>
+                }
+                }
+               }
+                }
+            }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -44,5 +44,9 @@ export class UserStatsComponent implements OnChanges{
     $('#' + name).modal('hide');
   }
 
+  showGameTypeModal(){
+    $('#gameTypeModal').modal('show');
+  }
+
   
 }

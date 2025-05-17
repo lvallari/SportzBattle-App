@@ -14,7 +14,7 @@
                 <div class="wallet_value">${{user.wallet_value}}</div>
             </div>
             <div class="text-end">
-                <button class="btn btn-default button_primary play_now_button" (click)="goPlay()">Play Now</button>
+                <button class="btn btn-default button_primary play_now_button" (click)="showGameTypeModal()">Play Now</button>
             </div>
         </div>
 
@@ -147,5 +147,25 @@
             </table>
         </div>
         
+    </div>
+</div>
+
+<div class="modal fade" id="gameTypeModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('gameTypeModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Select game mode</h1>  
+                
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="goPlay()">Loop</button><br><br>
+                    <button type="button" class="btn btn-default button_primary"  (click)="goPlayH2H()">Head-to-Head</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

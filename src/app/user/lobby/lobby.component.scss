@@ -1,0 +1,341 @@
+@import '../../../globals.scss';
+
+
+.user_details {
+    padding: 60px 40px 0px 40px;
+    position: relative;
+    margin: auto;
+    display: block;
+}
+
+.dashboard_contents{
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    display: block;
+    padding-bottom: 100px;
+}
+
+.user_image{
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.user_name{
+    font-size: 20px;
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:20px;
+    color: white;
+}
+
+.level_icon{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: auto;
+}
+
+.level_name{
+    font-size: 16px;
+    font-family: 'orbitron-bold';
+    vertical-align: middle;
+    color: white;
+}
+
+.box_title{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 24px;
+    text-align: center;
+    padding: 7px 0;
+    margin: auto;
+}
+
+.box_number{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 20px;
+    text-align: center;
+    background-color: #33ccff;
+    padding: 25px 0px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+
+.box_rank{
+    font-style: italic;
+    font-size:18px;
+    color:white;
+    text-align: center;
+}
+
+
+.rowx{
+    margin:0;
+    border-bottom: solid 1px white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: solid 1px white;
+}
+
+.play_now_button{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table_container{
+    padding: 30px 0;
+}
+
+.level_container{
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:60px;
+}
+
+
+.user_badge{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    padding: 0px 0px;
+    margin: 0 7px;
+}
+
+.user_badges{
+    padding: 50px 0 30px 0;
+}
+
+.badgex{
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 13px;
+}
+
+.wallet_value{
+    font-family: 'orbitron-bold';
+    color: deepskyblue;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.modal_bodyx{
+    background: linear-gradient(45deg, #33ccff, #000000, #000000);
+    color:white;
+    border: solid 2px white;
+}
+
+
+@media screen and (max-width: 768px) {
+   .user_name{
+    font-size: 16px;
+   }
+
+   .user_image{
+    width: 60px;
+    height: 60px;
+   }
+
+   .level_name{
+    font-size: 15px;
+   }
+   
+    .backgroundx{
+    padding:0px;
+   }
+
+   .box_title{
+        max-width:166px;
+   }
+
+   .user_details{
+    padding: 60px 5px 0px 5px;
+   }
+
+   .level_container{
+    padding-left: 20px;
+   }
+
+   .tc{
+    height: 50px;
+   }
+}
+
+.submenu_container{
+    padding:20px 0;
+}
+
+.submenu_item{
+    font-size:20px;
+    display: inline-block;
+    padding: 0 15px;
+    color: white;
+    font-family: 'orbitron-medium';
+    cursor: pointer;
+}
+
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    padding: 8px 0 8px 0;
+}
+
+.table_container{
+    padding: 30px 0;
+}
+
+.graph_title{
+    font-family: "orbitron-bold";
+    font-size: 28px;
+    color: white;
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+
+.tablex{
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+.player_image{
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.selected{
+    border-bottom:solid 2px white;
+}
+
+.contentsx{
+    padding: 50px;
+}
+
+.note{
+    padding: 30px 0;
+    font-style:italic;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+.table_button{
+    padding: 0;
+    min-width: 105px;
+    margin: 0 2px;
+}
+
+.table_image{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.remove_button{
+    background-color: transparent;
+    border-color:solid 1px white;
+    color: white;
+    padding: 0;
+    min-width: 105px;
+    margin: 0 2px;
+}
+
+.search_inputx{
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    max-width: 320px;
+}
+
+.search_iconx{
+    color: white;
+    top: 7px;
+}
+
+.search_inputx{
+    padding-left: 45px;
+}
+
+.clear_icon{
+    position: absolute;
+    top: 5px;
+    background-color: lightgrey;
+    padding: 2px 8px;
+    border-radius: 50%;
+    left: 269px;
+    color: white;
+    cursor: pointer;
+}
+
+.se{
+    background-color: #B3B291;
+}
+
+.stat_label{
+    font-weight: 600;
+}
+
+.al{
+    background-color: green !important;
+    width: fit-content;
+    margin: auto;
+    padding: 2px 15px;
+    border-radius: 8px;
+    color: white;
+}
+
+.ar {
+    background-color: green !important;
+    width: fit-content;
+    margin: auto;
+    padding: 2px 15px;
+    border-radius: 8px;
+    color: white;
+}
+
+.tcm {
+    background-color: transparent;
+    color:white;
+}
+
+.selected{
+    background-color: $color-one;
+    color: white;
+    border-radius: 0;
+}
+
+.game_create_field{
+    border-bottom: solid 1px grey;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+
+@media screen and (max-width: 768px) {
+    
+    .contentsx{
+        padding: 0px;
+    }
+ }
