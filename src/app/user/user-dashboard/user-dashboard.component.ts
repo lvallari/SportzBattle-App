@@ -60,7 +60,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.userService.getUserStats(this.user.user_id).subscribe((data:any) => {
       //console.log('stats', data);
       this.stats = data;
-      this.user.all_time_points = data.all_time_points;
+      this.user.all_time_points = this.user.points;//data.all_time_points; //this.user.points;
+      
+      console.log('this.user', this.user);
       this.getLevel();
     })
 

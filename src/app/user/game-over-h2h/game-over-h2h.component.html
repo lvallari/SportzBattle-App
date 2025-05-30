@@ -1,0 +1,39 @@
+<img class="logo" style="padding-top:50px;" src="../../../assets/images/logo.png">
+<img class="logo_words" src="../../../assets/images/logo_words.png">
+<div class="game_over">Game Over</div><br>
+
+@if (user_position == 1){
+    <div class="congratulations_message">Congratulations! You got the highest score!</div>
+}
+
+@else {
+    <div class="congratulations_message" style="font-size:20px;">This is how you fared compared to others</div>
+}
+
+<table class="table tablex">
+    <thead>
+        <tr>
+            <th class="tc"></th>
+            <th class="tc">User</th>
+            <th class="tc">Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (x of books; track x.book_id; let i = $index){
+        <tr>
+            <td class="tc" [ngClass]="{'highlighted': x.user_id == user.user_id}">{{i+1}}</td>
+            <td class="tc" [ngClass]="{'highlighted': x.user_id == user.user_id}">
+                <img class="user_image" src="{{x.user_image}}">&nbsp;{{x.user_name}}
+            </td>
+            <td class="tc" [ngClass]="{'highlighted': x.user_id == user.user_id}">
+                {{x.score}}
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="text-center" style="padding:30px 0">
+    <button class="btn btn-default tolobby_button" (click)="gotoLobby()">Go to Lobby</button>
+</div>

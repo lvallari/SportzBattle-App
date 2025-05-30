@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { TablesService } from '../../services/tables.service';
 import { MyblobService } from '../../services/myblob.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ApisService } from '../../services/apis.service';
 
 
 @Component({
@@ -85,6 +86,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     public userService: UserService,
     public tablesService: TablesService,
     public myblobService: MyblobService,
+    public apisService: ApisService,
     public router: Router
   ) { }
 
@@ -403,6 +405,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
   gameOver() {
 
+
     /*
     //award warrior badge if it doesnt have one
     if (this.has_warrior_badge == false) {
@@ -426,6 +429,11 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         this.has_warrior_badge = true;
         this.giveAward('warrior');
       }
+
+      //update user points
+      this.apisService.awardPoints(this.user.user_id, this.user.points).subscribe((data:any) => {
+        console.log(data);
+      });
 
       clearInterval(this.timerInterval);
       clearInterval(this.timer2Interval);

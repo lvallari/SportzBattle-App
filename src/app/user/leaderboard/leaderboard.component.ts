@@ -115,11 +115,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       //find record
       var record = this.players_map.find((n:any) => { return n.user_id == x.user_id});
       if (record) x.all_time_points = record.all_time_points;
-    })
+    });
 
     this.assignLevels();
-
-
     this.data_ready =true;
 
   }

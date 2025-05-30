@@ -19,6 +19,7 @@ import { PrepareScreenComponent } from './prepare-screen/prepare-screen.componen
 import { GameOverComponent } from './game-over/game-over.component';
 import { QrcodeComponent } from './qrcode/qrcode.component';
 import { AdsterraComponent } from "./adsterra/adsterra.component";
+import { GameOverH2hComponent } from './game-over-h2h/game-over-h2h.component';
 
 
 
@@ -35,7 +36,8 @@ import { AdsterraComponent } from "./adsterra/adsterra.component";
     AdvertisementPageComponent,
     PrepareScreenComponent,
     GameOverComponent, 
-    QrcodeComponent
+    QrcodeComponent,
+    GameOverH2hComponent
 
   ],
   imports: [

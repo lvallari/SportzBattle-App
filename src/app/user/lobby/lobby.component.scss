@@ -332,6 +332,39 @@
     margin: 15px 0;
 }
 
+.button_share{
+    color: white;
+    border-radius: 0;
+    border: solid 1px white;
+    padding: 6px 20px;
+}
+
+.button_share:hover{
+    border-color: $color-one;
+    color: $color-one;
+}
+
+.share_url{
+    border:none;
+}
+
+.share_url:focus {
+    outline:none;
+}
+
+.tooltipx {
+    background-color: $color-one;
+    color: white;
+    padding: 5px 10px;
+    position: absolute;
+    top: 34px;
+    left: calc(50% - 40px);
+    font-size: 17px;
+    border-radius: 30px;
+    border: solid 1px $color-one;
+}
+
+
 
 @media screen and (max-width: 768px) {
     

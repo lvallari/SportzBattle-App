@@ -6,12 +6,14 @@ import { GameScreenComponent } from './game-screen/game-screen.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ScoutingComponent } from './scouting/scouting.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { Gameh2hComponent } from './gameh2h/gameh2h.component';
 
 
 const routes: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'leaderboard', component: LeaderboardComponent},
     { path: 'play', component: GameScreenComponent},
+    { path: 'playh2h/:h2h_game_id', component: Gameh2hComponent},
     { path: 'user-dashboard', component: UserDashboardComponent},
     { path: 'scouting', component: ScoutingComponent},
     { path: 'lobby', component: LobbyComponent}
@@ -29,5 +31,6 @@ export const routingComponents = [
     GameScreenComponent,
     UserDashboardComponent,
     ScoutingComponent,
-    LobbyComponent
+    LobbyComponent,
+    Gameh2hComponent
 ]

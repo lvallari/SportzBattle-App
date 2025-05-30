@@ -39,6 +39,30 @@ export class ApisService {
       )
   }
 
+   awardPoints(user_id:number, points:number): Observable<any> {
+    return this.http.post<any>(this.baseurl + '/awardPoints', {user_id: user_id, points: points}, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
+  getH2HGame(game_id:number): Observable<any> {
+    return this.http.get<any>(this.baseurl + '/getH2HGame?id=' + game_id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
+  getUsersByGameH2H(h2h_game_id:number): Observable<any> {
+    return this.http.get<any>(this.baseurl + '/getUsersByGameH2h?id=' + h2h_game_id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
   // Error handling
   errorHandl(error: any) {
     let errorMessage = '';

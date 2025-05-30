@@ -1,0 +1,68 @@
+
+<div class="game_screen">
+
+    
+@if (page == 'splash') {
+    <app-splash></app-splash>
+}
+@else if (page == 'prepare_screen'){
+    <app-prepare-screen [banners]="[]" [account_type]="'player'" ></app-prepare-screen>
+}
+@if (page == 'game'){
+    <app-user-stats [user]="user" [counter]="counter" [show_lives]="true"></app-user-stats>
+    <div class="points_animation" *ngIf="show_point_animation" 
+    [ngStyle]="{'font-size': points_value > 99 ? '40px':'48px','padding-top': value_points > 99? '30px':'10px'}">+{{value_points}}</div>
+    
+    <!--
+    @if(popup == 'on-fire'){ <app-on-fire-popup></app-on-fire-popup> }
+    @if(popup == 'double-or-nothing'){ <app-double-or-nothing-popup></app-double-or-nothing-popup> }
+    @if(popup == 'double-or-nothing-failed'){ <app-double-or-nothing-failed-popup></app-double-or-nothing-failed-popup> }
+    @if(popup == 'gridion'){ <app-gridion-popup></app-gridion-popup> }
+    @if(popup == 'hardwood'){ <app-hardwood-popup></app-hardwood-popup> }
+    @if(popup == 'park'){ <app-park-popup></app-park-popup> }
+    @if(popup == 'high-roller'){ <app-high-roller-popup></app-high-roller-popup> }
+    @if(popup == 'brainiac'){ <app-brainiac-popup></app-brainiac-popup> }
+    @if(popup == 'hit-the-cycle'){ <app-hit-the-cycle-popup></app-hit-the-cycle-popup> }
+    -->
+        
+    <app-timer *ngIf="show_timer" [time]="time"></app-timer>
+    <div class="question_container">
+        <div class="question">{{question}}</div>
+        
+        @if(!question_notification){
+            <!--
+            @if(user_on_fire && question_active){
+                <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+            }
+            -->
+            <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div>
+        }
+        @else {
+            <div class="question_valuex blue"><em>{{question_notification}}</em></div>
+        }
+        
+        <div class="row">
+            @for(x of options; track x.text){
+            <div class="col-12 col-md-6">
+                <div class="option op1"
+                    [ngClass]="{'greenyellow': x.show_green, 'red': x.show_red, 'invisible': ((time_is_up == true && x.is_right_answer == false)||x.hide) }"
+                    (click)="answerSelected(x)">
+                    {{x.text}}</div>
+            </div>
+            }
+        </div>
+    </div>
+
+    @if (banners){
+        <app-question-footer4 [counter]="counter" [venue_id]="user.venue_id" [banners]="banners"></app-question-footer4>
+    }
+    }
+     @else if (page == 'game_over'){
+        <!--
+        @if(popup == 'warrior'){ <app-warrior-popup></app-warrior-popup> }
+        -->
+        <app-game-over-h2h [h2h_game_id]="h2h_game_id" [score]="user.score" [user]="user"></app-game-over-h2h>
+    }
+    
+
+</div>

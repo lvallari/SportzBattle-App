@@ -1,0 +1,91 @@
+@import '../../../globals.scss';
+
+.logo {
+   
+    height: 20%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo_words {
+    margin: auto;
+    display: block;
+    padding: 30px 0;
+    width: 30%;
+    max-width: 760px;
+}
+
+.game_over{
+    color: white;
+    font-size: 2em;
+    font-family: 'orbitron-bold';
+    /* margin: auto; */
+    /* display: block; */
+    text-align: center;
+}
+
+.play_again_button{
+    background-color: #33ccff;
+    color: white;
+    font-size: 1.5em;
+    font-family: "orbitron-medium";
+    padding: 10px 30px;
+}
+
+.dashboard_button{
+    color: white;
+    font-family: 'orbitron-medium';
+    font-size: 18px;
+    padding: 20px 0;
+}
+
+.tablex {
+    width: 100%;
+    max-width: 520px;
+    margin:auto;
+}
+
+.congratulations_message{
+    color: white;
+    font-style: italic;
+    font-size: 22px;
+    text-align: center;
+    padding: 30px 0;
+    font-weight: 600;
+}
+
+.user_image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.highlighted{
+    background-color: #B3B291;
+}
+
+.tolobby_button{
+    color: white;
+    font-family: 'orbitron-medium';
+    font-size: 18px;
+    padding: 14px 30px;
+    background-color: $color-one;
+}
+
+@media screen and (max-width: 768px) {
+    .logo {
+        width: 80%;
+    }
+    
+    .logo_words {
+        width: 80%;
+    }
+}

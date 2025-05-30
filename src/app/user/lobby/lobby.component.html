@@ -40,9 +40,10 @@
                         <th class="tc">Rank</th>
                         
                         <th class="tc">Sport</th>
-                        <th class="tc">Ante</th>
+                        <th class="tc">Prize</th>
                         <th class="tc">Expires in</th>
                         <!--<th class="tc">Games</th>-->
+                        <th  class="tc"></th>
                         <th  class="tc"></th>
                     </tr>
                 </thead>
@@ -55,14 +56,14 @@
                         <td class="tc">
                                 <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}
                         </td> 
-                        <td  class="tc">{{x.sport}}</td>
+                        <td  class="tc" style="text-transform: uppercase;">{{x.sport}}</td>
                        
                         <td class="tc">{{x.amount}}&nbsp;{{x.bet_mode}}</td>
                          <td class="tc"><em>{{x.expires_in}}</em></td>
                         <td class="tc">
                             @if(x.game_access == 'public'){
-                            <button class="btn btn-default button_primary">
-                                JOIN
+                            <button class="btn btn-default button_primary" (click)="goPlay(x)">
+                                {{x.created_by_user_id == user.user_id ? 'PLAY':'JOIN'}}
                             </button>
                             }
                             @else {
@@ -70,6 +71,11 @@
                                 <i class="fa-solid fa-lock"></i>&nbsp;Private
                             </button>
                             }
+                        </td>
+                        <td class="tc">
+                            <button class="btn btn-default button_share" (click)="showShareModal(x)">
+                                <i class="fa-solid fa-share"></i>&nbsp;Share
+                            </button>
                         </td>
                     </tr>
                     }
@@ -119,52 +125,76 @@
                 </div>
                </div>
                @if (gamex.sport){
-                <p class="game_create_field">Select Ante Type</p>
+                <p class="game_create_field">Select Prize Type</p>
                 <div class="row">
                     <div class="col-6">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.bet_mode == 'tokens'}"
-                            (click)="gamex.bet_mode = 'tokens'">Play for tokens</button>
+                            (click)="gamex.bet_mode = 'tokens';gamex.amount = undefined;">Battle Tokens</button>
                     </div>
                     <div class="col-6">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.bet_mode == 'points'}"
-                            (click)="gamex.bet_mode = 'points'">Play for battle points</button>
+                            (click)="gamex.bet_mode = 'points';gamex.amount = undefined;">Points</button>
                     </div>
                 </div>
                 @if (gamex.bet_mode){
                 <p class="game_create_field">Select Amount</p>
                 <div class="row">
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet < 50)) { <div class="text-center" style="padding:20px 0;">
+                        <p><em>You must have at least 50 battle token to setup a game for tokens.</em></p>
+                        </div>
+                    }
+                    @if ((gamex.bet_mode == 'points' && user.points < 50)) { <div class="text-center" style="padding:20px 0;">
+                        <p><em>You must have at least 50 points to setup a game for points.</em></p>
+                        </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 50) || (gamex.bet_mode == 'points' && user.points >= 50)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 50}"
                             (click)="gamex.amount = 50">50</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 100) || (gamex.bet_mode == 'points' && user.points >= 100)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 100}"
                             (click)="gamex.amount = 100">100</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 200) || (gamex.bet_mode == 'points' && user.points >= 200)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 200}"
                             (click)="gamex.amount = 200">200</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 250) || (gamex.bet_mode == 'points' && user.points >= 250)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 250}"
                             (click)="gamex.amount = 250">250</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 500) || (gamex.bet_mode == 'points' && user.points >= 500)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 500}"
                             (click)="gamex.amount = 500">500</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 750) || (gamex.bet_mode == 'points' && user.points >= 750)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 750}"
                             (click)="gamex.amount = 750">750</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 1000) || (gamex.bet_mode == 'points' && user.points >= 1000)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 1000}"
                             (click)="gamex.amount = 1000">1000</button>
                     </div>
+                    }
+                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 1500) || (gamex.bet_mode == 'points' && user.points >= 1500)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 1500}"
                             (click)="gamex.amount = 1500">1500</button>
                     </div>
+                    }
                 </div>
                 @if (gamex.amount){
                 <div class="text-center" style="padding:40px 0 0 0;">
@@ -176,6 +206,80 @@
                 }
             }
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notEnoughPointsOrTokensModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (gamex){
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('notEnoughPointsOrTokensModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                @if (gamex.bet_mode == 'tokens'){
+                    <p>You dont have enough Battle Tokens to play this game.</p>
+                }
+                @else {
+                    <p>You dont have enough Points to play this game. Earn points by playing the loop mode.</p>
+                }
+                
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-danger" (click)="closeModal('notEnoughPointsOrTokensModal')">OK</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alreadyPlayedModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('alreadyPlayedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-center">
+                <p><em>You already played this game.</em></p>
+                </div>
+                
+                <div class="text-center" style="padding: 25px 0 0 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="closeModal('alreadyPlayedModal')">OK</button>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (gamex){
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('shareModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-center" style="padding: 30px 0;">
+                    <input id="link" class="form-control share_url text-center" [value]="'sptzba.com/playh2h/' + gamex.game_url" readonly><br>
+                    <button class="btn btn-default button_primary" style="margin-top:30px;" (click)="copyToClipboard()">Copy</button>
+                     <span *ngIf="showTooltip == true" class="tooltipx">Copied!</span>
+                </div>
+            
+            </div>
+            }
         </div>
     </div>
 </div>
