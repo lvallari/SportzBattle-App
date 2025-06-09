@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
 import { TablesService } from '../../services/tables.service';
+import { ApisService } from '../../services/apis.service';
 declare var $: any;
 
 @Component({
@@ -26,11 +27,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   badges!:any[];
 
   number_of_badges!:number;
+  h2h_games!:any[];
 
   constructor(
     public userService: UserService,
     public commonService: CommonService,
     public tablesService: TablesService,
+    public apisService: ApisService,
     public router: Router
   ){
 
@@ -47,7 +50,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
       //console.log('this.user', this.user);
       this.getData();
-      
+      this.getH2HGames();
+
     });
   }
 
@@ -151,6 +155,16 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.router.navigate(['user/lobby']);
   }
 
+
+  getH2HGames(){
+    this.apisService.getGamesH2HByUser(this.user.user_id).subscribe((data:any) => {
+      this.h2h_games = data;
+      this.h2h_games.forEach((x:any) => {
+        x.user_position = this.commonService.getOrdinalSuffix(x.user_position);
+      });
+      console.log('h2h_games', this.h2h_games);
+    })
+  }
   /*
   calculateStats(){
     //sort by category

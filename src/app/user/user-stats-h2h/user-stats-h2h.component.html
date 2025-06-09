@@ -1,0 +1,52 @@
+@if (user.account_type == 'player'){  
+<div class="user_stats">
+    <img class="user_image" src="{{user.image}}">&nbsp;
+    <!--
+    @if(on_fire){
+        <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
+    }
+    -->
+    <!--
+    {{user.name}}&nbsp;&nbsp;&nbsp;
+    -->
+    <i class="fa-solid fa-arrow-trend-up trend_icon"></i>&nbsp;{{user.points}} | {{user.daily_high ?
+    user.daily_high:user.points}}
+    &nbsp;
+    @if (true){
+    <div class="round_bar" [ngClass]="{'gold':(round_number >= 1)}"></div>
+    <div class="round_bar" [ngClass]="{'gold':(round_number >= 2)}"></div>
+    <div class="round_bar" [ngClass]="{'gold':(round_number >= 3)}"></div>
+    <!--
+    <div class="life_circle" [ngClass]="{'green':(user.lives >= 4)}"></div>
+    <div class="life_circle" [ngClass]="{'green':(user.lives == 5)}"></div>
+    -->
+    &nbsp;
+    }
+   
+    <button class="btn btn-default button_primary button_exit" (click)="confirmExit()">Exit</button>
+</div>
+}
+@else{
+<div class="game_stats">
+    <button class="btn btn-default button_primary button_exit" (click)="confirmExit()">Exit</button>
+</div>
+}
+<div class="modal fade" id="confirmExitModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('confirmExitModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Are you sure you want to exit the game?</h1>  
+                
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="exitGame()">YES</button><br><br>
+                    <button type="button" class="btn btn-default button_primary"  (click)="closeModal('confirmExitModal')">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

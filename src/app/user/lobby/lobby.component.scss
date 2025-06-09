@@ -24,7 +24,7 @@
 }
 
 .user_name{
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'orbitron-bold';
     display: inline-block;
     vertical-align: middle;
@@ -142,15 +142,33 @@
     border: solid 2px white;
 }
 
+.user_image{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.user_name{
+    display: inline-block;
+    font-family: 'orbitron-bold';
+}
+
+.user_container{
+    padding:4px 0;
+}
+
+
 
 @media screen and (max-width: 768px) {
    .user_name{
     font-size: 16px;
+    padding-left:5px;
    }
 
    .user_image{
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
    }
 
    .level_name{
@@ -176,6 +194,15 @@
    .tc{
     height: 50px;
    }
+
+   .table_button2{
+        min-width: 75px !important;
+    }
+
+    .button_share{
+       min-width: 75px !important;
+       width:75px !important;
+    }
 }
 
 .submenu_container{
@@ -336,7 +363,9 @@
     color: white;
     border-radius: 0;
     border: solid 1px white;
-    padding: 6px 20px;
+    padding: 6px 14px;
+    font-family: 'orbitron-bold';
+    width: 120px;
 }
 
 .button_share:hover{
@@ -364,6 +393,16 @@
     border: solid 1px $color-one;
 }
 
+.users_container{
+    padding-top: 40px;
+    max-height: 500px;
+    overflow: auto;
+}
+
+.table1_button{
+    width:80px;
+    min-width:110px !important;
+}
 
 
 @media screen and (max-width: 768px) {

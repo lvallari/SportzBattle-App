@@ -37,14 +37,18 @@
                 <thead>
                     <tr>
                         <th class="tc">Host</th>
+                        @if(!is_small){
                         <th class="tc">Rank</th>
-                        
+                        }
                         <th class="tc">Sport</th>
+                        @if(!is_small){
                         <th class="tc">Prize</th>
+                        }
                         <th class="tc">Expires in</th>
                         <!--<th class="tc">Games</th>-->
                         <th  class="tc"></th>
                         <th  class="tc"></th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -53,29 +57,60 @@
                         <td class="tc" >
                             <img class="player_image" src="{{x.user_image}}">&nbsp;{{x.username.slice(0,10)}}
                         </td>
+                         @if (!is_small){
                         <td class="tc">
                                 <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}
-                        </td> 
-                        <td  class="tc" style="text-transform: uppercase;">{{x.sport}}</td>
-                       
+                        </td>
+                        }
+                        @if (!is_small){
+                        <td  class="tc" style="text-transform: uppercase;">
+                            {{x.sport}}
+                        </td>
+                        }
+                        @if (is_small){
+                        <td  class="tc" style="text-transform: uppercase;">
+                            @if(x.sport == 'basketball') { 🏀 }
+                            @if(x.sport == 'football') { 🏈 }
+                            @if(x.sport == 'baseball') { ⚾ }
+                        </td>
+                        }
+                        @if(!is_small){
                         <td class="tc">{{x.amount}}&nbsp;{{x.bet_mode}}</td>
-                         <td class="tc"><em>{{x.expires_in}}</em></td>
+                        }
+                        <td class="tc"><em>{{x.expires_in}}</em></td>
                         <td class="tc">
                             @if(x.game_access == 'public'){
-                            <button class="btn btn-default button_primary" (click)="goPlay(x)">
-                                {{x.created_by_user_id == user.user_id ? 'PLAY':'JOIN'}}
+                            <button class="btn btn-default button_primary table1_button" (click)="goPlay(x)">
+                                {{x.created_by_user_id == user.user_id ? 'PLAY':'PLAY'}}
                             </button>
                             }
                             @else {
-                            <button class="btn btn-default button_secondary" disabled>
+                            @if(x.user_has_invitation){
+                            <button class="btn btn-default button_primary table1_button" (click)="goPlay(x)">
+                                <i class="fa-solid fa-lock"></i>&nbsp;PLAY
+                            </button>
+                            }
+                            @else{
+                            <button class="btn btn-default button_secondary table1_button" disabled>
                                 <i class="fa-solid fa-lock"></i>&nbsp;Private
                             </button>
                             }
+                            }
                         </td>
                         <td class="tc">
-                            <button class="btn btn-default button_share" (click)="showShareModal(x)">
+                            @if(x.game_access == 'public'){
+                            
+                            <button class="btn btn-default button_share table1_button" (click)="showShareModal(x)">
                                 <i class="fa-solid fa-share"></i>&nbsp;Share
                             </button>
+                            }
+                            @else {
+                                @if(x.created_by_user_id==user.user_id){
+                                <button class="btn btn-default button_share table1_button" (click)="showInviteModal(x)">
+                                    <i class="fa-regular fa-user"></i>&nbsp;Invite
+                                </button>
+                                }
+                            }
                         </td>
                     </tr>
                     }
@@ -125,6 +160,7 @@
                 </div>
                </div>
                @if (gamex.sport){
+                <!--
                 <p class="game_create_field">Select Prize Type</p>
                 <div class="row">
                     <div class="col-6">
@@ -137,22 +173,13 @@
                     </div>
                 </div>
                 @if (gamex.bet_mode){
+                -->
                 <p class="game_create_field">Select Amount</p>
                 <div class="row">
-                    @if ((gamex.bet_mode == 'tokens' && user.wallet < 50)) { <div class="text-center" style="padding:20px 0;">
-                        <p><em>You must have at least 50 battle token to setup a game for tokens.</em></p>
-                        </div>
-                    }
-                    @if ((gamex.bet_mode == 'points' && user.points < 50)) { <div class="text-center" style="padding:20px 0;">
-                        <p><em>You must have at least 50 points to setup a game for points.</em></p>
-                        </div>
-                    }
-                    @if ((gamex.bet_mode == 'tokens' && user.wallet >= 50) || (gamex.bet_mode == 'points' && user.points >= 50)) {
                     <div class="col-3">
-                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 50}"
-                            (click)="gamex.amount = 50">50</button>
+                        <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 0}"
+                            (click)="gamex.amount = 0">0</button>
                     </div>
-                    }
                     @if ((gamex.bet_mode == 'tokens' && user.wallet >= 100) || (gamex.bet_mode == 'points' && user.points >= 100)) {
                     <div class="col-3">
                         <button class="btn btn-default" [ngClass]="{'selected': gamex.amount == 100}"
@@ -203,7 +230,7 @@
                 }
                 }
                }
-                }
+                
             }
             </div>
         </div>
@@ -280,6 +307,46 @@
             
             </div>
             }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           
+            <div class="modal-body modal_bodyx">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('inviteModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="input_container" style="position: relative; margin-top: 40px;">
+                    <input type="text" class="form-control search_inputx" [(ngModel)]="query" (ngModelChange)="filterPlayers()">
+                    <i class="fa-solid fa-magnifying-glass search_icon search_iconx"></i>
+                    @if (query){
+                    <div class="clear_icon" (click)="query='';filterPlayers();"><i class="fa-solid fa-times"></i></div>
+                    }
+                </div>
+
+                <div class="users_container">
+                @for(x of users; track x.user_id){
+                    <div class="user_container">
+                        <img class="user_image" src="{{x.image}}">
+                        <div class="user_name" style="width:120px;">{{x.username.slice(0,8)}}</div>
+                        <div class="user_name" style="width:90px;">{{x.points ? x.points:0}}</div>
+                        @if (x.has_been_invited){
+                            <button class="btn btn-default button_primary table_button2" style="font-size:16px">Invited</button>
+                        }
+                        @else{
+                            <button class="btn btn-default button_share table_button2" style="font-size:16px"  (click)="inviteUser(x)">Invite</button>
+                        }
+                    </div>
+                }
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

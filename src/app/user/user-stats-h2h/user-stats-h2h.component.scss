@@ -1,0 +1,89 @@
+@import '../../../globals.scss';
+
+.user_stats{
+    color: white;
+    font-size: 1.2em;
+    padding: 0px 10px 20px 10px;
+}
+
+.round_bar{
+    width:8px;
+    height: 24px;
+    display: inline-block;
+    background-color: grey;
+    margin: 0 1px;
+    vertical-align: middle;
+}
+
+.green{
+    background-color: greenyellow !important;
+}
+
+.red{
+    background-color: red !important;
+}
+
+.gold{
+    background-color: goldenrod !important;
+}
+
+.trend_icon{
+    color:greenyellow;
+    font-size: 18px;
+}
+
+.game_stats{
+    /*display:none;*/
+    color: white;
+    font-size:1.5em;
+    padding: 1% 0 0 1%;
+}
+
+.user_icon{
+    color:#33ccff;
+    font-size: 20px;
+}
+
+.user_image{
+    width:50px;
+    height: 50px;
+    object-fit:cover;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.button_exit{
+    font-size: 16px;
+    padding: 0 10px;
+    min-width: auto;
+    display: inline-block;
+    margin: 0 7px;
+}
+
+.user_on_fire{
+    width:50px;
+    position: absolute;
+    left: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    /*
+    .user_stats{
+        display: none;
+    }
+    */
+
+    /*
+    .game_stats{
+        display:block;
+       
+    }
+    */
+    
+}
+
+@media screen and (max-height: 500px){
+    .game_stats{
+        font-size:1em;
+    }
+}

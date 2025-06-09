@@ -63,6 +63,14 @@ export class ApisService {
       )
   }
 
+  getGamesH2HByUser(user_id:number): Observable<any> {
+    return this.http.get<any>(this.baseurl + '/getGamesH2HByUser?id=' + user_id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
   // Error handling
   errorHandl(error: any) {
     let errorMessage = '';

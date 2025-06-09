@@ -103,6 +103,7 @@
         </div>
        
 
+        <div class="box_title">Loop Game</div>
         <div class="table_container">
             <table class="table">
                 <thead>
@@ -143,6 +144,34 @@
                         <td class="tc">{{stats.mlb_pct}}%</td>
                         <td class="tc">{{stats.mlb_pct_rank_suffix}}</td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box_title">Head To Head Games</div>
+        <div class="table_container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="tc">Host</th>
+                        <th class="tc">Sport</th>
+                        <th class="tc">Position</th>
+                        <th class="tc">No. Players</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (x of h2h_games; track x.h2h_game_id){
+                    <tr>
+                        <td class="tc">{{x.username}}</td>
+                        <td class="tc">
+                            @if(x.sport == 'basketball') { 🏀 }
+                            @if(x.sport == 'football') { 🏈 }
+                            @if(x.sport == 'baseball') { ⚾ }
+                        </td>
+                        <td class="tc">{{x.user_position}}</td>
+                        <td class="tc">{{x.number_of_players}}</td>
+                    </tr>
+                    }
                 </tbody>
             </table>
         </div>

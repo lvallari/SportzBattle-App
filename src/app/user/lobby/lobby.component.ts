@@ -16,12 +16,21 @@ declare var $: any;
 export class LobbyComponent implements OnInit {
 
   games:any[] = [];
+  invitations:any[] = [];
+  users:any[] = [];
+  users_o:any[] = [];
   gamex:any;
 
   userServiceSubscription!:Subscription;
   user:any;
 
   showTooltip!: boolean;
+  max_users:number = 10;
+
+  query:string = '';
+  invitations_to_user:any[] = [];
+
+  is_small:boolean = window.innerWidth <= 768;
 
   constructor(
     public apisService: ApisService,
@@ -39,7 +48,8 @@ export class LobbyComponent implements OnInit {
         return;
       }
       this.user = currentUser;
-      this.loadGames(); 
+      this.loadGames();
+      this.loadUsers();
       
     });
 
@@ -53,6 +63,40 @@ export class LobbyComponent implements OnInit {
         x.game_url  = this.commonService.crypt('sportzbattle','abcd' + x.h2h_game_id)
       })
       console.log('this.games', this.games);
+
+      this.loadInvitationsToUser();
+
+
+    })
+  }
+
+  loadUsers(){
+    this.tablesService.GetAll('users').subscribe((data:any) => {
+      this.users = data.filter((x:any) => { return x.account_type == 'player' && x.user_id != this.user.user_id});
+      this.users_o = JSON.parse(JSON.stringify(this.users));
+      this.loadInvitationsByUser();
+    })
+  }
+
+  loadInvitationsByUser(){
+    this.tablesService.GetFiltered('h2h_games_invitations','host_user_id',this.user.user_id).subscribe((data:any) => {
+      this.invitations = data
+      this.users.forEach((x:any) => {
+        var record = this.invitations.find((n:any) => { return n.invitee_user_id == x.user_id});
+        x.has_been_invited = record ? true:false;
+      })
+    })
+  }
+
+  loadInvitationsToUser(){
+    this.tablesService.GetFiltered('h2h_games_invitations','invitee_user_id',this.user.user_id).subscribe((data:any) => {
+      this.invitations_to_user = data;
+
+      this.games.forEach((x:any) => {
+        var record = this.invitations_to_user.find((n:any) => { return n.h2h_game_id == x.h2h_game_id;});
+        x.user_has_invitation = record ? true:false;
+      })
+
     })
   }
 
@@ -61,8 +105,15 @@ export class LobbyComponent implements OnInit {
   }
 
   showCreateGameModal(){
-    this.gamex = {};
+    this.gamex = {
+      bet_mode: 'points'
+    };
     $('#createGameModal').modal('show');
+  }
+
+  showInviteModal(item:any){
+    this.gamex = item;
+    $('#inviteModal').modal('show');
   }
 
   createGame(){
@@ -133,6 +184,28 @@ export class LobbyComponent implements OnInit {
   showShareModal(item:any){
     this.gamex = item;
     $('#shareModal').modal('show');
+  }
+
+  filterPlayers(){
+    if (this.query.length < 2) this.users = this.users_o;
+    else{
+      var query = this.query.toLowerCase();
+      this.users = this.users_o.filter((x:any) => {
+        return x.username.toLowerCase().indexOf(query) > -1;
+      })
+    }
+  }
+
+  inviteUser(item:any){
+    item.has_been_invited = true;
+     
+    var object = {
+      h2h_game_id: this.gamex.h2h_game_id,
+      invitee_user_id: item.user_id,
+      host_user_id: this.user.user_id
+    }
+
+    this.tablesService.AddItem('h2h_games_invitations',object).subscribe();
   }
 
   

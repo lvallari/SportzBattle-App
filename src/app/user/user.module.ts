@@ -20,6 +20,7 @@ import { GameOverComponent } from './game-over/game-over.component';
 import { QrcodeComponent } from './qrcode/qrcode.component';
 import { AdsterraComponent } from "./adsterra/adsterra.component";
 import { GameOverH2hComponent } from './game-over-h2h/game-over-h2h.component';
+import { UserStatsH2hComponent } from './user-stats-h2h/user-stats-h2h.component';
 
 
 
@@ -52,7 +53,8 @@ import { GameOverH2hComponent } from './game-over-h2h/game-over-h2h.component';
     TimerComponent,
     UserStatsComponent,
     QuestionFooter4Component,
-    AdsterraComponent
+    AdsterraComponent,
+    UserStatsH2hComponent
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

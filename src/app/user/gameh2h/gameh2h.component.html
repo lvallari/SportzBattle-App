@@ -9,7 +9,7 @@
     <app-prepare-screen [banners]="[]" [account_type]="'player'" ></app-prepare-screen>
 }
 @if (page == 'game'){
-    <app-user-stats [user]="user" [counter]="counter" [show_lives]="true"></app-user-stats>
+    <app-user-stats-h2h [user]="user" [counter]="counter" [round_number]="question_index+1"></app-user-stats-h2h>
     <div class="points_animation" *ngIf="show_point_animation" 
     [ngStyle]="{'font-size': points_value > 99 ? '40px':'48px','padding-top': value_points > 99? '30px':'10px'}">+{{value_points}}</div>
     

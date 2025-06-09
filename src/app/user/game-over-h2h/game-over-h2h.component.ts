@@ -27,7 +27,7 @@ export class GameOverH2hComponent implements OnInit{
       this.books = data;
 
       //sort by higher score
-      this.books = this.books.sort((a:any, b:any) => { return a.score - b.score;});
+      this.books = this.books.sort((a:any, b:any) => { return b.score - a.score;});
 
       this.books.forEach((x:any, i:number) => { 
         x.position = i+1;
