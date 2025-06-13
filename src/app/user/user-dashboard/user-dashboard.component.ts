@@ -161,6 +161,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.h2h_games = data;
       this.h2h_games.forEach((x:any) => {
         x.user_position = this.commonService.getOrdinalSuffix(x.user_position);
+        x.date = this.commonService.getDate2(x.expiration_timestamp);
       });
       console.log('h2h_games', this.h2h_games);
     })

@@ -63,9 +63,7 @@ export class LobbyComponent implements OnInit {
         x.game_url  = this.commonService.crypt('sportzbattle','abcd' + x.h2h_game_id)
       })
       console.log('this.games', this.games);
-
       this.loadInvitationsToUser();
-
 
     })
   }

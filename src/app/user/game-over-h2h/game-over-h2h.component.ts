@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class GameOverH2hComponent implements OnInit{
 
-  @Input() h2h_game_id!:number;
+  @Input() h2h_game!:any;
   @Input() score!:number;
   @Input() user!:any;
 
@@ -23,7 +23,10 @@ export class GameOverH2hComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.apisService.getUsersByGameH2H(this.h2h_game_id).subscribe((data:any) => {
+
+    console.log('@gameover h2h_game', this.h2h_game);
+
+    this.apisService.getUsersByGameH2H(this.h2h_game.h2h_game_id).subscribe((data:any) => {
       this.books = data;
 
       //sort by higher score

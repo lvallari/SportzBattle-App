@@ -153,6 +153,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th class="tc">Date</th>
                         <th class="tc">Host</th>
                         <th class="tc">Sport</th>
                         <th class="tc">Position</th>
@@ -162,6 +163,7 @@
                 <tbody>
                     @for (x of h2h_games; track x.h2h_game_id){
                     <tr>
+                        <td class="tc">{{x.date}}</td>
                         <td class="tc">{{x.username}}</td>
                         <td class="tc">
                             @if(x.sport == 'basketball') { 🏀 }

@@ -55,7 +55,7 @@
                     @for(x of games; track x.game_id){
                     <tr>
                         <td class="tc" >
-                            <img class="player_image" src="{{x.user_image}}">&nbsp;{{x.username.slice(0,10)}}
+                            <img class="player_image" src="{{x.user_image}}">&nbsp;{{x.username.slice(0,10)}}&nbsp;({{x.points_host}})
                         </td>
                          @if (!is_small){
                         <td class="tc">
@@ -85,7 +85,7 @@
                             </button>
                             }
                             @else {
-                            @if(x.user_has_invitation){
+                            @if(x.user_has_invitation || x.created_by_user_id == user.user_id){
                             <button class="btn btn-default button_primary table1_button" (click)="goPlay(x)">
                                 <i class="fa-solid fa-lock"></i>&nbsp;PLAY
                             </button>
@@ -105,7 +105,7 @@
                             </button>
                             }
                             @else {
-                                @if(x.created_by_user_id==user.user_id){
+                                @if(x.created_by_user_id == user.user_id){
                                 <button class="btn btn-default button_share table1_button" (click)="showInviteModal(x)">
                                     <i class="fa-regular fa-user"></i>&nbsp;Invite
                                 </button>
@@ -223,7 +223,7 @@
                     </div>
                     }
                 </div>
-                @if (gamex.amount){
+                @if (gamex.amount >= 0){
                 <div class="text-center" style="padding:40px 0 0 0;">
                     <button class="btn btn-default button_primary btn-lg" (click)="createGame()">Create Game</button>
                 </div>
