@@ -1,0 +1,96 @@
+<div class="game_screen">
+    <!--
+    <app-timer [time]="time"></app-timer>
+   
+    -->
+     
+    @if (page == 'game'){
+    <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players" [on_fire]="user_on_fire"></app-user-stats>
+    @if(show_point_animation){
+        <div class="points_animation">Correct!</div>
+    }
+    
+    
+    <app-timer *ngIf="show_timer" [time]="time"></app-timer>
+    <div class="question_container">
+        <div class="question">{{message.question}}</div>
+        
+        @if(!question_notification){
+            <div class="question_value" [ngClass]="{'invisible':question_active == false}"><em>{{value_points > 0 ? value_points:0}}</em></div>
+        }
+        @else {
+            <div class="question_valuex blue"><em>{{question_notification}}</em></div>
+        }
+        
+        <div class="row">
+            @for(x of options; track x.text){
+            <div class="col-12 col-md-6">
+                <div class="option op1"
+                    [ngClass]="{'greenyellow': x.show_green, 'red': x.show_red, 'invisible': ((time_is_up == true && x.is_right_answer == false)||x.hide) }"
+                    (click)="answerSelected(x)">
+                    {{x.text}}</div>
+            </div>
+            }
+        </div>
+    </div>
+
+    @if (banners){
+        <app-question-footer4 [counter]="counter" [venue_id]="user.venue_id" [banners]="banners"></app-question-footer4>
+    }
+    }
+    @else if (page == 'leaderboard'){
+    <app-user-stats [user]="user" [show_lives]="false" [active_players]="active_players"></app-user-stats>
+    <app-leaderboard-table [banners]="banners"></app-leaderboard-table>
+    }
+    @else if (page == 'advertisement' && ads){
+    <app-advertisement-page [ads]="ads"></app-advertisement-page>
+    }
+    @else if (page == 'prepare_screen'){
+    <app-prepare-screen [banners]="banners" [account_type]="user.account_type" [double_option_has_been_used]="true" (make_double)="makeDouble()"></app-prepare-screen>
+    }
+    @else if (page == 'game_over'){
+        <app-game-over (playAgain)="playAgain()"></app-game-over>
+    }
+    
+    @else if (page == 'waiting'){
+
+        <div style="height:40px;"></div>
+
+        <img class="quest20" src="../../../assets/images/20quest.png">
+
+        <div class="waiting">Countdown to next game:<br> 
+            {{minutes}}:{{seconds < 10 ? ('0' + seconds):seconds}}</div>
+
+        <div class="text-center" style="padding:30px 0;">
+            @if (!has_checkedin){
+                <div class="check_in">You must check-in to play the next game</div>
+                <button class="btn btn-default button_primary btn-lg" (click)="checkinUser()">Check-in</button>
+            }
+            @else {
+                <div class="check_in">Hang on tight. You are all set to play the next game.</div>
+            }
+        </div>
+        <!--
+        <app-splash></app-splash>
+    -->
+    }
+    @else if (page == 'starting-soon'){
+
+        <div style="height:40px;"></div>
+
+        <img class="quest20" src="../../../assets/images/20quest.png">
+
+        <div class="waiting">Get ready, the game will be starting soon...</div>
+
+        <!--
+        <div class="text-center" style="padding:30px 0;">
+            <button class="btn btn-default button_primary"></button>
+        </div>
+        -->
+        
+        <!--
+        <app-splash></app-splash>
+    -->
+    }
+    
+</div>

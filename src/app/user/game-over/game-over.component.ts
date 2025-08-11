@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class GameOverComponent {
 
   @Output() playAgain = new EventEmitter();
+  @Input() game!:string;
 
   constructor(
     public router:Router

@@ -7,6 +7,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { ScoutingComponent } from './scouting/scouting.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { Gameh2hComponent } from './gameh2h/gameh2h.component';
+import { Game20questComponent } from './game20quest/game20quest.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
     { path: 'playh2h/:h2h_game_id', component: Gameh2hComponent},
     { path: 'user-dashboard', component: UserDashboardComponent},
     { path: 'scouting', component: ScoutingComponent},
-    { path: 'lobby', component: LobbyComponent}
+    { path: 'lobby', component: LobbyComponent},
+    { path: 'play-20quest', component: Game20questComponent},
 ];
 
 @NgModule({
@@ -32,5 +34,6 @@ export const routingComponents = [
     UserDashboardComponent,
     ScoutingComponent,
     LobbyComponent,
-    Gameh2hComponent
+    Gameh2hComponent,
+    Game20questComponent
 ]

@@ -155,6 +155,11 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.router.navigate(['user/lobby']);
   }
 
+  goPlay20Quest(){
+    $('#gameTypeModal').modal('hide');
+    this.router.navigate(['user/play-20quest']);
+  }
+
 
   getH2HGames(){
     this.apisService.getGamesH2HByUser(this.user.user_id).subscribe((data:any) => {

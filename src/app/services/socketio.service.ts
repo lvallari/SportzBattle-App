@@ -11,6 +11,7 @@ export class SocketioService {
 
   private socket!: Socket;
   public _getMessage = new BehaviorSubject<any>(undefined);
+  public _getMessage20quest = new BehaviorSubject<any>(undefined);
 
   constructor() {
     this.connect();
@@ -34,10 +35,22 @@ export class SocketioService {
       //subscriber.next(data);
     });
 
+    this.socket.on('message-20quest', (data) => {
+      console.log('socket message-20quest', data);
+      this._getMessage20quest.next(data);
+      this._getMessage20quest.next(undefined);
+      //subscriber.next(data);
+    });
+
   }
 
   sendMessage(message: string): void {
     this.socket.emit('ping', message);
+  }
+
+  joinRoom(room: string): void {
+    this.socket.emit('joinRoom', room);
+    
   }
 
   /*

@@ -78,11 +78,14 @@ export class LobbyComponent implements OnInit {
 
   loadInvitationsByUser(){
     this.tablesService.GetFiltered('h2h_games_invitations','host_user_id',this.user.user_id).subscribe((data:any) => {
-      this.invitations = data
+      this.invitations = data;
+      console.log('this.invitations', this.invitations);
+      /*
       this.users.forEach((x:any) => {
-        var record = this.invitations.find((n:any) => { return n.invitee_user_id == x.user_id});
+        var record = this.invitations.find((n:any) => { return n.invitee_user_id == x.user_id && this.gamex.h2h_game_id == n.h2h_game_id});
         x.has_been_invited = record ? true:false;
       })
+      */
     })
   }
 
@@ -111,6 +114,12 @@ export class LobbyComponent implements OnInit {
 
   showInviteModal(item:any){
     this.gamex = item;
+
+    this.users.forEach((x:any) => {
+        var record = this.invitations.find((n:any) => { return n.invitee_user_id == x.user_id && this.gamex.h2h_game_id == n.h2h_game_id});
+        x.has_been_invited = record ? true:false;
+      })
+
     $('#inviteModal').modal('show');
   }
 
