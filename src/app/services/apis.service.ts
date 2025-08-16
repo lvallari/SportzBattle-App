@@ -71,6 +71,30 @@ export class ApisService {
       )
   }
 
+  Quest20PlayerStatus(user_id:number, status:string){
+    return this.http.post<any>(this.baseurl + '/quest20PlayerStatus', {user_id: user_id, status: status }, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
+  getQuest20Players(status:string){
+    return this.http.get<any>(this.baseurl + '/getQuest20Players?status=' + status, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
+  createGameQuest20(){
+    return this.http.post<any>(this.baseurl + '/createGameQuest20',{}, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
   // Error handling
   errorHandl(error: any) {
     let errorMessage = '';

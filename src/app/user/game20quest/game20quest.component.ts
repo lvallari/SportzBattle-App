@@ -82,6 +82,14 @@ export class Game20questComponent implements OnInit, OnDestroy {
   minutes!:number;
   seconds!:number;
 
+  number_of_players!:number;
+  number_of_active_players!:number;
+  number_of_active_players_o!:number;
+
+  quest20_game_id!:number;
+  quest20_player_id!:number;
+  elapsed_time!:number;
+
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
   
@@ -139,16 +147,21 @@ export class Game20questComponent implements OnInit, OnDestroy {
 
     this.subscribeToSocket();
 
+    this.checkForScheduledGames();
     this.startCountdown();
 
   }
 
   startCountdown(){
     //start countdown interval
+    var ctr = 0;
     this.countdown_interval = setInterval(() => {
-      const { minutes, seconds } = this.getCountdownToNextHalfHour();
+      const { minutes, seconds } = this.getCountdownToNextInterval(10);
       this.minutes = minutes;
       this.seconds = seconds;
+      ctr += 1;
+
+      if (ctr % 5 == 0 && this.quest20_game_id) this.getNumberOfPlayers();
       //console.log(`${minutes} min ${seconds} sec left`);
     }, 1000);
   }
@@ -178,10 +191,17 @@ export class Game20questComponent implements OnInit, OnDestroy {
 
   subscribeToSocket() {
     this.socketioService.joinRoom('quest20');
-    this.messagesSubscription = this.socketioService._getMessage20quest.subscribe((message: any) => {
-      console.log('message', message);
+    this.messagesSubscription = this.socketioService._getMessage20quest.subscribe((messagex: any) => {
+      if (!messagex) return;
+
+      var message = messagex;
+
+      console.log('message 111', message);
       //if (document.hidden) return;
       if (!this.has_checkedin) return;
+
+      
+      //this.number_of_players = -1;
 
       //check that a minimum of 5 sec have passed since loading
       var delta = Date.now() - this.start_timestamp;
@@ -211,7 +231,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
         */
 
         this.message = message;
-        console.log('this.message', this.message);
+        console.log('this.message 222', this.message);
         
         
         //this.has_joined = true;
@@ -229,15 +249,18 @@ export class Game20questComponent implements OnInit, OnDestroy {
           this.page = 'starting-soon';
           clearInterval(this.countdown_interval);
           this.game_is_active = true;
+          console.log('update player record to playing')
+          this.updatePlayerRecord('playing');
         }
         if (this.message.message == 'question') {
           if (!this.game_is_active) return;
           this.counter += 1;
           //console.log('this.counter', this.counter);
           this.page = 'prepare_screen';
-          this.is_double_or_nothing = false;
+          //this.is_double_or_nothing = false;
 
           this.question_notification = undefined;
+          
 
           setTimeout(() => {
             this.page = 'game';
@@ -246,11 +269,14 @@ export class Game20questComponent implements OnInit, OnDestroy {
             this.question_active = true;
             
 
+            //console.log('this.message.question - before',message.question);
             this.message.question = this.commonService.decrypt('sb', message.question);
+            // console.log('this.message.fater - after',this.message.question)
+            
             this.right_answer = this.commonService.decrypt('sb', message.key);
-            this.hiding_order = JSON.parse(this.commonService.decrypt('sb',message.hiding_order));
+            //this.hiding_order = JSON.parse(this.commonService.decrypt('sb',message.hiding_order));
 
-            console.log('this.hiding_order', this.hiding_order);
+            //console.log('this.hiding_order', this.hiding_order);
 
             this.options = [];
             this.message.answers.forEach((x: any) => {
@@ -268,13 +294,16 @@ export class Game20questComponent implements OnInit, OnDestroy {
             if (this.timerInterval) clearInterval(this.timerInterval);
             if (this.timer2Interval) clearInterval(this.timer2Interval);
 
+            
             this.timer2Interval = setInterval(() => {
               this.value_points = (100 - Math.round((Date.now() - this.question_start_time)/100)); 
             },200);
             
+            
             this.timerInterval = setInterval(() => {
               this.time -= 1;
               elapsed_time += 1;
+              this.elapsed_time = elapsed_time;
               if (this.time < 0) {
                 this.time = 0;
                 this.time_is_up = true;
@@ -320,15 +349,10 @@ export class Game20questComponent implements OnInit, OnDestroy {
                   if (questions.length > 0) this.question_notification = object.percent + '% answered correctly';
                   this.active_players = object.total_players;
                 })
-               
               }
               */
               if (elapsed_time == 14) {
-                if (this.user.lives <= 0) {
-
-                  this.gameOver();
-                  return;
-                }
+                this.page = 'stats';
               }
               //
               //console.log('interval, 1000',this.debug_ctr);
@@ -432,6 +456,13 @@ export class Game20questComponent implements OnInit, OnDestroy {
 
     }
 
+    
+
+    //this.number_of_active_players_o = this.number_of_active_players;
+    this.getNumberOfPlayers();
+
+    //this.answered_correctly_last_question = 
+
     //console.log('this.lives', this.user.lives);
     this.stopTimer();
 
@@ -445,6 +476,9 @@ export class Game20questComponent implements OnInit, OnDestroy {
 
   gameOver() {
 
+    this.updatePlayerRecord('out');
+    this.quest20_game_id = -1;
+    this.number_of_players = 0;
 
     /*
     //award warrior badge if it doesnt have one
@@ -482,7 +516,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
 
       clearInterval(this.timerInterval);
       clearInterval(this.timer2Interval);
-      if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+      //if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
     //}
     
   }
@@ -516,6 +550,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
     this.page = 'waiting';
     this.has_checkedin = false;
     this.startCountdown();
+    this.checkForScheduledGames();
     //this.getUserDailyHighScore();
     //this.subscribeToSocket();
   }
@@ -552,7 +587,6 @@ export class Game20questComponent implements OnInit, OnDestroy {
       //this.game_is_active = true;
     });
 
-   
   }
 
   getUserDailyHighScore(){
@@ -573,7 +607,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
         return x.indexOf(advertisement_account.advertisement_account_id + '/') == 0;
       });
 
-      console.log('active files', files);
+      //console.log('active files', files);
       if (this.screen_width < 540) {
         this.ads = files.filter((x:any) => {return x.indexOf('/mobile/') > -1}).map((x:any) => {
           return 'https://sportzbattle.blob.core.windows.net/advertisements/' + x;
@@ -648,31 +682,94 @@ export class Game20questComponent implements OnInit, OnDestroy {
     else return;
   }
 
-  getCountdownToNextHalfHour(): { minutes: number; seconds: number } {
+  getCountdownToNextInterval(intervalMinutes: number): { minutes: number; seconds: number } {
   const now = new Date();
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
-  // Determine the next target minute (either 0 or 30)
-  let targetMinute: number;
-  if (minutes < 30) {
-    targetMinute = 30;
-  } else {
-    targetMinute = 60;
-  }
-
-  // Calculate remaining time
-  const remainingMinutes = targetMinute - minutes - (seconds > 0 ? 1 : 0);
-  const remainingSeconds = seconds > 0 ? 60 - seconds : 0;
+  const block = intervalMinutes * 60;
+  const elapsed = (minutes % intervalMinutes) * 60 + seconds;
+  const totalRemaining = elapsed === 0 ? block : block - elapsed;
 
   return {
-    minutes: remainingMinutes,
-    seconds: remainingSeconds
+    minutes: Math.floor(totalRemaining / 60),
+    seconds: totalRemaining % 60
   };
 }
 
-checkinUser(){
-  this.has_checkedin = true;
+checkForScheduledGames(){
+ //get game id
+    this.tablesService.GetFiltered('quest20_games', 'status', 'scheduled').subscribe((data:any) => {
+      var game = data[0];
+      if (game) {
+        this.quest20_game_id = game.quest20_game_id;
+        this.getNumberOfPlayers();
+      }
+      else {
+        this.quest20_game_id = -1;
+        this.number_of_players = 0;
+      }
+    });
+    
 }
+
+  async checkinUser() {
+    this.has_checkedin = true;
+
+    if (this.quest20_game_id == -1){
+      var object = await lastValueFrom(this.apisService.createGameQuest20());
+      this.quest20_game_id = object.id;
+      console.log('this.quest20_game_id',this.quest20_game_id);
+      //create player object
+      await this.createPlayerRecord(this.quest20_game_id);
+    }
+
+    //create player object
+    else {
+      console.log('this.quest20_game_id',this.quest20_game_id);
+      await this.createPlayerRecord(this.quest20_game_id);
+    }
+
+    this.getNumberOfPlayers();
+    //this.subscribeToSocket();
+
+  }
+
+  async createPlayerRecord(game_id:number){
+     var player_object = {
+      quest20_game_id: game_id,
+      user_id: this.user.user_id,
+      status: 'checked-in'
+    }
+
+    var object = await lastValueFrom(this.tablesService.AddItem('quest20_players', player_object));
+    this.quest20_player_id = object.id;
+    console.log('player_id', this.quest20_player_id);
+
+  }
+
+  getNumberOfPlayers(){
+     this.tablesService.GetFiltered('quest20_players','quest20_game_id', this.quest20_game_id).subscribe((data: any) => {
+      console.log('players', data);
+      this.number_of_players = data.length;
+      this.number_of_active_players = data.filter((x:any) => { return x.status == 'playing'}).length;
+      console.log('number_of_active_players',this.number_of_active_players);
+    });
+  }
+
+  updatePlayerRecord(status:string){
+    if (this.quest20_player_id){
+      var player_object = {
+        quest20_player_id: this.quest20_player_id,
+        status: status
+      }
+
+      this.tablesService.UpdateItem('quest20_players', 'quest20_player_id', player_object).subscribe();
+    }
+  }
+
+  gotoDashboard(){
+    this.router.navigate(['user/user-dashboard']);
+  }
 
 }

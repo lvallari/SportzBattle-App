@@ -190,8 +190,8 @@
 }
 
 .quest20{
-    width: 250px;
     height: 250px;
+    max-width: 100%;
     margin: auto;
     display: block;
 }
@@ -277,6 +277,36 @@
 
 }
 
+.number_players{
+color: white;
+    font-size: 32px;
+    text-align: center;
+    font-family: 'orbitron-medium';
+    background-color:#33cc33;
+    margin: 40px 0 60px 0;
+}
+
+.box_title{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 24px;
+    text-align: center;
+    padding: 7px 0;
+    margin: auto;
+}
+
+.box_number{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 20px;
+    text-align: center;
+    background-color: #33ccff;
+    padding: 25px 0px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
 
 
 
