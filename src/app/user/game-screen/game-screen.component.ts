@@ -359,7 +359,18 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         if (this.has_hit_the_cycle == false) await this.giveAward('hit-the-cycle');
         this.has_hit_the_cycle = true;
       }
+      
       if (this.user.points >= 1500 && this.user_points_o < 1500) await this.giveAward('high-roller');
+
+      /*
+          Loop: 500 points = $1
+          750 points = $2
+          1,000 points = $5
+          1,500 points = $10
+          2,000 points = $15
+          2,500 points = $25
+          3,000+ points = $50 
+      */
 
       var data =  await lastValueFrom(this.userService.updateBadgesCounter(this.user.user_id, this.message.category));
       console.log('^^^^^^^^^^^^ update counters', data);
@@ -434,6 +445,16 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.apisService.awardPoints(this.user.user_id, this.user.points).subscribe((data:any) => {
         console.log(data);
       });
+
+      //award wallet prices
+      if (this.user.points > 3000) this.walletAward(5000);
+      else if (this.user.points > 2500) this.walletAward(2500);
+      else if (this.user.points > 2000) this.walletAward(1500);
+      else if (this.user.points > 1500) this.walletAward(1000);
+      else if (this.user.points > 1000) this.walletAward(500);
+      else if (this.user.points > 750) this.walletAward(200);
+      else if (this.user.points > 500) this.walletAward(100);
+
 
       clearInterval(this.timerInterval);
       clearInterval(this.timer2Interval);
@@ -597,6 +618,17 @@ export class GameScreenComponent implements OnInit, OnDestroy {
     else if (type == 'hardwood') return 'https://sportzbattle.blob.core.windows.net/system/basketball.png';
     else if (type == 'park') return 'https://sportzbattle.blob.core.windows.net/system/baseball.png';
     else return;
+  }
+
+  walletAward(amount:number){
+
+    console.log('wallet award!!', amount);
+    var user_object = {
+      user_id: this.user.user_id,
+      wallet: this.user.wallet ? (this.user.wallet += amount):amount
+    }
+
+    this.tablesService.UpdateItem('users','user_id',user_object).subscribe();
   }
 
 }

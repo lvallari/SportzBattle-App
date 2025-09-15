@@ -13,6 +13,9 @@
                 <div class="level_name" style="text-align:center">{{user.wallet}}</div>
                 <div class="wallet_value">${{user.wallet_value}}</div>
             </div>
+            <div class="level_container">
+                <button class="btn btn-default button_primary" [ngClass]="{'grey':user.wallet_value < 50 }" (click)="redeemCash()">Redeem Cash</button>
+            </div>
             <div class="text-end">
                 <button class="btn btn-default button_primary play_now_button" (click)="showGameTypeModal()">Play Now</button>
             </div>
@@ -193,9 +196,36 @@
                 <h1 class="modal_title">Select game mode</h1>  
                 
                 <div class="text-center" style="padding: 25px 0;">
-                    <button type="button" class="btn btn-default button_primary" (click)="goPlay()">Loop</button><br><br>
-                    <button type="button" class="btn btn-default button_primary"  (click)="goPlayH2H()">Head-to-Head</button><br><br>
-                    <button type="button" class="btn btn-default button_primary"  (click)="goPlay20Quest()">20 Quest</button>
+                    <button type="button" class="btn btn-default game_icon" (click)="goPlay()">
+                        <img class="button_image" src="../../../assets/images/loop_logo.png">
+                    </button><br><br>
+                    <button type="button" class="btn btn-default game_icon"  (click)="goPlayH2H()">
+                        <img class="button_image" src="../../../assets/images/h2h_logo.png">
+                    </button><br><br>
+                    <button type="button" class="btn btn-default game_icon"  (click)="goPlay20Quest()">
+                        <img class="button_image" src="../../../assets/images/quest20_logo.png">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notEnoughMoneyModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('notEnoughMoneyModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-center" style="padding: 50px 0;">
+                    <p><em>You must have at least $50 in your wallet to redeem.</em></p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-default button_primary" (click)="closeModal('notEnoughMoneyModal')">Ok</button>
                 </div>
             </div>
         </div>

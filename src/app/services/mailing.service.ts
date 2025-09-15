@@ -96,6 +96,34 @@ export class MailingService {
         console.log('Password reset has been sent');
       });
   }
+
+  payoutRequestedConfirmation(user:any){
+    //console.log('mailing.resetPassword');
+      
+      var data = {
+        user_id: user.user_id,
+        email: user.email,
+        username: user.username
+      }
+      
+      this.sendMailRequest('payoutRequestedConfirmation',data).subscribe((data: any) => { 
+        console.log('Payout requested confirmation has been sent');
+      });
+  }
+
+  payoutRequestedNotification(user:any){
+    //console.log('mailing.resetPassword');
+      
+      var data = {
+        user_id: user.user_id,
+        email: user.email,
+        username: user.username
+      }
+      
+      this.sendMailRequest('payoutRequestedNotification',data).subscribe((data: any) => { 
+        console.log('Payout requested notification has been sent');
+      });
+  }
   
   sendMailRequest(type:string,data:any): Observable<any> {
     return this.http.post<any>(this.baseurl + '/' + type, data, this.httpOptions)

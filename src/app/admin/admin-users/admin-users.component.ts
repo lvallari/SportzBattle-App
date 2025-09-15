@@ -189,6 +189,15 @@ export class AdminUsersComponent implements OnInit {
     $('#tokensModal').modal('show');
   }
 
+  requestedPayout(item:any){
+    this.itemx = item;
+    $('#payoutRequestedModal').modal('show');
+  }
+
+  paymentSent(){
+    
+  }
+
 
 
 }

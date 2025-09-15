@@ -82,6 +82,10 @@
                 <td class="text-center">{{x.wallet}}</td>
                 <td>
                     <button class="btn btn-default button_primary" (click)="awardTokens(x)">Award Tokens</button>
+                    @if(x.requested_payout){
+                        <br>
+                        <button class="btn btn-default button_primary" style="background-color:green" (click)="requestedPayout(x)">Requested Payout</button>
+                    }
                 </td>
             </tr>
             }
@@ -113,6 +117,35 @@
 
                 <div class="text-center" style="padding: 25px 0;">
                     <button type="button" class="btn btn-default button_primary" (click)="saveTokens()">Award {{tokens}} tokens</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="payoutRequestedModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (itemx){
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('payoutRequestedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div class="input_container">
+                    <div class="labelfd text-center">{{itemx.username}} has requested payout.</div>
+                    <div class="text-center">
+                        Wallet amount<br>
+                        <div class="wallet_font">${{itemx.wallet}}</div>
+                    </div>
+                    
+                </div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="paymentSent()">Payment was sent</button>
                 </div>
             </div>
             }

@@ -249,6 +249,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
           this.page = 'starting-soon';
           clearInterval(this.countdown_interval);
           this.game_is_active = true;
+          this.correct_answers_in_a_row = 0;
           console.log('update player record to playing')
           this.updatePlayerRecord('playing');
         }
@@ -496,10 +497,17 @@ export class Game20questComponent implements OnInit, OnDestroy {
     }
     */
     //else {
-      setTimeout(() => {
-        this.page = 'game_over';
-        this.game_is_active = false;
-      },4000);
+    setTimeout(() => {
+      this.page = 'game_over';
+      this.game_is_active = false;
+
+      //award wallet prices
+      if (this.correct_answers_in_a_row  > 20) this.walletAward(100000);
+      else if (this.correct_answers_in_a_row > 15) this.walletAward(25000);
+      else if (this.correct_answers_in_a_row > 10) this.walletAward(10000);
+      else if (this.correct_answers_in_a_row > 8) this.walletAward(2500);
+      else if (this.correct_answers_in_a_row > 5) this.walletAward(500); //free game
+    }, 4000);
       
 
       /*
@@ -770,6 +778,17 @@ checkForScheduledGames(){
 
   gotoDashboard(){
     this.router.navigate(['user/user-dashboard']);
+  }
+
+  walletAward(amount:number){
+
+    console.log('wallet award!!', amount);
+    var user_object = {
+      user_id: this.user.user_id,
+      wallet: this.user.wallet ? (this.user.wallet += amount):amount
+    }
+
+    this.tablesService.UpdateItem('users','user_id',user_object).subscribe();
   }
 
 }

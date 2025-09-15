@@ -1,0 +1,140 @@
+@import '../../../globals.scss';
+
+.dark_background{
+    background-color: #0e1012;
+    padding-bottom: 150px;
+}
+
+.subheader {
+    color: white;
+    font-size: 64px;
+    text-align: center;
+    font-weight: 700;
+    padding-bottom: 30px;
+}
+
+.game_logo{
+    width: 100%;
+    max-width: 420px;
+
+}
+
+.cyan_grid{
+    width:100%;
+    max-width: 520px;
+    text-align: center;
+    background-color: #29D5FF;
+    position: relative;
+    margin: 50px auto;
+}
+
+.cyan_card{
+    width: 23%;
+    max-width: 250px;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: #27C7FC;
+    margin: 0 5px;
+
+}
+
+.card_number{
+    font-size:100px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.card_image{
+    width:100%;
+    height: 160px;
+    object-fit: contain;
+}
+
+.card_text{
+    font-size:18px;
+    color:black;
+    font-weight: 600;
+    height: 100px;
+}
+
+.points_table{
+    width: 100%;
+    max-width: 645px;
+    margin: auto;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-family: 'orbitron-medium';
+}
+
+.divider{
+    width:100%;
+    border-bottom: solid 1px white;
+    padding: 30px;
+    margin:30px 0;
+}
+
+.badge_icon{
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    display: inline-block;
+    margin:5px;
+}
+
+.badges_container{
+    text-align:center;
+    padding: 40px 0;
+}
+
+.game_card_image{
+    width:100px;
+    height:100px;
+    object-fit: contain;
+    margin: auto;
+    display: block;
+}
+
+.game_card_title{
+    color: #33ccff;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+
+.game_card_text{
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+.game_cards_containers{
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.badge_text{
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    width: 100%;
+    max-width: 907px;
+    margin: 50px auto;
+    font-size: 18px;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    border:none;
+}
+
+.headline{
+    font-size: 32px;
+    color: $color-one;
+    text-align: center;
+}

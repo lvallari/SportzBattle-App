@@ -47,7 +47,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       }
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
-      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
+      this.user.wallet_value = (this.user.wallet / 100).toFixed(2);
       //console.log('this.user', this.user);
       this.getData();
       this.getH2HGames();
@@ -56,7 +56,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.userServiceSubscription) this.userServiceSubscription.unsubscribe()
+    if (this.userServiceSubscription) this.userServiceSubscription.unsubscribe();
   }
 
   getData(){
@@ -133,7 +133,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   goPlay(){
-    this.router.navigate(['user/play']);
+     $('#gameTypeModal').modal('hide');
+    this.router.navigate(['user/loop-specs']);
   }
 
   getLevel(){
@@ -152,12 +153,12 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   goPlayH2H(){
     $('#gameTypeModal').modal('hide');
-    this.router.navigate(['user/lobby']);
+    this.router.navigate(['user/h2h-specs']);
   }
 
   goPlay20Quest(){
     $('#gameTypeModal').modal('hide');
-    this.router.navigate(['user/play-20quest']);
+    this.router.navigate(['user/quest20-specs']);
   }
 
 
@@ -170,6 +171,23 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       });
       console.log('h2h_games', this.h2h_games);
     })
+  }
+
+  redeemCash(){
+    console.log('sdfsdf');
+    if (this.user.wallet_value < 50){
+      $('#notEnoughMoneyModal').modal('show');
+    }
+    else {
+      //redeem flow
+      var user_object = {
+        user_id: this.user.user_id,
+        requested_payout: true
+      }
+
+      this.tablesService.UpdateItem('users','user_id', user_object).subscribe();
+      
+    }
   }
   /*
   calculateStats(){

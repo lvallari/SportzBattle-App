@@ -8,6 +8,9 @@ import { ScoutingComponent } from './scouting/scouting.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { Gameh2hComponent } from './gameh2h/gameh2h.component';
 import { Game20questComponent } from './game20quest/game20quest.component';
+import { LoopSpecsComponent } from './loop-specs/loop-specs.component';
+import { Quest20SpecsComponent } from './quest20-specs/quest20-specs.component';
+import { H2hSpecsComponent } from './h2h-specs/h2h-specs.component';
 
 
 const routes: Routes = [
@@ -19,6 +22,9 @@ const routes: Routes = [
     { path: 'scouting', component: ScoutingComponent},
     { path: 'lobby', component: LobbyComponent},
     { path: 'play-20quest', component: Game20questComponent},
+    { path: 'loop-specs', component: LoopSpecsComponent},
+    { path: 'quest20-specs', component: Quest20SpecsComponent},
+    { path: 'h2h-specs', component: H2hSpecsComponent}
 ];
 
 @NgModule({
@@ -35,5 +41,8 @@ export const routingComponents = [
     ScoutingComponent,
     LobbyComponent,
     Gameh2hComponent,
-    Game20questComponent
+    Game20questComponent,
+    LoopSpecsComponent,
+    Quest20SpecsComponent,
+    H2hSpecsComponent
 ]
