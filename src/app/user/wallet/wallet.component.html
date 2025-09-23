@@ -1,0 +1,55 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+
+     <div class="user_details">
+            <img class="user_image" src="{{user.image}}">
+            <div class="user_name">{{user.name}}</div>
+            <div class="level_container">
+                <img class="level_icon" src="{{user.level_icon}}">
+                <div class="level_name">{{user.level}}</div>
+            </div>
+             <div class="level_container">
+                <img class="level_icon" src="https://sportzbattle.blob.core.windows.net/system/tokens_logo.png">
+                <div class="level_name" style="text-align:center">{{user.wallet}}</div>
+                <div class="wallet_value">${{user.wallet_value}}</div>
+            </div>
+        </div>
+
+    <div class="d-flex align-items-center justify-content-center text-white" style="margin-top: 100px;">
+        <div class="card text-center shadow-lg" style="max-width:36rem; width:92vw; background-color: transparent;
+    border: solid 1px white;">
+            <div class="card-body p-4" style="padding: 60px !important;">
+                <p class="text-uppercase text-secondary small mb-2 value">Wallet Balance</p>
+
+                <div class="display-1 fw-semibold lh-1 my-3 value" style="color:white;">
+                    {{ user.wallet_value | currency:'USD':'symbol':'1.0-2' }}
+                </div>
+
+                <button type="button" class="btn btn-default button_primary btn-lg px-5 value" style="margin-top:30px;" (click)="redeemCash()">
+                    Redeem
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notEnoughMoneyModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('notEnoughMoneyModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-center" style="padding: 50px 0;">
+                    <p><em>You must have at least $50 in your wallet to redeem.</em></p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-default button_primary" (click)="closeModal('notEnoughMoneyModal')">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

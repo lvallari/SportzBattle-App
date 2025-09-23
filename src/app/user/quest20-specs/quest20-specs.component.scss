@@ -29,14 +29,19 @@
 }
 
 .cyan_card{
-    width: 23%;
-    max-width: 250px;
+    width: 100%;
     padding: 20px;
     display: inline-block;
     vertical-align: text-top;
     background-color: #27C7FC;
-    margin: 0 5px;
+    margin: 10px 5px;
 
+}
+
+.cyan_cards_container{
+    width:100%;
+    max-width:720px;
+    margin:auto;
 }
 
 .card_number{
@@ -55,7 +60,8 @@
     font-size:18px;
     color:black;
     font-weight: 600;
-    height: 100px;
+    height: 150px;
+    text-align: center;
 }
 
 .points_table{
@@ -131,4 +137,14 @@
     color: white;
     text-align: center;
     border:none;
+}
+
+@media screen and (max-width: 768px) {
+    .subheader{
+        font-size: 42px;
+    }
+
+    .card_text {
+        height: 60px;
+    }
 }

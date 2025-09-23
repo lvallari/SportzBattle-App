@@ -11,6 +11,7 @@ import { Game20questComponent } from './game20quest/game20quest.component';
 import { LoopSpecsComponent } from './loop-specs/loop-specs.component';
 import { Quest20SpecsComponent } from './quest20-specs/quest20-specs.component';
 import { H2hSpecsComponent } from './h2h-specs/h2h-specs.component';
+import { WalletComponent } from './wallet/wallet.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     { path: 'play-20quest', component: Game20questComponent},
     { path: 'loop-specs', component: LoopSpecsComponent},
     { path: 'quest20-specs', component: Quest20SpecsComponent},
-    { path: 'h2h-specs', component: H2hSpecsComponent}
+    { path: 'h2h-specs', component: H2hSpecsComponent},
+    { path: 'wallet', component: WalletComponent}
 ];
 
 @NgModule({
@@ -44,5 +46,6 @@ export const routingComponents = [
     Game20questComponent,
     LoopSpecsComponent,
     Quest20SpecsComponent,
-    H2hSpecsComponent
+    H2hSpecsComponent,
+    WalletComponent
 ]

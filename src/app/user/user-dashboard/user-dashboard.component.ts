@@ -173,22 +173,10 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  redeemCash(){
-    console.log('sdfsdf');
-    if (this.user.wallet_value < 50){
-      $('#notEnoughMoneyModal').modal('show');
-    }
-    else {
-      //redeem flow
-      var user_object = {
-        user_id: this.user.user_id,
-        requested_payout: true
-      }
-
-      this.tablesService.UpdateItem('users','user_id', user_object).subscribe();
-      
-    }
+  gotoWallet(){
+    this.router.navigate(['user/wallet']);
   }
+
   /*
   calculateStats(){
     //sort by category
