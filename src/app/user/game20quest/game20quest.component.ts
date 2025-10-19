@@ -164,7 +164,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
     //start countdown interval
     var ctr = 0;
     this.countdown_interval = setInterval(() => {
-      const { minutes, seconds } = this.getCountdownToNextInterval(5);
+      const { minutes, seconds } = this.getCountdownToNextInterval(10);
       this.minutes = minutes;
       this.seconds = seconds;
       ctr += 1;
