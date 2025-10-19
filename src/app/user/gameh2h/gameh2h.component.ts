@@ -69,17 +69,32 @@ export class Gameh2hComponent implements OnInit {
       this.h2h_game_id = params['h2h_game_id'];
     });
 
-    this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
-      if (!currentUser) {
-        this.router.navigate(['login']);
-        return;
-      }
-      else this.user = currentUser;
-    });
+    
   }
 
   ngOnInit(): void {
-    this.loadGame();
+
+    this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
+      if (!currentUser) {
+        this.router.navigate(['login']);
+        
+        return;
+      }
+      else {
+        this.user = currentUser;
+        
+        if (this.user.wallet < 2000) this.router.navigate(['user/insufficient-funds'], { queryParams: { g: 'h2h'} });
+        else {
+          this.user.wallet -= 2000;
+          this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
+          this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet });
+        }
+
+        this.loadGame();
+        
+      }
+    });
+   
   }
 
   loadGame(){

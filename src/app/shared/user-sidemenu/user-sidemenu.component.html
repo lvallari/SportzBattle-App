@@ -9,7 +9,7 @@
         <li class="sidemenu_item" (click)="goto('user/settings')" [ngClass]="{'selectedx':page == 'settings'}">Account</li>
         <li class="sidemenu_item" (click)="goto('user/leaderboard')" [ngClass]="{'selectedx':page == 'leaderboard'}">Leaderboard</li>
         <li class="sidemenu_item" (click)="goto('user/scouting')" [ngClass]="{'selectedx':page == 'scouting'}">Scouting</li>
-        <li class="sidemenu_item" (click)="goto('user/play')" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
+        <li class="sidemenu_item" (click)="playMenu()" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
         <li class="sidemenu_item" (click)="gotoHowToWin()">How to win</li>
         <li class="sidemenu_item" (click)="gotoContact()">Contact</li>
         <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
@@ -24,7 +24,7 @@
         <li class="sidemenu_item" (click)="goto('user/leaderboard')" [ngClass]="{'selectedx':page == 'leaderboard'}">Leaderboard</li>
         <li class="sidemenu_item" (click)="goto('business/business-users')" [ngClass]="{'selectedx':page == 'players'}">Players</li>
         <li class="sidemenu_item" (click)="goto('business/business-ads')" [ngClass]="{'selectedx':page == 'ads'}">Advertisement</li>
-        <li class="sidemenu_item" (click)="goto('user/play')" [ngClass]="{'selectedx':page == 'play'}">Launch Game</li>
+        <li class="sidemenu_item" (click)="playMenu()" [ngClass]="{'selectedx':page == 'play'}">Launch Game</li>
         <li class="sidemenu_item" (click)="gotoContact()">Contact</li>
         <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
     </ul>
@@ -53,7 +53,7 @@
         <li class="sidemenu_item" (click)="goto('user/settings')" [ngClass]="{'selectedx':page == 'settings'}">Account</li>
         <li class="sidemenu_item" (click)="goto('user/leaderboard')" [ngClass]="{'selectedx':page == 'leaderboard'}">Leaderboard</li>
         <li class="sidemenu_item" (click)="goto('user/scouting')" [ngClass]="{'selectedx':page == 'scouting'}">Scouting</li>
-        <li class="sidemenu_item blue" (click)="goto('user/play')" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
+        <li class="sidemenu_item blue" (click)="playMenu()" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
         <li class="sidemenu_item" (click)="gotoContact()">Contact</li>
         <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
     </ul>
@@ -65,9 +65,36 @@
         <li class="sidemenu_item" (click)="goto('business/business-profile')" [ngClass]="{'selectedx':page == 'profile'}">Business Profile</li>
         <li class="sidemenu_item" (click)="goto('user/leaderboard')" [ngClass]="{'selectedx':page == 'leaderboard'}">Leaderboard</li>
         <li class="sidemenu_item" (click)="goto('business/business-users')" [ngClass]="{'selectedx':page == 'players'}">Players</li>
-        <li class="sidemenu_item" (click)="goto('user/play')" [ngClass]="{'selectedx':page == 'play'}">Launch Game</li>
+        <li class="sidemenu_item" (click)="playMenu()" [ngClass]="{'selectedx':page == 'play'}">Launch Game</li>
         <li class="sidemenu_item" (click)="gotoContact()">Contact</li>
         <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
     </ul>
     }
+</div>
+
+<div class="modal fade" id="gameType2Modal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('gameType2Modal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <h1 class="modal_title">Select game mode</h1>  
+                
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default game_icon" (click)="goPlay()">
+                        <img class="button_image" src="../../../assets/images/loop_logo.png">
+                    </button><br><br>
+                    <button type="button" class="btn btn-default game_icon"  (click)="goPlayH2H()">
+                        <img class="button_image" src="../../../assets/images/h2h_logo.png">
+                    </button><br><br>
+                    <button type="button" class="btn btn-default game_icon"  (click)="goPlay20Quest()">
+                        <img class="button_image" src="../../../assets/images/quest20_logo.png">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

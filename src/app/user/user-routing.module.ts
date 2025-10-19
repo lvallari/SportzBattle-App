@@ -12,6 +12,9 @@ import { LoopSpecsComponent } from './loop-specs/loop-specs.component';
 import { Quest20SpecsComponent } from './quest20-specs/quest20-specs.component';
 import { H2hSpecsComponent } from './h2h-specs/h2h-specs.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { SpinWheelComponent } from './spin-wheel/spin-wheel.component';
+import { QuestionSuggestionComponent } from './question-suggestion/question-suggestion.component';
+import { InsufficientFundsComponent } from './insufficient-funds/insufficient-funds.component';
 
 
 const routes: Routes = [
@@ -26,7 +29,10 @@ const routes: Routes = [
     { path: 'loop-specs', component: LoopSpecsComponent},
     { path: 'quest20-specs', component: Quest20SpecsComponent},
     { path: 'h2h-specs', component: H2hSpecsComponent},
-    { path: 'wallet', component: WalletComponent}
+    { path: 'wallet', component: WalletComponent},
+    { path: 'wheel', component: SpinWheelComponent},
+    { path: 'question-suggestion', component: QuestionSuggestionComponent},
+    { path: 'insufficient-funds', component: InsufficientFundsComponent}
 ];
 
 @NgModule({
@@ -47,5 +53,8 @@ export const routingComponents = [
     LoopSpecsComponent,
     Quest20SpecsComponent,
     H2hSpecsComponent,
-    WalletComponent
+    WalletComponent,
+    SpinWheelComponent,
+    QuestionSuggestionComponent,
+    InsufficientFundsComponent
 ]

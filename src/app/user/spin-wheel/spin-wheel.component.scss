@@ -1,0 +1,377 @@
+@import '../../../globals.scss';
+
+
+/* page wrapper for centering */
+.wrap {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  color: #e5e7eb;
+  overflow: hidden;
+}
+
+.wheel-wrap {
+  position: relative;
+  width: min(72vw, 360px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  
+}
+
+/* top pointer */
+.pointer {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 18px solid var(--ring);
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.5));
+  z-index: 3;
+}
+
+/*
+$color-two: #7f7f7f;
+$color-one: #33ccff;
+$color-three: #1e4f7a;
+*/
+
+/* wheel with 8 conic slices; rotation uses CSS var --rotation */
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      #33ccff 0deg   45deg,  /* red */
+      #7f7f7f 45deg  90deg,  /* amber */
+      #1e4f7a 90deg 135deg,  /* emerald */
+      #7f7f7f 135deg 180deg, /* blue */
+      #33ccff 180deg 225deg, /* violet */
+      #7f7f7f 225deg 270deg, /* pink */
+      #1e4f7a 270deg 315deg, /* green */
+      #7f7f7f 315deg 360deg  /* rose */
+    );
+  border: 10px solid var(--ring);
+  box-shadow: 0 20px 50px rgba(0,0,0,.45), inset 0 0 30px rgba(0,0,0,.25);
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform 4s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+  position: relative;
+}
+
+/* center hub (purely visual) */
+.wheel::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 18%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 35% 35%, #374151, #111827 70%);
+  border: 3px solid #0a0f1a;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,.5);
+}
+
+.controls {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.slice-label {
+  position: absolute;
+  inset: 0;                 /* full size of wheel */
+  transform-origin: 50% 50%;
+  transform: rotate(var(--angle));
+  pointer-events: none;
+}
+
+.slice-label > span {
+  position: absolute;
+  left: 50%; top: 56%;
+  height: 100%;             /* make translateY percentages relative to wheel */
+  display: flex;
+  align-items: center;   /* text sits along the radial line */
+  justify-content: end;
+  transform:
+    translate(-50%, -50%)
+    translateY(-42%)        /* tweak 40–46% to center in the slice */
+    rotate(270deg); /*calc(-1 * var(--angle))*/
+  font: 700 clamp(12px, 2.6vw, 18px)/1 system-ui, sans-serif;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+.readout { min-height: 1.5em; opacity: .9; font-size: .95rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel { transition-duration: .001s; }
+}
+
+.triangle-clip{
+  width: 120px;         /* base width */
+  height: 20px;        /* height (make it “long”) */
+  background: linear-gradient(#ffcc00, #cca300);
+  clip-path: polygon(0% 50%, 100% 100%, 100% 0%); /* point up */
+  margin: 20px auto;
+    position: absolute;
+    right: -125px;
+    top: 150px;
+}
+
+.spin_button{
+    font-family: 'orbitron-bold';
+}
+
+@media screen and (max-width: 768px) {
+    .backgroundx{
+    padding:0px;
+   }
+
+
+   .triangle-clip{
+    width: 19px;
+    height: 20px;
+    background: linear-gradient(#ffcc00, #cca300);
+    clip-path: polygon(0% 50%, 100% 100%, 100% 0%);
+    margin: 20px auto;
+    position: absolute;
+    right: -23px;
+    top: 120px;
+   }
+
+}
+
+@media screen and (min-width: 360px) and (max-width: 410px){
+  .triangle-clip{
+    top: 98px;
+   }
+}
+
+@media screen and (min-width: 330px) and (max-width: 359px){
+  .triangle-clip{
+    top: 87px;
+   }
+}
+
+.headline{
+    color:white;
+    font-size:18px;
+}
+
+.user_details {
+    padding: 60px 40px 0px 40px;
+    position: relative;
+    margin: auto;
+    display: block;
+}
+
+.dashboard_contents{
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    display: block;
+    padding-bottom: 100px;
+}
+
+.user_image{
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.user_name{
+    font-size: 20px;
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:20px;
+    color: white;
+}
+
+.level_icon{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: auto;
+}
+
+.level_name{
+    font-size: 16px;
+    font-family: 'orbitron-bold';
+    vertical-align: middle;
+    color: white;
+}
+
+.box_title{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 24px;
+    text-align: center;
+    padding: 7px 0;
+    margin: auto;
+}
+
+.box_number{
+    color: white;
+    font-family: "orbitron-bold";
+    font-size: 20px;
+    text-align: center;
+    background-color: #33ccff;
+    padding: 25px 0px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+
+.box_rank{
+    font-style: italic;
+    font-size:18px;
+    color:white;
+    text-align: center;
+}
+
+
+.rowx{
+    margin:0;
+    border-bottom: solid 1px white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: solid 1px white;
+}
+
+.play_now_button{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.tc{
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table_container{
+    padding: 30px 0;
+}
+
+.level_container{
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:60px;
+}
+
+
+.user_badge{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    padding: 0px 0px;
+    margin: 0 7px;
+}
+
+.user_badges{
+    padding: 50px 0 30px 0;
+}
+
+.badgex{
+    font-family: 'orbitron-bold';
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 13px;
+}
+
+.wallet_value{
+    font-family: 'orbitron-bold';
+    color: deepskyblue;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.grey{
+    background-color:grey;
+}
+
+.game_icon{
+    background-color: black;
+    height: 70px;
+}
+
+.button_image{
+    width:200px;
+}
+
+.background_prize{
+  width:100%;
+  height: 500px;
+  background-image: url('https://sportzbattle.blob.core.windows.net/system/confetti.gif');
+  background-size: contain;
+  padding-top: 100px;
+}
+
+.background_loss{
+  width:100%;
+  height: 500px;
+  background-image: url('https://sportzbattle.blob.core.windows.net/system/rain_giphy.gif');
+  background-size: contain;
+  padding-top: 100px;
+}
+
+.you_won{
+  font-size:32px;
+  color: orange;
+  text-align: center;
+  font-weight: 700;
+}
+
+.prize_amount{
+  font-size:52px;
+  color: yellow;
+  text-align: center;
+  font-weight: 700;
+}
+
+
+@media screen and (max-width: 768px) {
+   .user_name{
+    font-size: 16px;
+   }
+
+   .user_image{
+    width: 60px;
+    height: 60px;
+   }
+
+   .level_name{
+    font-size: 15px;
+   }
+   
+    .backgroundx{
+    padding:0px;
+   }
+
+   .box_title{
+        max-width:166px;
+   }
+
+   .user_details{
+    padding: 60px 5px 0px 5px;
+   }
+
+   .level_container{
+    padding-left: 20px;
+   }
+}

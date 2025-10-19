@@ -120,6 +120,13 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       this.user.rank = 3;
       //console.log('this.user', this.user);
       if (this.user.account_type == 'player'){
+
+        if (this.user.wallet < 2500) this.router.navigate(['user/insufficient-funds'], { queryParams: { g: 'loop'} });
+        else {
+          this.user.wallet -= 2500;
+          this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
+          this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet });
+        }
         this.createGame();
         this.getUserDailyHighScore();
         this.getUserBadges();

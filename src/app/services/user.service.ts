@@ -96,7 +96,10 @@ export class UserService {
           }
           //else this.router.navigate(['/admin/profile/' + this.user.id]);
           else {
-            if (this.user.account_type == 'player') this.router.navigate(['user/user-dashboard']);
+            if (this.user.account_type == 'player') {
+              if (Date.now() > this.user.timestamp_wheel_spin) this.router.navigate(['user/wheel']);
+              else this.router.navigate(['user/user-dashboard']);
+            }
             else if (this.user.account_type == 'business') this.router.navigate(['business/business-dashboard']);
             else if (this.user.account_type == 'admin') this.router.navigate(['admin/admin-dashboard']);
             //$('#loginModal').modal('hide');
@@ -266,6 +269,17 @@ updateBadgesCounter(user_id:number, category:string){
     category: category
   }
   return this.http.post<any>(this.baseurl+'/updateBadgesCounter', data,  this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+recordSpunTheWheel(user_id:number){
+  var data = {
+    user_id: user_id,
+  }
+  return this.http.post<any>(this.baseurl+'/recordSpunTheWheel', data,  this.httpOptions)
   .pipe(
     retry(0),
     catchError(this.errorHandl),

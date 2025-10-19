@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
+declare var $: any;
 
 @Component({
   selector: 'app-user-sidemenu',
@@ -58,6 +59,30 @@ export class UserSidemenuComponent {
     window.open('https://www.sportzbattle.com/different-ways-to-win', '_blank');
   }
   
+  closeModal(name:string){
+    $('#' + name).modal('hide');
+  }
+
+   goPlay(){
+     $('#gameType2Modal').modal('hide');
+    this.router.navigate(['user/loop-specs']);
+  }
+
+  goPlayH2H(){
+     $('#gameType2Modal').modal('hide');
+    this.router.navigate(['user/h2h-specs']);
+  }
+
+  goPlay20Quest(){
+     $('#gameType2Modal').modal('hide');
+    this.router.navigate(['user/quest20-specs']);
+  }
+
+  playMenu(){
+    console.log('playMenu()');
+    $('#gameType2Modal').modal('show');
+  }
+
 
 
 }

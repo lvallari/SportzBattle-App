@@ -1,0 +1,65 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="dashboard_contents">
+        <div class="page_title">Question Suggestion</div>
+
+        @if (page == 1){
+        <div class="text">
+            Earn 10,000 tokens and help SportzBattle grow by suggesting a question to be added to our quiz database.
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Select Sport</div>
+            <div class="btn-group">
+                <button class="btn btn-default sport_selection" [ngClass]="{'selected': itemx.sport == 'basketball'}" (click)="eval();itemx.sport = 'basketball'">Basketball</button>
+                <button class="btn btn-default sport_selection" [ngClass]="{'selected': itemx.sport == 'baseball'}" (click)="eval();itemx.sport = 'baseball'">Baseball</button>
+                <button class="btn btn-default sport_selection" [ngClass]="{'selected': itemx.sport == 'football'}" (click)="eval();itemx.sport = 'football'">Football</button>
+            </div>
+            <div [hidden]="!itemx.invalid_sport" class="form_alert">{{itemx.invalid_sport}}</div>
+            <!--
+            <input type="text" class="form-control" [(ngModel)]="itemx.question" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_question" class="form_alert">{{itemx.invalid_question}}</div>
+            -->
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Enter Question</div>
+            <textarea type="text" rows="3" class="form-control" [(ngModel)]="itemx.question" (ngModelChange)="eval()"></textarea>
+            <div [hidden]="!itemx.invalid_question" class="form_alert">{{itemx.invalid_question}}</div>
+        </div>
+
+        <div class="input_container">
+            <div class="labelf">Correct Answer</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.correct_answer" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_correct_answer" class="form_alert">{{itemx.invalid_correct_answer}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">Incorrect Answer 1</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.incorrect_answer_1" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_incorrect_answer_1" class="form_alert">{{itemx.invalid_incorrect_answer_1}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">Incorrect Answer 2</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.incorrect_answer_2" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_incorrect_answer_2" class="form_alert">{{itemx.invalid_incorrect_answer_2}}</div>
+        </div>
+        <div class="input_container">
+            <div class="labelf">Incorrect Answer 3</div>
+            <input type="text" class="form-control" [(ngModel)]="itemx.incorrect_answer_3" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_incorrect_answer_3" class="form_alert">{{itemx.invalid_incorrect_answer_3}}</div>
+        </div>
+
+        <div class="text-center ptb50">
+            <button class="btn btn-default button_primary btn-lg" (click)="submit()">Submit</button>
+        </div>
+        }
+        @else if (page == 2){
+            <div class="background_prize">
+                <div class="text-center ptb50 tokens_awarded">10,000 Tokens awarded!</div>
+                <div class="text-center">
+                    <button class="btn btn-default button_primary btn-lg" (click)="gotoDashboard()">Go to Dashboard</button>
+                </div>
+            </div>
+        }
+    </div>
+</div> 

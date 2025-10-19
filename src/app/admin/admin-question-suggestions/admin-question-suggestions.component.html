@@ -1,0 +1,144 @@
+<app-admin-sidemenu></app-admin-sidemenu>
+<div class="contents contentsx">
+    <div class="page_title">User Questions</div>
+
+    @if (questions && questions.length > 0){
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Category</th>
+                <th>Question</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+                @for (x of questions; track x.question_suggestion_id){
+            <tr>
+                <td>{{x.user_name}}</td>
+                <td>{{x.category}}</td>
+                <td>{{x.question}}</td>
+                <td>
+                    <button class="btn btn-default" (click)="openDetails(x)">
+                        <i class="fa fa-ellipsis-vertical"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+            
+        </tbody>
+    </table>
+    }
+    @else {
+        <div class="text-center ptb50">
+            <p><em>There are no questions to show</em></p>
+        </div>
+    }
+
+
+</div>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (itemx){
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('detailsModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Select Sport</div>
+                    <div class="btn-group">
+                        <button class="btn btn-default sport_selection"
+                            [ngClass]="{'selected': itemx.sport == 'basketball'}"
+                            (click)="itemx.sport = 'basketball'">Basketball</button>
+                        <button class="btn btn-default sport_selection"
+                            [ngClass]="{'selected': itemx.sport == 'baseball'}"
+                            (click)="itemx.sport = 'baseball'">Baseball</button>
+                        <button class="btn btn-default sport_selection"
+                            [ngClass]="{'selected': itemx.sport == 'football'}"
+                            (click)="itemx.sport = 'football'">Football</button>
+                    </div>
+                    <!--
+            <input type="text" class="form-control" [(ngModel)]="itemx.question" (ngModelChange)="eval()">
+            <div [hidden]="!itemx.invalid_question" class="form_alert">{{itemx.invalid_question}}</div>
+            -->
+                </div>
+
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Enter Question</div>
+                    <textarea type="text" rows="3" class="form-control" [(ngModel)]="itemx.question"
+                        (ngModelChange)="eval()"></textarea>
+                    <div [hidden]="!itemx.invalid_question" class="form_alert">{{itemx.invalid_question}}</div>
+                </div>
+
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Correct Answer</div>
+                    <input type="text" class="form-control" [(ngModel)]="itemx.correct_answer" (ngModelChange)="eval()">
+                    <div [hidden]="!itemx.invalid_correct_answer" class="form_alert">{{itemx.invalid_correct_answer}}
+                    </div>
+                </div>
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Incorrect Answer 1</div>
+                    <input type="text" class="form-control" [(ngModel)]="itemx.option1"
+                        (ngModelChange)="eval()">
+                    <div [hidden]="!itemx.invalid_incorrect_answer_1" class="form_alert">
+                        {{itemx.invalid_incorrect_answer_1}}</div>
+                </div>
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Incorrect Answer 2</div>
+                    <input type="text" class="form-control" [(ngModel)]="itemx.option2"
+                        (ngModelChange)="eval()">
+                    <div [hidden]="!itemx.invalid_incorrect_answer_2" class="form_alert">
+                        {{itemx.invalid_incorrect_answer_2}}</div>
+                </div>
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Incorrect Answer 3</div>
+                    <input type="text" class="form-control" [(ngModel)]="itemx.option3"
+                        (ngModelChange)="eval()">
+                    <div [hidden]="!itemx.invalid_incorrect_answer_3" class="form_alert">
+                        {{itemx.invalid_incorrect_answer_3}}</div>
+                </div>
+
+                <div class="input_container">
+                    <div class="labelf" style="color:grey;">Difficulty</div>
+                    <input type="text" class="form-control" [(ngModel)]="itemx.difficulty"
+                        (ngModelChange)="eval()">
+                    <div [hidden]="!itemx.invalid_difficulty" class="form_alert">
+                        {{itemx.invalid_difficulty}}</div>
+                </div>
+
+                <div class="text-center" style="padding: 25px 0;">
+                    <button type="button" class="btn btn-default button_primary" (click)="copyItem()">Copy to question
+                        database</button>&nbsp;
+                    <button type="button" class="btn btn-default" (click)="deleteItem(this.itemx)">Delete</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="questionCopiedModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('questionCopiedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                <div class="text-center ptb50">
+                    <p><em>Question has been copied to the database</em></p>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-default button_primary" (click)="closeModal('questionCopiedModal')">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

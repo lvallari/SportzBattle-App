@@ -49,8 +49,16 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       if (!this.user.wallet) this.user.wallet = 0;
       this.user.wallet_value = (this.user.wallet / 100).toFixed(2);
       //console.log('this.user', this.user);
-      this.getData();
-      this.getH2HGames();
+
+      //check if ok to spin
+      console.log('this.user.timestamp_wheel_spin',this.user.timestamp_wheel_spin, Date.now());
+      if (!this.user.timestamp_wheel_spin || Date.now() > this.user.timestamp_wheel_spin){
+        this.router.navigate(['user/wheel']);
+      }
+      else {
+        this.getData();
+        this.getH2HGames();
+      }
 
     });
   }

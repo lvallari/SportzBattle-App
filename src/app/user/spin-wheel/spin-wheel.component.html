@@ -1,0 +1,95 @@
+<app-user-sidemenu></app-user-sidemenu>
+<div class="background backgroundx">
+    <div class="user_details">
+            <img class="user_image" src="{{user.image}}">
+            <div class="user_name">{{user.name}}</div>
+            <div class="level_container">
+                <img class="level_icon" src="{{user.level_icon}}">
+                <div class="level_name">{{user.level}}</div>
+            </div>
+            <div class="level_container" (click)="gotoWallet()">
+                <img class="level_icon" src="https://sportzbattle.blob.core.windows.net/system/tokens_logo.png">
+                <div class="level_name" style="text-align:center">{{user.wallet}}</div>
+                <div class="wallet_value">${{user.wallet_value}}</div>
+            </div>
+            <!--
+            <div class="level_container">
+                <button class="btn btn-default button_primary" [ngClass]="{'grey':user.wallet_value < 50 }" (click)="redeemCash()">Redeem Cash</button>
+            </div>
+            -->
+            <!--
+            <div class="text-end">
+                <button class="btn btn-default button_primary play_now_button" (click)="showGameTypeModal()">Play Now</button>
+            </div>
+            -->
+        </div>
+    <div class="page_title text-center">Spin the Wheel</div>
+    <div class="text-center ptb10">
+        <p class="headline"><em>Every day you get an opportunity to earn points.</em></p>
+    </div>
+    @if (main_container == 'wheel'){
+    <div class="wrap">
+        
+        <div class="wheel-wrap" style="margin-top: 30px;">
+            <!-- top pointer -->
+            <div class="triangle-clip"></div>
+
+            <!-- wheel -->
+            <div class="wheel" (transitionend)="onTransitionEnd($event)" [ngStyle]="{'--rotation': rotation + 'deg'}"
+                aria-label="Prize wheel" role="img">
+
+                <div class="slice-label" *ngFor="let _ of labels; let i = index"
+                    [style.--angle]="(i * sliceAngle + sliceAngle / 2) + 'deg'">
+                    <span >{{_}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                
+            </div>
+        </div>
+
+        
+
+       
+
+        <div class="controls">
+            <button class="btn btn-default button_primary spin_button btn-lg" (click)="spin()" [disabled]="spinning">Spin</button>
+            <div class="readout" aria-live="polite">
+                {{ currentIndex !== null ? ('Selected: ' + labels[currentIndex]) : '' }}
+            </div>
+        </div>
+    </div>
+    }
+    @else if (main_container == 'prize' && currentIndex !== null ? (labels[currentIndex] == 'Bankrupcy'):false){
+        <div class="background_loss">
+
+            <div class="you_won">You have gone bankrupt!</div>
+            
+            <div class="text-center ptb50">
+                <button class="btn btn-default button_primary btn-lg" (click)="gotoDashboard()">Go to dashboard</button>
+            </div>
+
+        </div>
+    }
+    @else if (main_container == 'prize' && currentIndex !== null ? (labels[currentIndex] == 'Lose 2,000'):false){
+        <div class="background_loss">
+
+            <div class="you_won">You lost 2,000 token!</div>
+            
+            <div class="text-center ptb50">
+                <button class="btn btn-default button_primary btn-lg" (click)="gotoDashboard()">Go to dashboard</button>
+            </div>
+
+        </div>
+    }
+    @else if (main_container == 'prize'){
+        <div class="background_prize">
+
+            <div class="you_won">You won!!!</div>
+            <div class="prize_amount">{{currentIndex !== null ? labels[currentIndex] + ' tokens!' : '' }}</div>
+
+            <div class="text-center ptb50">
+                <button class="btn btn-default button_primary btn-lg" (click)="gotoDashboard()">Go to dashboard</button>
+            </div>
+
+        </div>
+    }
+</div>

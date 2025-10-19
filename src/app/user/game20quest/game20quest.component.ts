@@ -133,6 +133,14 @@ export class Game20questComponent implements OnInit, OnDestroy {
       this.user.rank = 3;
       //console.log('this.user', this.user);
       if (this.user.account_type == 'player'){
+
+        if (this.user.wallet < 5000) this.router.navigate(['user/insufficient-funds'], { queryParams: { g: 'quest20'} });
+        else {
+          this.user.wallet -= 5000;
+          this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
+          this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet });
+        }
+
         this.createGame();
         this.getUserDailyHighScore();
         this.getUserBadges();
@@ -156,7 +164,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
     //start countdown interval
     var ctr = 0;
     this.countdown_interval = setInterval(() => {
-      const { minutes, seconds } = this.getCountdownToNextInterval(10);
+      const { minutes, seconds } = this.getCountdownToNextInterval(5);
       this.minutes = minutes;
       this.seconds = seconds;
       ctr += 1;
@@ -219,6 +227,7 @@ export class Game20questComponent implements OnInit, OnDestroy {
       //this.debug_ctr=0;
       //console.log('this.message ----', this.debug_ctr);
 
+      console.log('aaaaaaaaaa');
       if (message && delta > 5000) {
         clearInterval(this.timerInterval);
         clearInterval(this.timer2Interval);
@@ -723,6 +732,7 @@ checkForScheduledGames(){
 
   async checkinUser() {
     this.has_checkedin = true;
+    console.log('this.has_checkedin',this.has_checkedin);
 
     if (this.quest20_game_id == -1){
       var object = await lastValueFrom(this.apisService.createGameQuest20());
@@ -758,10 +768,10 @@ checkForScheduledGames(){
 
   getNumberOfPlayers(){
      this.tablesService.GetFiltered('quest20_players','quest20_game_id', this.quest20_game_id).subscribe((data: any) => {
-      console.log('players', data);
+      //console.log('players', data);
       this.number_of_players = data.length;
       this.number_of_active_players = data.filter((x:any) => { return x.status == 'playing'}).length;
-      console.log('number_of_active_players',this.number_of_active_players);
+      //console.log('number_of_active_players',this.number_of_active_players);
     });
   }
 

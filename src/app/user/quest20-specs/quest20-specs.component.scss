@@ -127,7 +127,7 @@
     text-align: center;
     font-weight: 600;
     width: 100%;
-    max-width: 507px;
+    max-width: 780px;
     margin: auto;
     font-size: 18px;
 }
@@ -137,6 +137,18 @@
     color: white;
     text-align: center;
     border:none;
+}
+
+.wheel_image{
+    width: 100%;
+    max-width: 488px;
+    margin: auto;
+    display: block;
+}
+
+.token_icon{
+    width: 44px;
+    margin: 16px;
 }
 
 @media screen and (max-width: 768px) {
