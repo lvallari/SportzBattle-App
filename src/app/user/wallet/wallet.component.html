@@ -53,3 +53,76 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="payoutMethodModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('payoutMethodModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-start">
+                    <p><em>Select the payout method.</em></p>
+                </div>
+                <div class="text-center" style="padding-bottom:20px;">
+                    <button type="button" class="btn btn-default option_icon" [ngClass]="{'selected': payment_option == 'venmo'}" (click)="payment_option='venmo'">
+                        <img class="button_image" src="../../../assets/images/venmo-logo.webp">
+                    </button><br><br>
+                    <button type="button" class="btn btn-default option_icon" [ngClass]="{'selected': payment_option == 'cashtag'}" (click)="payment_option='cashtag'">
+                        <img class="button_image" src="../../../assets/images/92e32c8ca7fa4dab5fc3e21db5d2f7e1.avif">
+                    </button><br><br>
+                    <button type="button" class="btn btn-default option_icon" [ngClass]="{'selected': payment_option == 'zelle'}" (click)="payment_option='zelle'">
+                        <img class="button_image" src="../../../assets/images/Zelle-logo.png">
+                    </button>
+                </div>
+                @if (payment_option == 'venmo'){
+                    <div class="input_container">
+                        <div class="input_label">Venmo handle</div>
+                        <input type="text" class="form-control" [(ngModel)]="venmo_handle" placeholder="@username">
+                    </div>
+                }
+                @else if (payment_option == 'cashtag'){
+                    <div class="input_container">
+                        <div class="input_label">Cashtag handle</div>
+                        <input type="text" class="form-control" [(ngModel)]="venmo_handle" placeholder="@username">
+                    </div>
+                }
+                @if (payment_option == 'zelle'){
+                    <div class="input_container">
+                        <div class="input_label">Zelle account</div>
+                        <input type="text" class="form-control" [(ngModel)]="venmo_handle" placeholder="Phone number or email">
+                    </div>
+                }
+                @if(payment_option){
+                <div class="text-center ptb20">
+                    <button type="button" class="btn btn-default button_primary" (click)="selectPaymentMethod()">Select</button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="payoutRequestedModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('payoutRequestedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-center" style="padding: 50px 0;">
+                    <p><em>The request for payout was received. You will receive your payout shortly.</em></p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-default button_primary" (click)="closeModal('payoutRequestedModal')">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

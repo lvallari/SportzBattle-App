@@ -137,6 +137,19 @@
 
                 <div class="input_container">
                     <div class="labelfd text-center">{{itemx.username}} has requested payout.</div>
+                    <div class="payout_info">
+                        <strong>Payout method:</strong>&nbsp;{{itemx.payout_method}}<br>
+                        @if (itemx.payout_method == 'venmo'){
+                            <strong>Venmo Handle:</strong>&nbsp;{{itemx.venmo_handle}}<br>
+                        }
+                        @else if (itemx.payout_method == 'cashtag'){
+                            <strong>Cashtag Handle:</strong>&nbsp;{{itemx.cashtag_handle}}<br>
+                        }
+                        @else if (itemx.payout_method == 'zelle'){
+                            <strong>Zelle Handle:</strong>&nbsp;{{itemx.zelle_handle}}<br>
+                        }
+                         <strong>Payout amount:</strong>&nbsp;{{itemx.payout_amount}}<br>
+                    </div>
                     <div class="text-center">
                         Wallet amount<br>
                         <div class="wallet_font">${{itemx.wallet}}</div>

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
+import { MailingService } from '../../services/mailing.service';
 declare var $: any;
 
 @Component({
@@ -20,11 +21,17 @@ export class WalletComponent implements OnInit{
   user:any;
 
   stats:any;
+  
+  payment_option!:string;
+  venmo_handle!:string;
+  cashtag_handle!:string;
+  zelle_handle!:string;
 
   constructor(
     public tablesService: TablesService,
     public userService: UserService,
     public commonService: CommonService,
+    public mailingService: MailingService,
     private router:Router
   ){}
 
@@ -36,7 +43,7 @@ export class WalletComponent implements OnInit{
       }
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
-      this.user.wallet_value = (this.user.wallet / 100).toFixed(2);
+      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
 
 
       this.userService.getUserStats(this.user.user_id).subscribe((data:any) => {
@@ -57,13 +64,8 @@ export class WalletComponent implements OnInit{
       $('#notEnoughMoneyModal').modal('show');
     }
     else {
-      //redeem flow
-      var user_object = {
-        user_id: this.user.user_id,
-        requested_payout: true
-      }
 
-      this.tablesService.UpdateItem('users','user_id', user_object).subscribe();
+      $('#payoutMethodModal').modal('show');
       
     }
   }
@@ -77,6 +79,38 @@ export class WalletComponent implements OnInit{
     this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
       this.commonService.assignLevel(this.user, data);
     })
+  }
+
+  selectPaymentMethod() {
+
+    $('#payoutMethodModal').modal('hide');
+
+    //redeem flow
+    var user_object = {
+      user_id: this.user.user_id,
+      payout_method: this.payment_option,
+      zelle_handle: this.zelle_handle,
+      cashtag_handle: this.cashtag_handle,
+      venmo_handle: this.venmo_handle,
+      payout_amount: (this.user.wallet/1000).toString(),
+      wallet: 0,
+      username: this.user.username,
+      email: this.user.email
+    }
+
+    this.tablesService.UpdateItem('users', 'user_id', user_object).subscribe(() => {
+      this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
+
+      this.user.wallet = 0;
+      this.user.wallet_value = (this.user.wallet / 100).toFixed(2);
+
+      this.mailingService.payoutRequestedNotification(user_object);
+      this.mailingService.payoutRequestedConfirmation(user_object);
+
+    });
+
+    $('#payoutRequestedModal').modal('show');
+
   }
 
 }

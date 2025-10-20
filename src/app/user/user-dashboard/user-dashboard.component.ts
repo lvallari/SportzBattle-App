@@ -47,7 +47,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       }
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
-      this.user.wallet_value = (this.user.wallet / 100).toFixed(2);
+      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
       //console.log('this.user', this.user);
 
       //check if ok to spin

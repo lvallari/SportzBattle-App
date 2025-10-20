@@ -48,13 +48,15 @@
 
         
 
-       
-
+        <div style="min-height:95px;">
+        @if(!spinning){
         <div class="controls">
             <button class="btn btn-default button_primary spin_button btn-lg" (click)="spin()" [disabled]="spinning">Spin</button>
             <div class="readout" aria-live="polite">
                 {{ currentIndex !== null ? ('Selected: ' + labels[currentIndex]) : '' }}
             </div>
+        </div>  
+        }
         </div>
     </div>
     }

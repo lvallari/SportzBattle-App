@@ -62,7 +62,7 @@ export class SpinWheelComponent implements OnInit {
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
-      this.user.wallet_value = (this.user.wallet / 100).toFixed(2);
+      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
       //console.log('this.user', this.user);
       this.getData();
       //this.getH2HGames();
@@ -101,7 +101,7 @@ export class SpinWheelComponent implements OnInit {
   // Fired from template on the rotating element
   onTransitionEnd(ev: TransitionEvent) {
     if (ev.propertyName !== 'transform') return; // ignore unrelated transitions
-    this.spinning = false;
+    
     if (this.pendingIndex != null) {
       this.currentIndex = this.pendingIndex;
       this.selectionChange.emit(this.currentIndex);
@@ -111,7 +111,7 @@ export class SpinWheelComponent implements OnInit {
       setTimeout(() => {
         console.log('222');
         this.main_container = 'prize';
-
+        this.spinning = false;
 
         if (this.currentIndex && this.labels[this.currentIndex] == 'Bankrupcy') {
           console.log('bankrupcy');

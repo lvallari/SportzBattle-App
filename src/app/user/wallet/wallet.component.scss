@@ -55,3 +55,21 @@
 .value{
     font-family: 'orbitron-bold';
 }
+
+.option_icon{
+   
+    border: solid 1px lightgrey;
+}
+
+.button_image{
+    width: 220px;
+    height: 55px;
+    object-fit: contain;
+    /* padding: 5px; */
+    border-radius: 10px;
+    margin: 0px 0;
+}
+
+.selected{
+    border: solid 5px $color-one;
+}
