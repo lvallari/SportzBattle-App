@@ -134,13 +134,6 @@ export class Game20questComponent implements OnInit, OnDestroy {
       //console.log('this.user', this.user);
       if (this.user.account_type == 'player'){
 
-        if (this.user.wallet < 5000) this.router.navigate(['user/insufficient-funds'], { queryParams: { g: 'quest20'} });
-        else {
-          this.user.wallet -= 5000;
-          this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
-          this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet });
-        }
-
         this.createGame();
         this.getUserDailyHighScore();
         this.getUserBadges();
@@ -731,6 +724,14 @@ checkForScheduledGames(){
 }
 
   async checkinUser() {
+
+    if (this.user.wallet < 5000) this.router.navigate(['user/insufficient-funds'], { queryParams: { g: 'quest20' } });
+    else {
+      this.user.wallet -= 5000;
+      this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
+      this.tablesService.UpdateItem('users', 'user_id', { user_id: this.user.user_id, wallet: this.user.wallet });
+    }
+
     this.has_checkedin = true;
     console.log('this.has_checkedin',this.has_checkedin);
 

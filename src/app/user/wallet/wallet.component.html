@@ -10,7 +10,7 @@
             </div>
              <div class="level_container">
                 <img class="level_icon" src="https://sportzbattle.blob.core.windows.net/system/tokens_logo.png">
-                <div class="level_name" style="text-align:center">{{user.wallet}}</div>
+                <div class="level_name" style="text-align:center">{{user.wallet.toLocaleString('en-US')}}</div>
                 <div class="wallet_value">${{user.wallet_value}}</div>
             </div>
         </div>
@@ -121,6 +121,27 @@
                 </div>
                 <div class="text-center">
                     <button type="button" class="btn btn-default button_primary" (click)="closeModal('payoutRequestedModal')">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notVerifiedModal" tabindex="-1" role="dialog" [hidden]="" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal_body" *ngIf="user">
+                <button class="btn btn-default modal_close_button" data-dismiss="modal"
+                    (click)="closeModal('notVerifiedModal')">
+                    <i class="fa fa-times modal_close_icon"></i>
+                </button>
+                
+                <div class="text-center" style="padding: 50px 0;">
+                    <p><em>Please complete the user authentiation process before submitting a withdrawal.</em></p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-default button_primary" (click)="gotoUserVerification()">Complete User Authentication</button>
                 </div>
             </div>
         </div>

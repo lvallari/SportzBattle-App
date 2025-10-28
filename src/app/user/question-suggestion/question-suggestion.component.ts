@@ -62,6 +62,7 @@ export class QuestionSuggestionComponent implements OnInit {
       option1: this.itemx.incorrect_answer_1,
       option2: this.itemx.incorrect_answer_2,
       option3: this.itemx.incorrect_answer_3,
+      submitted_by_user_id: this.user.user_id
     }
 
     this.tablesService.AddItem('questions_suggestions', object).subscribe(() => {

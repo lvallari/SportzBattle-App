@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { MailingService } from '../../services/mailing.service';
+import { environment } from '../../../environments/environment';
 declare var $: any;
 
 @Component({
@@ -26,6 +27,8 @@ export class WalletComponent implements OnInit{
   venmo_handle!:string;
   cashtag_handle!:string;
   zelle_handle!:string;
+
+  user_verification:any;
 
   constructor(
     public tablesService: TablesService,
@@ -53,7 +56,13 @@ export class WalletComponent implements OnInit{
       
       console.log('this.user', this.user);
       this.getLevel();
-    })
+    });
+
+      //check if user verification exists for this user
+      this.tablesService.GetFiltered('user_verifications','user_id', this.user.user_id).subscribe((data:any) => {
+        //this.user_verification = data[0];
+      })
+
       //console.log('this.user', this.user);
     });
   }
@@ -62,6 +71,9 @@ export class WalletComponent implements OnInit{
     console.log('sdfsdf');
     if (this.user.wallet_value < 50){
       $('#notEnoughMoneyModal').modal('show');
+    }
+    else if (!this.user_verification){
+      $('#notVerifiedModal').modal('show');
     }
     else {
 
@@ -111,6 +123,13 @@ export class WalletComponent implements OnInit{
 
     $('#payoutRequestedModal').modal('show');
 
+  }
+
+  gotoUserVerification(){
+    var token = this.commonService.crypt('sb2024',JSON.stringify({user_id: this.user.user_id}));
+    
+    if (environment.production) window.open('https://sptzba.com/user-verification/' + token, '_blank', 'noopener,noreferrer');
+    else window.open('http://localhost:4200/user-verification/' + token, '_blank', 'noopener,noreferrer');
   }
 
 }

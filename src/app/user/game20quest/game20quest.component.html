@@ -34,6 +34,12 @@
         </div>
     </div>
 
+    @if (message.submitted_by_user){
+    <div class="text-end">
+        Submitted by:&nbsp;{{message.submitted_by_user}}
+    </div>
+    }
+
     @if (banners){
         <app-question-footer4 [counter]="counter" [venue_id]="user.venue_id" [banners]="banners"></app-question-footer4>
     }

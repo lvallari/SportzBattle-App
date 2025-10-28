@@ -127,7 +127,7 @@ export class Gameh2hComponent implements OnInit {
   }
 
   playQuestion(){
-console.log('here!');
+            console.log('here!');
             this.page = 'game';
             this.time_is_up = false;
             this.has_joined = true;

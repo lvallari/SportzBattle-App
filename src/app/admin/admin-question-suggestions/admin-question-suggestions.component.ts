@@ -75,14 +75,18 @@ export class AdminQuestionSuggestionsComponent implements OnInit{
       question: this.itemx.question,
       category: category,
       correct_answer: this.itemx.correct_answer,
-      incorrect_answer_1: this.itemx.incorrect_answer_1,
-      incorrect_answer_2: this.itemx.incorrect_answer_2,
-      incorrect_answer_3: this.itemx.incorrect_answer_3,
+      option1: this.itemx.option1,
+      option2: this.itemx.option2,
+      option3: this.itemx.option3,
+      submitted_by_user_id: this.itemx.submitted_by_user_id,
+      difficulty: this.itemx.difficulty
     }
 
-    this.tablesService.AddItem('questions2', object).subscribe(() => {
+    this.tablesService.AddItem('questions2', object).subscribe((data:any) => {
 
-       $('#detailsModal').modal('hide');
+      console.log('data', data);
+
+      $('#detailsModal').modal('hide');
       $('#questionCopiedModal').modal('show');
       
       this.deleteItem(this.itemx)

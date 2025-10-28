@@ -195,7 +195,14 @@ export class AdminUsersComponent implements OnInit {
   }
 
   paymentSent(){
-    
+    var user_object = {
+      user_id: this.itemx.user_id,
+      requested_payout: false,
+      payout_amount: 0
+    }
+
+    this.tablesService.UpdateItem('users','user_id', user_object).subscribe();
+    $('#payoutRequestedModal').modal('hide');
   }
 
 

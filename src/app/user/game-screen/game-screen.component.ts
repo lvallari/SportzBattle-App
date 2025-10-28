@@ -77,6 +77,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   has_warrior_badge:boolean = false;
   has_hit_the_cycle: boolean = false;
 
+  submitted_by_user_name!:string;
+
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
   
