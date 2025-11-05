@@ -456,13 +456,13 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       });
 
       //award wallet prices
-      if (this.user.points > 3000) this.walletAward(5000);
-      else if (this.user.points > 2500) this.walletAward(2500);
-      else if (this.user.points > 2000) this.walletAward(1500);
-      else if (this.user.points > 1500) this.walletAward(1000);
-      else if (this.user.points > 1000) this.walletAward(500);
-      else if (this.user.points > 750) this.walletAward(200);
-      else if (this.user.points > 500) this.walletAward(100);
+      if (this.user.points > 3000) this.walletAward(50000);
+      else if (this.user.points > 2500) this.walletAward(25000);
+      else if (this.user.points > 2000) this.walletAward(15000);
+      else if (this.user.points > 1500) this.walletAward(10000);
+      else if (this.user.points > 1000) this.walletAward(5000);
+      else if (this.user.points > 750) this.walletAward(2000);
+      else if (this.user.points > 500) this.walletAward(1000);
 
 
       clearInterval(this.timerInterval);
