@@ -38,13 +38,16 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
-      if (!currentUser){
+      if (!currentUser) {
         this.router.navigate(['login']);
         return;
       }
-      this.user = currentUser;
-      //console.log('this.user', this.user);
-      this.loadData();
+
+      this.tablesService.GetFiltered('users', 'user_id', currentUser.user_id).subscribe((data: any) => {
+        this.user = data[0];
+        //console.log('this.user', this.user);
+        this.loadData();
+      });
     });
 
   }
@@ -57,7 +60,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
     this.userService.getAllGames().subscribe((data: any) => {
       this.games = data;
-      //console.log('games', this.games, this.user.venue_id);
+      console.log('games', this.games, this.user.venue_id);
 
       this.filterPlayers();
     })
@@ -97,6 +100,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       x.points = points;
       x.max_score = max_score;
     });
+
+
+    if(this.tab == 'all-time'){
+      var record = this.players.find((x:any) => { return x.user_id == this.user.user_id});
+      if (record) record.points = this.user.points;
+    }
 
     //sort by points
     this.players = this.players.sort((a:any,b:any) => { return b.points - a.points});

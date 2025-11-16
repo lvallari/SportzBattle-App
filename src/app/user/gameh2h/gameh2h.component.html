@@ -53,11 +53,14 @@
         </div>
     </div>
 
-     @if (message.submitted_by_user){
-    <div class="text-end">
-        Submitted by:&nbsp;{{message.submitted_by_user}}
-    </div>
-    }
+    <!--
+    @if(question.username){
+            <div class="text-end submitted_by" style="padding:20px 0;">
+                Submitted by:&nbsp;{{message.username}}
+                <img class="user_image" src="{{message.user_image}}">
+            </div>
+        }
+    -->
 
 
     @if (banners){

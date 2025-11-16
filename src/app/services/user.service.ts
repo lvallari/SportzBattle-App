@@ -154,6 +154,8 @@ export class UserService {
 
   this.user = user;
   this._getUser.next(this.user);
+  localStorage.setItem('user', JSON.stringify(this.user));
+
 }
 
 signUpUser(user:any){

@@ -1,6 +1,7 @@
 <app-user-sidemenu></app-user-sidemenu>
 <div class="background backgroundx">
     <div class="dashboard_contents">
+        @if(user){
         <div class="user_details">
             <img class="user_image" src="{{user.image}}">
             <div class="user_name">{{user.name}}</div>
@@ -15,6 +16,8 @@
             </div>
             <!--
             <div class="level_container">
+
+
                 <button class="btn btn-default button_primary" [ngClass]="{'grey':user.wallet_value < 50 }" (click)="redeemCash()">Redeem Cash</button>
             </div>
             -->
@@ -22,7 +25,7 @@
                 <button class="btn btn-default button_primary play_now_button" (click)="showGameTypeModal()">Play Now</button>
             </div>
         </div>
-
+        }
         <div class="user_badges">
             <div class="user_name" style="padding-bottom: 15px;">Badges ({{number_of_badges}})</div><br>
             
@@ -40,7 +43,7 @@
         <div class="row rowx" id="myrow">
             <div class="col-6">
                 <div class="box_title">Total Points</div>
-                <div class="box_number">{{stats.all_time_points}}</div>
+                <div class="box_number">{{user.points}}</div>
                 @if(stats.all_time_points_number_players > 0 && stats.number_of_games > 0){
                     <div class="box_rank">{{stats.all_time_points_rank_suffix}} out of {{stats.all_time_points_number_players}}</div>
                 }

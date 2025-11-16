@@ -24,7 +24,7 @@
     <app-timer *ngIf="show_timer" [time]="time"></app-timer>
     <div class="question_container">
         <div class="question">{{message.question}}</div>
-        
+
         @if(!question_notification){
             @if(user_on_fire && question_active){
                 <img class="user_on_fire" src="../../../assets/images/fire-flame.gif">
@@ -78,13 +78,15 @@
             </div>
             }
         </div>
-    </div>
-    @if (message.submitted_by_user){
-    <div class="text-end">
-        Submitted by:&nbsp;{{message.submitted_by_user}}
-    </div>
-    }
 
+        @if(message.username){
+            <div class="text-end submitted_by" style="padding:20px 0;">
+                Submitted by:&nbsp;{{message.username}}
+                <img class="user_image" src="{{message.user_image}}">
+            </div>
+        }
+
+    </div>
 
     @if (banners){
         <app-question-footer4 [counter]="counter" [venue_id]="user.venue_id" [banners]="banners"></app-question-footer4>

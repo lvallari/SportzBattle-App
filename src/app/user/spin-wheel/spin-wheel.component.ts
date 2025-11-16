@@ -128,7 +128,7 @@ export class SpinWheelComponent implements OnInit {
             }
 
             console.log('user_object',user_object);
-
+            
             this.tablesService.UpdateItem('users', 'user_id', user_object).subscribe((data: any) => {
               this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
               this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_object.timestamp_wheel_spin);
@@ -140,7 +140,7 @@ export class SpinWheelComponent implements OnInit {
 
         else if (this.currentIndex && this.labels[this.currentIndex] == 'Lose 2,000') {
           console.log('lose 2000');
-          var wallet = this.user.wallet - 2000;
+          var wallet = Number(this.user.wallet) - 2000;
           if (wallet < 0) wallet = 0;
 
           this.userService.recordSpunTheWheel(this.user.user_id).subscribe((data: any) => {
@@ -299,5 +299,28 @@ export class SpinWheelComponent implements OnInit {
   gotoDashboard() {
     this.router.navigate(['user/user-dashboard']);
   }
+
+  skip(){
+    this.userService.recordSpunTheWheel(this.user.user_id).subscribe((data: any) => {
+
+            var timestamp_wheel_spin = data.timestamp_wheel_spin;
+
+            //award tokens
+            var user_object = {
+              user_id: this.user.user_id,
+              timestamp_wheel_spin: timestamp_wheel_spin
+            }
+
+            console.log('user_object',user_object);
+            
+            this.tablesService.UpdateItem('users', 'user_id', user_object).subscribe((data: any) => {
+              this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_object.timestamp_wheel_spin);
+               this.router.navigate(['user/user-dashboard']);
+            });
+
+          });
+  }
+
+
 
 }

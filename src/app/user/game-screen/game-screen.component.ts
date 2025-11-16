@@ -452,7 +452,10 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
       //update user points
       this.apisService.awardPoints(this.user.user_id, this.user.points).subscribe((data:any) => {
-        console.log(data);
+        this.tablesService.GetFiltered('users','user_id', this.user.user_id).subscribe((data2:any) => {
+          var user = data2[0];
+          this.userService.saveUser(user);
+        })
       });
 
       //award wallet prices

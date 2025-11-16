@@ -28,6 +28,7 @@
             </button>
         </div>
         
+        @if(!loading_games){
         <div class="table_container">
             <!--
             <div class="graph_title">Top Players</div>
@@ -121,6 +122,12 @@
                 <div class="note">There are no games in the lobby</div>
             }
         </div>
+        }
+        @else {
+            <div class="waiting">
+                Wait a moment, loading games...
+            </div>
+        }
        
     </div>
 </div>
@@ -223,13 +230,13 @@
                     </div>
                     }
                 </div>
+                }
                 @if (gamex.amount >= 0){
                 <div class="text-center" style="padding:40px 0 0 0;">
                     <button class="btn btn-default button_primary btn-lg" (click)="createGame()">Create Game</button>
                 </div>
                 }
                 }
-               }
                 
             }
             </div>

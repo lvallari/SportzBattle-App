@@ -25,7 +25,7 @@
         </div>
     <div class="page_title text-center">Spin the Wheel</div>
     <div class="text-center ptb10">
-        <p class="headline"><em>Every day you get an opportunity to earn points.</em></p>
+        <p class="headline"><em>Every day you get an opportunity to earn tokens.</em></p>
     </div>
     @if (main_container == 'wheel'){
     <div class="wrap">
@@ -55,6 +55,9 @@
             <div class="readout" aria-live="polite">
                 {{ currentIndex !== null ? ('Selected: ' + labels[currentIndex]) : '' }}
             </div>
+            <div class="text-center">
+                <button class="btn btn-default skip" (click)="skip()">Skip</button>
+            </div>
         </div>  
         }
         </div>
@@ -74,7 +77,7 @@
     @else if (main_container == 'prize' && currentIndex !== null ? (labels[currentIndex] == 'Lose 2,000'):false){
         <div class="background_loss">
 
-            <div class="you_won">You lost 2,000 token!</div>
+            <div class="you_won">You lost 2,000 tokens!</div>
             
             <div class="text-center ptb50">
                 <button class="btn btn-default button_primary btn-lg" (click)="gotoDashboard()">Go to dashboard</button>

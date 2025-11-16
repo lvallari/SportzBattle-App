@@ -50,13 +50,17 @@ export class ScoutingComponent {
         this.router.navigate(['login']);
         return;
       }
-      this.user = currentUser;
-     
-      if (!this.user.wallet) this.user.wallet = 0;
-      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
-      //console.log('this.user', this.user);
-      this.loadData();
-      this.loadScouts();
+
+      this.tablesService.GetFiltered('users', 'user_id', currentUser.user_id).subscribe((data: any) => {
+        this.user = data[0];
+
+        if (!this.user.wallet) this.user.wallet = 0;
+        this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
+        //console.log('this.user', this.user);
+        this.loadData();
+        this.loadScouts();
+
+      });
 
     });
   }
@@ -119,6 +123,9 @@ export class ScoutingComponent {
         x.rank = this.commonService.getOrdinalSuffix(i+1);
       });
 
+      var record = this.players_oo.find((x:any) => { return x.user_id == this.user.user_id});
+      if (record) record.points = this.user.points;
+    
      
       this.filterByTab();
       this.data_ready =true;

@@ -41,25 +41,27 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
-      if (!currentUser){
+      if (!currentUser) {
         this.router.navigate(['login']);
         return;
       }
-      this.user = currentUser;
-      if (!this.user.wallet) this.user.wallet = 0;
-      this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
-      //console.log('this.user', this.user);
 
-      //check if ok to spin
-      console.log('this.user.timestamp_wheel_spin',this.user.timestamp_wheel_spin, Date.now());
-      if (!this.user.timestamp_wheel_spin || Date.now() > this.user.timestamp_wheel_spin){
-        this.router.navigate(['user/wheel']);
-      }
-      else {
-        this.getData();
-        this.getH2HGames();
-      }
+      this.tablesService.GetFiltered('users', 'user_id', currentUser.user_id).subscribe((data: any) => {
+        this.user = data[0];
+        if (!this.user.wallet) this.user.wallet = 0;
+        this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
+        //console.log('this.user', this.user);
 
+        //check if ok to spin
+        console.log('this.user.timestamp_wheel_spin', this.user.timestamp_wheel_spin, Date.now(), Date.now() - this.user.timestamp_wheel_spin);
+        if (!this.user.timestamp_wheel_spin || Date.now() > this.user.timestamp_wheel_spin) {
+          this.router.navigate(['user/wheel']);
+        }
+        else {
+          this.getData();
+          this.getH2HGames();
+        }
+      });
     });
   }
 
@@ -147,7 +149,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   getLevel(){
     this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
+
       this.commonService.assignLevel(this.user, data);
+      console.log('getLevel', this.user);     
     })
   }
 

@@ -31,6 +31,7 @@ export class LobbyComponent implements OnInit {
   invitations_to_user:any[] = [];
 
   is_small:boolean = window.innerWidth <= 768;
+  loading_games:boolean = false;
 
   constructor(
     public apisService: ApisService,
@@ -56,6 +57,7 @@ export class LobbyComponent implements OnInit {
   }
 
   loadGames(){
+    this.loading_games = true;
     this.apisService.GetGamesForLobby().subscribe((data:any) => {
       this.games = data;
 
@@ -64,6 +66,8 @@ export class LobbyComponent implements OnInit {
       })
       console.log('this.games', this.games);
       this.loadInvitationsToUser();
+
+      this.loading_games = false;
 
     })
   }
