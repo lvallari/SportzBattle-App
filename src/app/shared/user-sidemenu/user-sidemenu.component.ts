@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { Subscription } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -8,12 +9,14 @@ declare var $: any;
   templateUrl: './user-sidemenu.component.html',
   styleUrl: './user-sidemenu.component.scss'
 })
-export class UserSidemenuComponent {
+export class UserSidemenuComponent implements OnInit, OnDestroy{
 
   user:any;
 
   page!:string;
   show_menu:boolean = false;
+
+  userSubscription!:Subscription;
 
   constructor(
     public userService: UserService,
@@ -23,13 +26,17 @@ export class UserSidemenuComponent {
 
   ngOnInit(): void {
 
-    this.userService._getUser.subscribe((currentUser) => {
+    this.userSubscription = this.userService._getUser.subscribe((currentUser) => {
       this.user = currentUser;
       console.log('this.user', this.user);
     });
 
     //console.log(this.router.url);
     this.page = this.router.url;
+  }
+
+  ngOnDestroy(): void {
+    if(this.userSubscription) this.userSubscription.unsubscribe();
   }
 
   goto(route:string){

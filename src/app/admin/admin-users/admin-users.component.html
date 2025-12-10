@@ -50,8 +50,11 @@
                 <th class="text-center">Last Played
                     &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('last_played')"></i>
                 </th>
-                <th class="text-center">Earned Tokens
+                <th class="text-center">Tokens
                     &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('wallet')"></i>
+                </th>
+                <th class="text-center">Badges
+                    &nbsp;<i class="fa-solid fa-sort sort_icon" (click)="sortBy('badges')"></i>
                 </th>
                 <th></th>
             </tr>
@@ -80,6 +83,7 @@
                 <td class="text-center"><em>{{x.last_played}}</em>
                 </td>
                 <td class="text-center">{{x.wallet}}</td>
+                <td class="text-center">{{x.badges}}</td>
                 <td>
                     <button class="btn btn-default button_primary" (click)="awardTokens(x)">Award Tokens</button>
                     @if(x.requested_payout){

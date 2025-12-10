@@ -12,7 +12,10 @@
             <div class="level_container" (click)="gotoWallet()">
                 <img class="level_icon" src="https://sportzbattle.blob.core.windows.net/system/tokens_logo.png">
                 <div class="level_name" style="text-align:center">{{user.wallet.toLocaleString('en-US')}}</div>
+                <!--
+                <div class="level_name" style="text-align:center">{{user.wallet.toLocaleString('en-US')}}</div>
                 <div class="wallet_value">${{user.wallet_value}}</div>
+                -->
             </div>
             <!--
             <div class="level_container">
@@ -39,7 +42,7 @@
 
         <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
 
-
+        @if(user){
         <div class="row rowx" id="myrow">
             <div class="col-6">
                 <div class="box_title">Total Points</div>
@@ -109,7 +112,23 @@
             </div>
             
         </div>
-       
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="box_title">Badges</div>
+                <div class="box_number">{{stats.badges}}</div>
+                
+                <div class="box_rank">{{stats.badges_rank_suffix}} out of {{stats.top_score_all_time_number_players}}</div>
+                
+            </div>
+            <div class="col-6">
+                <div class="box_title">Tokens</div>
+                <div class="box_number">{{stats.wallet}}</div>
+                <div class="box_rank">{{stats.tokens_rank_suffix}} out of {{stats.top_score_all_time_number_players}}</div>
+                
+            </div>
+            
+        </div>
+        }
 
         <div class="box_title">Loop Game</div>
         <div class="table_container">
@@ -157,6 +176,7 @@
         </div>
 
         <div class="box_title">Head To Head Games</div>
+         @if(h2h_games){
         <div class="table_container">
             <table class="table">
                 <thead>
@@ -168,8 +188,9 @@
                         <th class="tc">No. Players</th>
                     </tr>
                 </thead>
+               
                 <tbody>
-                    @for (x of h2h_games; track x.h2h_game_id){
+                    @for (x of h2h_games.slice(0,max_items); track x.h2h_game_id){
                     <tr>
                         <td class="tc">{{x.date}}</td>
                         <td class="tc">{{x.username}}</td>
@@ -183,8 +204,15 @@
                     </tr>
                     }
                 </tbody>
+              
             </table>
+            @if (h2h_games.length > max_items){
+            <div class="text-center">
+                <button class="btn btn-default" style="color:white;text-decoration:underline;" (click)="seeMore()">See More</button>
+            </div>
+            }
         </div>
+          }
         
     </div>
 </div>

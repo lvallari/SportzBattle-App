@@ -730,6 +730,16 @@ checkForScheduledGames(){
       this.user.wallet -= 5000;
       this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
       this.tablesService.UpdateItem('users', 'user_id', { user_id: this.user.user_id, wallet: this.user.wallet });
+
+      var transaction_object = {
+        user_id: this.user.user_id,
+        timestamp: Date.now(),
+        value: -5000,
+        description: 'Game fee: Quest 20'
+      }
+
+      this.tablesService.AddItem('transactions', transaction_object).subscribe();
+
     }
 
     this.has_checkedin = true;
@@ -794,12 +804,24 @@ checkForScheduledGames(){
   walletAward(amount:number){
 
     console.log('wallet award!!', amount);
+
+    var walletx = this.user.wallet ? (this.user.wallet + amount):amount;
+
     var user_object = {
       user_id: this.user.user_id,
-      wallet: this.user.wallet ? (this.user.wallet += amount):amount
+      wallet: walletx
     }
 
     this.tablesService.UpdateItem('users','user_id',user_object).subscribe();
+
+    var transaction_object = {
+        user_id: this.user.user_id,
+        timestamp: Date.now(),
+        value: amount,
+        description: 'Quest 20 prize'
+      }
+
+      this.tablesService.AddItem('transactions', transaction_object).subscribe();
   }
 
 }

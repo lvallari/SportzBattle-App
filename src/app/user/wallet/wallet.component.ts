@@ -44,6 +44,8 @@ export class WalletComponent implements OnInit{
         this.router.navigate(['login']);
         return;
       }
+
+
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
       this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
@@ -120,6 +122,15 @@ export class WalletComponent implements OnInit{
       this.mailingService.payoutRequestedConfirmation(user_object);
 
     });
+
+    var transaction_object = {
+        user_id: this.user.user_id,
+        timestamp: Date.now(),
+        value: -1*this.user.wallet,
+        description: 'Payout'
+      }
+
+      this.tablesService.AddItem('transactions', transaction_object).subscribe();
 
     $('#payoutRequestedModal').modal('show');
 

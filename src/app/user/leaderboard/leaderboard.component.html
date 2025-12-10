@@ -9,6 +9,14 @@
             <div class="submenu_item" [ngClass]="{'selected':tab == 'all-time'}" (click)="tab = 'all-time'; filterPlayers()">All-Time</div>
         </div>
 
+        @if(true || tab == 'all-time'){
+            <div class="filter_options_container">
+                <div class="filter_option" [ngClass]="{'selectedx':filter == 'points'}" (click)="filter='points';filterPlayers()">Points</div>
+                <div class="filter_option" [ngClass]="{'selectedx':filter == 'tokens'}" (click)="filter='tokens';filterPlayers()">Tokens</div>
+                <div class="filter_option" [ngClass]="{'selectedx':filter == 'badges'}" (click)="filter='badges';filterPlayers()">Badges</div>
+            </div>
+        }
+
         <div class="table_container">
             <div class="graph_title">Top Players</div>
             @if (players.length > 0){
@@ -19,7 +27,15 @@
                         <th class="tc">Username</th>
                         <th class="tc">Level</th>
                         <!--<th class="tc">Games</th>-->
+                        @if (filter == 'points'){
                         <th class="tc">{{tab == 'daily' ? 'High Score':'Total Points'}}</th>
+                        }
+                        @else if (filter == 'tokens'){
+                        <th class="tc">Tokens</th>
+                        }
+                        @else if (filter == 'badges'){
+                        <th class="tc">Badges</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +48,15 @@
                         <td class="tc">
                             <img class="player_image" src="{{x.level_icon}}">&nbsp;{{x.level}}</td>
                         <!--<td class="tc">{{x.games}}</td>-->
-                        <td class="tc">{{tab == 'daily' ? x.max_score:x.points}}</td>
+                        @if (filter == 'points'){
+                            <td class="tc">{{tab == 'daily' ? x.max_score:x.points}}</td>
+                        }
+                        @else if( filter == 'tokens'){
+                            <td class="tc">{{x.tokens_number}}</td>
+                        }
+                        @else if( filter == 'badges'){
+                            <td class="tc">{{x.badges_number}}</td>
+                        }
                     </tr>
                     }
                 </tbody>

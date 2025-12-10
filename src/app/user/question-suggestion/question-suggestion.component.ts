@@ -71,12 +71,21 @@ export class QuestionSuggestionComponent implements OnInit {
       //award tokens
       var user_object = {
         user_id: this.user.user_id,
-        wallet: this.user.wallet += 10000
+        wallet: this.user.wallet + 10000
       }
 
       this.tablesService.UpdateItem('users','user_id',user_object).subscribe((data:any) => {
-        this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
+        //this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
       });
+
+      var transaction_object = {
+        user_id: this.user.user_id,
+        timestamp: Date.now(),
+        value: 10000,
+        description: 'Question submission'
+      }
+
+      this.tablesService.AddItem('transactions', transaction_object).subscribe();
 
     });
 

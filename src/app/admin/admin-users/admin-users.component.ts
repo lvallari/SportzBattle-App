@@ -32,6 +32,8 @@ export class AdminUsersComponent implements OnInit {
   sort_direction_number_of_days_played_in_a_row:string = 'desc';
   sort_direction_longest_streak_questions_in_a_row:string = 'desc';
   sort_direction_last_played:string = 'desc';
+  sort_direction_tokens:string = 'desc';
+  sort_direction_badges:string = 'desc';
   
   constructor(
     public userService:UserService,
@@ -157,6 +159,22 @@ export class AdminUsersComponent implements OnInit {
       if (this.sort_direction_last_played == 'asc') this.sort_direction_last_played = 'desc';
       else this.sort_direction_last_played = 'asc';
     }
+    if (field == 'wallet'){
+      this.users = this.users.sort((a:any,b:any) => {
+        if (this.sort_direction_tokens == 'asc') return a.wallet - b.wallet;
+        else return b.wallet - a.wallet;
+      });
+      if (this.sort_direction_tokens == 'asc') this.sort_direction_tokens = 'desc';
+      else this.sort_direction_tokens = 'asc';
+    }
+    if (field == 'badges'){
+      this.users = this.users.sort((a:any,b:any) => {
+        if (this.sort_direction_badges == 'asc') return a.badges - b.badges;
+        else return b.badges - a.badges;
+      });
+      if (this.sort_direction_badges == 'asc') this.sort_direction_badges = 'desc';
+      else this.sort_direction_badges = 'asc';
+    }
     
   }
 
@@ -181,6 +199,15 @@ export class AdminUsersComponent implements OnInit {
       });
 
     })
+
+    var transaction_object = {
+      user_id: this.itemx.user_id,
+      timestamp: Date.now(),
+      value: this.tokens,
+      description: 'Awarded by Admin'
+    }
+
+    this.tablesService.AddItem('transactions',transaction_object);
     
   }
 

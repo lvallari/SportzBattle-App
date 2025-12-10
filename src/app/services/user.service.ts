@@ -80,11 +80,12 @@ export class UserService {
 
     this.loginReq(userObj).subscribe((data: any) => {
 
-      console.log('loginReq', data);
+      console.log('--------loginReq', data);
 
       if (data) {
         //if (data.user) {
           this.user = data;
+
 
           localStorage.setItem('user', JSON.stringify(this.user));
           this._getUser.next(this.user);
@@ -139,7 +140,7 @@ export class UserService {
   }
 
   getCurrent(){
-    
+    console.log('-----------get current')
     this.tablesService.GetFiltered('users','id',this.user.id).subscribe((data:any) => {
       this.user = data[0];
       localStorage.setItem('user', JSON.stringify(this.user));
@@ -150,10 +151,26 @@ export class UserService {
   
  saveUser(user:any){
 
-  console.log('saveUser', user);
+  console.log('-----------saveUser', user);
 
   this.user = user;
   this._getUser.next(this.user);
+  localStorage.setItem('user', JSON.stringify(this.user));
+
+}
+
+ saveUserNoBroadcast(user:any){
+
+  console.log('----------saveUserNoBroadCast', user);
+  //this.user = user;
+  localStorage.setItem('user', JSON.stringify(this.user));
+
+}
+
+ saveUserNoBroadcastX(user:any){
+
+  console.log('----------saveUserNoBroadCast', user);
+  this.user = user;
   localStorage.setItem('user', JSON.stringify(this.user));
 
 }
@@ -227,6 +244,14 @@ getGamesByVenue(venue_id:number){
 
 getAllGames(){
   return this.http.get<any>(this.baseurl+'/getAllGames', this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getAllGamesLeaderboard(){
+  return this.http.get<any>(this.baseurl+'/getAllGamesLeaderboard', this.httpOptions)
   .pipe(
     retry(0),
     catchError(this.errorHandl),

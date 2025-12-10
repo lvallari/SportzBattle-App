@@ -62,6 +62,23 @@
     text-align: center;
 }
 
+.filter_options_container{
+    text-align: center;
+}
+
+.filter_option{
+    color: white;
+    display: inline-block;
+    padding: 0 20px;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: 'orbitron-medium';
+}
+
+.selectedx{
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 768px) {
     
     .contentsx{

@@ -21,6 +21,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   data_ready:boolean = false;
 
+  filter:string = 'points';
 
 
   userServiceSubscription!: Subscription;
@@ -58,36 +59,74 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   loadData() {
 
-    this.userService.getAllGames().subscribe((data: any) => {
-      this.games = data;
-      console.log('games', this.games, this.user.venue_id);
+    this.userService.getAllGamesLeaderboard().subscribe((data: any) => {
+      this.players = data;
+      //console.log('players', this.players);
 
       this.filterPlayers();
+      
     })
   }
 
   filterPlayers() {
+    //console.log('filterPlayers');
 
     this.data_ready =false;
-    var games:any = [];
+    //var games:any = [];
 
-    if (this.tab == 'all-time') games = this.games;
-    else if (this.tab == 'monthly') games = this.games.filter((x: any) => { return x.timestamp >= this.monthly_start_time });
-    else if (this.tab == 'daily') games = this.games.filter((x: any) => { return x.timestamp >= this.daily_start_time });
+    this.players.forEach((x: any) => {
+      
+      if (this.filter == 'points') {
+        var games;
+        if (this.tab == 'all-time') games = x.games;
+        else if (this.tab == 'monthly') games = x.games.filter((n: any) => { return n.timestamp >= this.monthly_start_time });
+        else if (this.tab == 'daily') games = x.games.filter((n: any) => { return n.timestamp >= this.daily_start_time });
 
-    this.players = [];
-    games.forEach((x: any) => {
-      //x.date = this.commonService.getDateString(x.timestamp);
 
-      var record = this.players.find((n: any) => { return n.user_id == x.user_id });
-      if (!record) this.players.push({
-        user_id: x.user_id,
-        username: x.username,
-        image: x.user_image
-      });
+        var points = 0;
+        games.forEach((x: any) => { points += x.score; });
+        x.points = points;
+      }
 
+      else if (this.filter == 'badges'){
+        var badges;
+        if (this.tab == 'all-time') badges = x.badges;
+        else if (this.tab == 'monthly') badges = x.badges.filter((n: any) => { return n.timestamp >= this.monthly_start_time });
+        else if (this.tab == 'daily') badges = x.badges.filter((n: any) => { return n.timestamp >= this.daily_start_time });
+
+        x.badges_number = badges.length;
+      }
+
+      else if (this.filter == 'tokens'){
+        var tokens;
+        if (this.tab == 'all-time') tokens = x.tokens;
+        else if (this.tab == 'monthly') tokens = x.tokens.filter((n: any) => { return n.timestamp >= this.monthly_start_time });
+        else if (this.tab == 'daily') tokens = x.tokens.filter((n: any) => { return n.timestamp >= this.daily_start_time });
+
+        var value = 0;
+        tokens.forEach((x: any) => { value += x.value; });
+        
+        x.tokens_number = value;
+      }
     });
 
+    if (this.filter == 'points') this.players = this.players.sort((a:any, b:any) => { return b.points - a.points});
+    if (this.filter == 'tokens') this.players = this.players.sort((a:any, b:any) => { return b.tokens_number - a.tokens_number});
+    if (this.filter == 'badges') this.players = this.players.sort((a:any, b:any) => { return b.badges_number - a.badges_number});
+    
+  
+    //console.log('this.players', this.players);
+
+      /*
+      games = x.games;
+    
+    else if (this.tab == 'daily') games = this.games.filter((x: any) => { return x.timestamp >= this.daily_start_time });
+      */
+    
+
+    //this.players = [];
+    
+/*
     this.players.forEach((x: any) => {
       var player_games = games.filter((n: any) => { return n.user_id == x.user_id });
       x.games = player_games.length;
@@ -109,6 +148,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
     //sort by points
     this.players = this.players.sort((a:any,b:any) => { return b.points - a.points});
+    console.log('this.players', this.players);
 
     if (this.tab == 'all-time' && !this.players_map) {
       this.players_map = this.players.map((x:any) => { 
@@ -126,6 +166,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       if (record) x.all_time_points = record.all_time_points;
     });
 
+    */
     this.assignLevels();
     this.data_ready =true;
 

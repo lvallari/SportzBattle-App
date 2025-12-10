@@ -60,6 +60,7 @@ export class SpinWheelComponent implements OnInit {
 
   ngOnInit(): void {
     this.userServiceSubscription = this.userService._getUser.subscribe((currentUser) => {
+      console.log('0000');
       this.user = currentUser;
       if (!this.user.wallet) this.user.wallet = 0;
       this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
@@ -130,9 +131,18 @@ export class SpinWheelComponent implements OnInit {
             console.log('user_object',user_object);
             
             this.tablesService.UpdateItem('users', 'user_id', user_object).subscribe((data: any) => {
-              this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
-              this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_object.timestamp_wheel_spin);
+              //this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
+              //this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_object.timestamp_wheel_spin);
             });
+
+            var transaction_object = {
+              user_id: this.user.user_id,
+              timestamp: Date.now(),
+              value: -1*(this.user.wallet ? this.user.wallet:0),
+              description: 'Spin the wheel - bankrupcy'
+            }
+
+            this.tablesService.AddItem('transactions', transaction_object).subscribe();
 
           });
 
@@ -157,16 +167,25 @@ export class SpinWheelComponent implements OnInit {
             console.log('user_object',user_object);
 
             this.tablesService.UpdateItem('users', 'user_id', user_object).subscribe((data: any) => {
-              this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
-              this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_object.timestamp_wheel_spin);
-            })
+              //this.userService.updateUserNoBroadCast('wallet', user_object.wallet);
+              //this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_object.timestamp_wheel_spin);
+            });
+
+            var transaction_object = {
+              user_id: this.user.user_id,
+              timestamp: Date.now(),
+              value: -2000,
+              description: 'Spin the wheel - lose 2000'
+            }
+
+            this.tablesService.AddItem('transactions', transaction_object).subscribe();
 
           });
         }
 
         else {
           if (this.currentIndex) {
-            var walletx = this.user.wallet += Number(this.labels[this.currentIndex].replace(',', ''));
+            var walletx = this.user.wallet + Number(this.labels[this.currentIndex].replace(',', ''));
 
             this.userService.recordSpunTheWheel(this.user.user_id).subscribe((data: any) => {
 
@@ -182,9 +201,20 @@ export class SpinWheelComponent implements OnInit {
               console.log('user_objectx',user_objectx);
 
               this.tablesService.UpdateItem('users', 'user_id', user_objectx).subscribe((data: any) => {
-                this.userService.updateUserNoBroadCast('wallet', user_objectx.wallet);
-                this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_objectx.timestamp_wheel_spin);
+                //this.userService.updateUserNoBroadCast('wallet', user_objectx.wallet);
+                //this.userService.updateUserNoBroadCast('timestamp_wheel_spin', user_objectx.timestamp_wheel_spin);
               });
+
+              if (this.currentIndex) {
+                var transaction_object = {
+                  user_id: this.user.user_id,
+                  timestamp: Date.now(),
+                  value: Number(this.labels[this.currentIndex].replace(',', '')),
+                  description: 'Spin the wheel prize'
+                }
+
+                this.tablesService.AddItem('transactions', transaction_object).subscribe();
+              }
 
             });
 

@@ -29,6 +29,10 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   number_of_badges!:number;
   h2h_games!:any[];
 
+  duration:number = 6000;
+
+  max_items:number = 5;
+
   constructor(
     public userService: UserService,
     public commonService: CommonService,
@@ -46,14 +50,29 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         return;
       }
 
+      var userx = currentUser;
+      console.log('userx', userx);
+
       this.tablesService.GetFiltered('users', 'user_id', currentUser.user_id).subscribe((data: any) => {
         this.user = data[0];
-        if (!this.user.wallet) this.user.wallet = 0;
-        this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
+        console.log('this.user', this.user);
+        this.userService.saveUserNoBroadcastX(this.user);
+        //this.user.wallet = 5000;
+        
+        if (this.user.wallet > userx.wallet){
+          this.playSound();
+          //animate
+          this.animateNumber(this.user.wallet,userx.wallet);
+
+        }
+        //if (!this.user.wallet) this.user.wallet = 0;
+        //this.user.wallet_value = (this.user.wallet / 1000).toFixed(2);
+        
+        
         //console.log('this.user', this.user);
 
         //check if ok to spin
-        console.log('this.user.timestamp_wheel_spin', this.user.timestamp_wheel_spin, Date.now(), Date.now() - this.user.timestamp_wheel_spin);
+        //console.log('this.user.timestamp_wheel_spin', this.user.timestamp_wheel_spin, Date.now(), Date.now() - this.user.timestamp_wheel_spin);
         if (!this.user.timestamp_wheel_spin || Date.now() > this.user.timestamp_wheel_spin) {
           this.router.navigate(['user/wheel']);
         }
@@ -187,6 +206,36 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   gotoWallet(){
     this.router.navigate(['user/wallet']);
+  }
+
+  private animateNumber(target:number,start:number): void {
+    const range = target - start;
+    const startTime = performance.now();
+
+    const step = (currentTime: number) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / this.duration, 1); // Normalize progress to 0–1
+      this.user.wallet = Math.floor(start + progress * range);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  }
+
+  playSound(): void {
+    const audio = new Audio();
+    audio.src = 'assets/sounds/167535__jordanielmills__01-winner.mp3';
+    audio.load();
+    audio.play().catch(err => {
+      console.error('Audio playback failed:', err);
+    });
+  }
+
+  seeMore(){
+    this.max_items += 5;
   }
 
   /*

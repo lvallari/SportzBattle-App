@@ -88,6 +88,16 @@ export class Gameh2hComponent implements OnInit {
           this.user.wallet -= 2000;
           this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
           this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet });
+
+          var transaction_object = {
+            user_id: this.user.user_id,
+            timestamp: Date.now(),
+            value: -2000,
+            description: 'Game fee: H2H'
+          }
+
+          this.tablesService.AddItem('transactions', transaction_object).subscribe();
+
         }
 
         this.loadGame();

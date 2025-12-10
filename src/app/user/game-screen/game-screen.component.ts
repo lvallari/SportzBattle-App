@@ -117,6 +117,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         return;
       }
       this.user = currentUser;
+
+      console.log('game screen - user', this.user);
       this.user.lives = 3;
       this.user.points = 0;
       this.user.rank = 3;
@@ -125,9 +127,19 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
         if (this.user.wallet < 2500) this.router.navigate(['user/insufficient-funds'], { queryParams: { g: 'loop'} });
         else {
-          this.user.wallet -= 2500;
-          this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
-          this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet });
+          this.user.wallet = this.user.wallet - 2500;
+          //this.userService.updateUserNoBroadCast('wallet', this.user.wallet);
+          this.tablesService.UpdateItem('users','user_id', {user_id: this.user.user_id, wallet: this.user.wallet }).subscribe();
+
+          var transaction_object = {
+            user_id: this.user.user_id,
+            timestamp: Date.now(),
+            value: -2500,
+            description: 'Game fee: Loop Play'
+          }
+
+          this.tablesService.AddItem('transactions', transaction_object).subscribe();
+
         }
         this.createGame();
         this.getUserDailyHighScore();
@@ -423,7 +435,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
  
 
-  gameOver() {
+  async gameOver() {
 
 
     /*
@@ -451,12 +463,16 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       }
 
       //update user points
-      this.apisService.awardPoints(this.user.user_id, this.user.points).subscribe((data:any) => {
+      await lastValueFrom(this.apisService.awardPoints(this.user.user_id, this.user.points));//.subscribe((data:any) => {
+
+        /*
         this.tablesService.GetFiltered('users','user_id', this.user.user_id).subscribe((data2:any) => {
           var user = data2[0];
-          this.userService.saveUser(user);
+          this.userService.saveUserNoBroadcast(user);
         })
-      });
+        */
+
+      //});
 
       //award wallet prices
       if (this.user.points > 3000) this.walletAward(50000);
@@ -635,12 +651,24 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   walletAward(amount:number){
 
     console.log('wallet award!!', amount);
+
+    var walletx = this.user.wallet ? (this.user.wallet + amount):amount;
+
     var user_object = {
       user_id: this.user.user_id,
-      wallet: this.user.wallet ? (this.user.wallet += amount):amount
+      wallet: walletx
     }
 
     this.tablesService.UpdateItem('users','user_id',user_object).subscribe();
+
+    var transaction_object = {
+      user_id: this.user.user_id,
+      timestamp: Date.now(),
+      value: amount,
+      description: 'Loop Play prize'
+    }
+
+    this.tablesService.AddItem('transactions', transaction_object).subscribe();
   }
 
 }
