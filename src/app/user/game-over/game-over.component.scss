@@ -38,6 +38,17 @@
     padding: 20px 0;
 }
 
+.message{
+    background-color: green;
+    color: white;
+    font-size: 1.2em;
+    font-family: "orbitron-medium";
+    padding: 10px 30px;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
 
 @media screen and (max-width: 768px) {
     .logo {

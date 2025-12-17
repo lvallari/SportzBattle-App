@@ -2,6 +2,9 @@
 <img class="logo_words" src="../../../assets/images/logo_words.png">
 <div class="game_over">Game Over</div><br>
 <div class="text-center" style="padding:30px 0">
+    <div class="message">{{message}}</div>
+</div>
+<div class="text-center" style="padding:30px 0">
     @if(game == '20quest'){
         <button class="btn btn-default play_again_button" (click)="startAgain()">Play Again</button><br>
         <button class="btn btn-default dashboard_button" (click)="gotoDashboard()">Go to Dashboard</button>
