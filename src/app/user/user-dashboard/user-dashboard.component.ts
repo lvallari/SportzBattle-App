@@ -51,11 +51,11 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       }
 
       var userx = currentUser;
-      console.log('userx', userx);
+      //console.log('userx', userx);
 
       this.tablesService.GetFiltered('users', 'user_id', currentUser.user_id).subscribe((data: any) => {
         this.user = data[0];
-        console.log('this.user', this.user);
+        //console.log('this.user', this.user);
         this.userService.saveUserNoBroadcastX(this.user);
         //this.user.wallet = 5000;
         

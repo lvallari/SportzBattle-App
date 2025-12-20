@@ -116,7 +116,10 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         this.router.navigate(['login']);
         return;
       }
-      this.user = currentUser;
+
+      this.tablesService.GetFiltered('users','user_id', currentUser.user_id).subscribe((data:any) => {
+
+      this.user = data[0];
 
       console.log('game screen - user', this.user);
       this.user.lives = 3;
@@ -150,6 +153,8 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       }
 
       this.loadAdvertisements();
+
+    });
 
     });
 
@@ -231,6 +236,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
 
           setTimeout(() => {
             this.page = 'game';
+            //this.page = 'leaderboard';
             this.time_is_up = false;
             this.has_joined = true;
             this.question_active = true;

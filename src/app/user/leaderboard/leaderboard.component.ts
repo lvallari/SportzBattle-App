@@ -80,7 +80,15 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         var games;
         if (this.tab == 'all-time') games = x.games;
         else if (this.tab == 'monthly') games = x.games.filter((n: any) => { return n.timestamp >= this.monthly_start_time });
-        else if (this.tab == 'daily') games = x.games.filter((n: any) => { return n.timestamp >= this.daily_start_time });
+        else if (this.tab == 'daily') {
+          games = x.games.filter((n: any) => { return n.timestamp >= this.daily_start_time });
+          //check for high score
+          var max_score = 0;
+          games.forEach((g:any) => {
+            if (g.score > max_score) max_score = g.score;
+          });
+          x.max_score = max_score;
+        }
 
 
         var points = 0;
@@ -104,9 +112,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         else if (this.tab == 'daily') tokens = x.tokens.filter((n: any) => { return n.timestamp >= this.daily_start_time });
 
         var value = 0;
-        tokens.forEach((x: any) => { value += x.value; });
+        tokens.forEach((x: any) => { value += (x.value > 0 ? x.value:0); });
         
         x.tokens_number = value;
+        console.log(x.username, value, tokens);
       }
     });
 

@@ -30,6 +30,8 @@ export class UserService {
   // Base url
   baseurl = environment.baseurl + '/users';
 
+  
+
   public _getUser = new BehaviorSubject<any>(undefined);
   public _loginStatus = new BehaviorSubject<any>(undefined);
   public _getNotificationsUpdate = new BehaviorSubject<any>(undefined);
@@ -56,7 +58,7 @@ export class UserService {
       //pull from database most updated record for the user
       this.tablesService.GetFiltered('users', 'user_id', this.user.user_id).subscribe((data: any) => {
         this.user = data[0];
-      })
+      });
       
     }
     
@@ -252,6 +254,14 @@ getAllGames(){
 
 getAllGamesLeaderboard(){
   return this.http.get<any>(this.baseurl+'/getAllGamesLeaderboard', this.httpOptions)
+  .pipe(
+    retry(0),
+    catchError(this.errorHandl),
+  )
+}
+
+getInGamesLeaderboard(){
+  return this.http.get<any>(this.baseurl+'/getInGamesLeaderboard', this.httpOptions)
   .pipe(
     retry(0),
     catchError(this.errorHandl),

@@ -74,17 +74,106 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
   }
 
   loadData() {
+
+    console.log('load data LEADERBOARD TABLE!!');
     //this.user.venue_id
     //this.userService.getGamesByVenue(1).subscribe((data: any) => {
+    /*
     this.userService.getAllGames().subscribe((data: any) => {
       this.games = data.filter((x: any) => { return x.timestamp >= this.daily_start_time });
       //console.log('this.games', this.games);
       this.filterPlayers();
     })
+    */
+    this.userService.getInGamesLeaderboard().subscribe((data: any) => {
+      this.players = data;
+      console.log('players', this.players);
+
+      //this.filterPlayers();
+      
+    })
   }
 
   filterPlayers() {
 
+    this.data_ready =false;
+    //var games:any = [];
+
+    this.players.forEach((x: any) => {
+      
+     
+        var games;
+        games = x.games.filter((n: any) => { return n.timestamp >= this.daily_start_time });
+
+        var points = 0;
+        games.forEach((x: any) => { points += x.score; });
+        x.points = points;
+      
+
+    });
+
+    //if (this.filter == 'points') 
+      this.players = this.players.sort((a:any, b:any) => { return b.points - a.points});
+    //if (this.filter == 'tokens') this.players = this.players.sort((a:any, b:any) => { return b.tokens_number - a.tokens_number});
+    //if (this.filter == 'badges') this.players = this.players.sort((a:any, b:any) => { return b.badges_number - a.badges_number});
+    
+  
+    //console.log('this.players', this.players);
+
+      /*
+      games = x.games;
+    
+    else if (this.tab == 'daily') games = this.games.filter((x: any) => { return x.timestamp >= this.daily_start_time });
+      */
+    
+
+    //this.players = [];
+    
+/*
+    this.players.forEach((x: any) => {
+      var player_games = games.filter((n: any) => { return n.user_id == x.user_id });
+      x.games = player_games.length;
+      var points = 0;
+      var max_score = 0;
+      player_games.forEach((n: any) => { 
+        points += (n.score ? n.score : 0);
+        if (n.score > max_score) max_score = n.score; 
+      });
+      x.points = points;
+      x.max_score = max_score;
+    });
+
+
+    if(this.tab == 'all-time'){
+      var record = this.players.find((x:any) => { return x.user_id == this.user.user_id});
+      if (record) record.points = this.user.points;
+    }
+
+    //sort by points
+    this.players = this.players.sort((a:any,b:any) => { return b.points - a.points});
+    console.log('this.players', this.players);
+
+    if (this.tab == 'all-time' && !this.players_map) {
+      this.players_map = this.players.map((x:any) => { 
+        return {
+          user_id: x.user_id,
+          all_time_points: x.points
+        };
+      });
+      
+    }
+
+    this.players.forEach((x:any) => {
+      //find record
+      var record = this.players_map.find((n:any) => { return n.user_id == x.user_id});
+      if (record) x.all_time_points = record.all_time_points;
+    });
+
+    */
+    //this.assignLevels();
+    this.data_ready =true;
+
+    /*
     this.data_ready =false;
     //games = this.games.filter((x: any) => { return x.timestamp >= this.daily_start_time });
 
@@ -119,7 +208,7 @@ export class LeaderboardTableComponent implements OnInit, OnDestroy{
     })
 
     this.data_ready =true;
-
+    */
   }
 
   timeUntil3AMET() {

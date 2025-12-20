@@ -149,6 +149,16 @@
     width:200px;
 }
 
+.bubble_container{
+    position:relative;
+}
+.ribbon{
+    position: absolute;
+    width: 40px;
+    top: 50px;
+    left: calc(50% - 65px);
+}
+
 
 @media screen and (max-width: 768px) {
    .user_name{
