@@ -13,6 +13,8 @@ import { TablesService } from '../../services/tables.service';
 export class LeaderboardComponent implements OnInit, OnDestroy {
 
   players: any[] = [];
+  record_holders: any[] = [];
+
   players_map!: any[];
   user: any;
   data: any[] = [];
@@ -60,7 +62,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   loadData() {
 
     this.userService.getAllGamesLeaderboard().subscribe((data: any) => {
-      this.players = data;
+      this.players = data.users;
+      this.record_holders = data.record_holders;
+
+      console.log('record_holders', this.record_holders);
       //console.log('players', this.players);
 
       this.filterPlayers();
@@ -92,8 +97,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
 
         var points = 0;
+        if (games){
         games.forEach((x: any) => { points += x.score; });
         x.points = points;
+        }
       }
 
       else if (this.filter == 'badges'){

@@ -7,15 +7,16 @@
             <div class="submenu_item" [ngClass]="{'selected':tab == 'daily'}" (click)="tab = 'daily'; filterPlayers()">Daily</div>
             <div class="submenu_item" [ngClass]="{'selected':tab == 'monthly'}" (click)="tab = 'monthly'; filterPlayers()">Monthly</div>
             <div class="submenu_item" [ngClass]="{'selected':tab == 'all-time'}" (click)="tab = 'all-time'; filterPlayers()">All-Time</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'records'}" (click)="tab = 'records'; filterPlayers()">Record Holders</div>
         </div>
 
-        @if(true || tab == 'all-time'){
+    @if(tab != 'records'){
             <div class="filter_options_container">
                 <div class="filter_option" [ngClass]="{'selectedx':filter == 'points'}" (click)="filter='points';filterPlayers()">Points</div>
                 <div class="filter_option" [ngClass]="{'selectedx':filter == 'tokens'}" (click)="filter='tokens';filterPlayers()">Tokens</div>
                 <div class="filter_option" [ngClass]="{'selectedx':filter == 'badges'}" (click)="filter='badges';filterPlayers()">Badges</div>
             </div>
-        }
+        
 
         <div class="table_container">
             <div class="graph_title">Top Players</div>
@@ -66,5 +67,49 @@
                 <div class="note">There are no players to show</div>
             }
         </div>
+    }
+    @else {
+        <div class="graph_title">Record Holders</div>
+          
+            <table class="table tablex">
+                <thead>
+                    <tr>
+                        <th class="tc"></th>
+                        <th class="tc">Category</th>
+                         <th class="tc"></th>
+                        <th class="tc">Record Holder</th>
+                        <th class="tc">Value</th>
+                        <th class="tc">Number of Days</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(x of record_holders; track x.user_id){
+                    <tr>
+                        <td class="tc"></td>
+                        <td class="tc">
+                            @if (x.category == 'all_games') { Number Of Games }
+                            @if (x.category == 'top_score') { Top Score }
+                            @if (x.category == 'badges') { Badges }
+                            @if (x.category == 'tokens') { Tokens }
+                            @if (x.category == 'total_points') { Total Points }
+                        </td>
+                        <td class="tc">
+                            <img class="player_image" src="{{x.user_image}}">
+                        </td>
+                        <td class="tc">
+                            {{x.username.slice(0,10)}}
+                        </td>
+                        <td class="tc">{{x.value}}</td>
+                        <td class="tc">{{x.days_with_record}}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+           
+        
+    
+
+    }
     </div>
 </div>
