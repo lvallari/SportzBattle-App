@@ -79,6 +79,12 @@
     text-decoration: underline;
 }
 
+.ribbon{
+    display: inline-block;
+    height: 30px;
+    margin-right: 5px;
+}
+
 @media screen and (max-width: 768px) {
     
     .contentsx{

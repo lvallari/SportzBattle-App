@@ -7,7 +7,10 @@
             <div class="submenu_item" [ngClass]="{'selected':tab == 'daily'}" (click)="tab = 'daily'; filterPlayers()">Daily</div>
             <div class="submenu_item" [ngClass]="{'selected':tab == 'monthly'}" (click)="tab = 'monthly'; filterPlayers()">Monthly</div>
             <div class="submenu_item" [ngClass]="{'selected':tab == 'all-time'}" (click)="tab = 'all-time'; filterPlayers()">All-Time</div>
-            <div class="submenu_item" [ngClass]="{'selected':tab == 'records'}" (click)="tab = 'records'; filterPlayers()">Record Holders</div>
+            <div class="submenu_item" [ngClass]="{'selected':tab == 'records'}" (click)="tab = 'records'; filterPlayers()">
+                <img class="ribbon" src="../../../assets/images/ribbon.png">
+                Record Holders
+            </div>
         </div>
 
     @if(tab != 'records'){

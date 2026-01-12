@@ -65,8 +65,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.players = data.users;
       this.record_holders = data.record_holders;
 
-      console.log('record_holders', this.record_holders);
-      //console.log('players', this.players);
+      //console.log('record_holders', this.record_holders);
+      console.log('players', this.players);
 
       this.filterPlayers();
       
@@ -97,9 +97,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
 
         var points = 0;
-        if (games){
-        games.forEach((x: any) => { points += x.score; });
-        x.points = points;
+        if (this.tab == 'all-time') x.points = x.all_time_points;
+        else {
+          if (games) {
+            games.forEach((x: any) => { points += x.score; });
+            x.points = points;
+          }
         }
       }
 
