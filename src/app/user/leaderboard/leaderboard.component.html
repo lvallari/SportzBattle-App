@@ -43,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for(x of players; track x.user_id){
+                    @for(x of players.slice(0,10); track x.user_id){
                     <tr>
                         <td class="tc">
                             <img class="player_image" src="{{x.image}}">
@@ -82,8 +82,9 @@
                          <th class="tc"></th>
                         <th class="tc">Record Holder</th>
                         <th class="tc">Value</th>
+                        <!--
                         <th class="tc">Number of Days</th>
-                        
+                        -->
                     </tr>
                 </thead>
                 <tbody>
@@ -104,7 +105,9 @@
                             {{x.username.slice(0,10)}}
                         </td>
                         <td class="tc">{{x.value}}</td>
+                        <!--
                         <td class="tc">{{x.days_with_record}}</td>
+                        -->
                     </tr>
                     }
                 </tbody>

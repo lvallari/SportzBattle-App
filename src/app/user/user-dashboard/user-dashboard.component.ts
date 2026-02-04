@@ -192,6 +192,11 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.router.navigate(['user/quest20-specs']);
   }
 
+  goLeaguePlay(){
+    $('#gameTypeModal').modal('hide');
+     window.open('https://www.sportzbattle.com/league', '_blank');
+  }
+
 
   getH2HGames(){
     this.apisService.getGamesH2HByUser(this.user.user_id).subscribe((data:any) => {

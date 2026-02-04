@@ -65,6 +65,10 @@ export class UserSidemenuComponent implements OnInit, OnDestroy{
   gotoHowToWin(){
     window.open('https://www.sportzbattle.com/different-ways-to-win', '_blank');
   }
+
+  battleTokens(){
+    window.open('https://www.sportzbattle.com/battle-tokens', '_blank');
+  }
   
   closeModal(name:string){
     $('#' + name).modal('hide');

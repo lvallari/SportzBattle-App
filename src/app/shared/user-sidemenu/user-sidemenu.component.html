@@ -13,6 +13,7 @@
         <li class="sidemenu_item" (click)="goto('user/scouting')" [ngClass]="{'selectedx':page == 'scouting'}">Scouting</li>
         <li class="sidemenu_item" (click)="playMenu()" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
         <li class="sidemenu_item" (click)="gotoHowToWin()">How to win</li>
+        <li class="sidemenu_item" (click)="battleTokens()">Battle Tokens</li>
         <li class="sidemenu_item" (click)="gotoContact()">Contact</li>
         <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
     </ul>
@@ -56,6 +57,8 @@
         <li class="sidemenu_item" (click)="goto('user/leaderboard')" [ngClass]="{'selectedx':page == 'leaderboard'}">Leaderboard</li>
         <li class="sidemenu_item" (click)="goto('user/scouting')" [ngClass]="{'selectedx':page == 'scouting'}">Scouting</li>
         <li class="sidemenu_item blue" (click)="playMenu()" [ngClass]="{'selectedx':page == 'play'}">Go Play!</li>
+        <li class="sidemenu_item" (click)="gotoHowToWin()">How to win</li>
+        <li class="sidemenu_item" (click)="battleTokens()">Battle Tokens</li>
         <li class="sidemenu_item" (click)="gotoContact()">Contact</li>
         <li class="sidemenu_item" (click)="signOut()">Sign Out</li>
     </ul>
