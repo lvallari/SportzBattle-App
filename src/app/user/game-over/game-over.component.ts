@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-game-over',
@@ -10,6 +11,7 @@ export class GameOverComponent implements OnInit{
 
   @Output() playAgain = new EventEmitter();
   @Input() game!:string;
+  @Input() stats!:any;
 
   message!:string;
 
@@ -27,6 +29,9 @@ export class GameOverComponent implements OnInit{
     ];
 
     this.message = messages[Math.floor(Math.random() * 5)];
+
+    if (this.stats) $('#gameStatsModal').modal('show');
+
   }
 
   startAgain(){
@@ -35,6 +40,10 @@ export class GameOverComponent implements OnInit{
 
   gotoDashboard(){
     this.router.navigate(['user/user-dashboard']);
+  }
+
+  closeModal(name:string){
+    $('#' + name).modal('hide');
   }
 
 }

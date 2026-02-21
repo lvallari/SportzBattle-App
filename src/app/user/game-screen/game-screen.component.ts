@@ -78,6 +78,7 @@ export class GameScreenComponent implements OnInit, OnDestroy {
   has_hit_the_cycle: boolean = false;
 
   submitted_by_user_name!:string;
+  game_stats:any;
 
   private messagesSubscription!: Subscription;
   private userServiceSubscription!: Subscription;
@@ -217,8 +218,15 @@ export class GameScreenComponent implements OnInit, OnDestroy {
         this.message = message;
         console.log('this.message', this.message);
         
-        
+       
+
         this.has_joined = true;
+        /*
+        //this.page = 'game_over';
+        //console.log('here');
+        //return;
+        */
+
         if (this.message.message == 'leaderboard') this.page = 'leaderboard';
         else if (this.message.message == 'advertisement') {
           this.page = 'advertisement';
@@ -489,6 +497,12 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       else if (this.user.points > 750) this.walletAward(2000);
       else if (this.user.points > 500) this.walletAward(1000);
 
+      //compute stats
+      this.apisService.getGameStats(this.game_id).subscribe((data:any) => {
+        console.log('game stats', data);
+        this.game_stats = data;
+      });
+
 
       clearInterval(this.timerInterval);
       clearInterval(this.timer2Interval);
@@ -534,9 +548,11 @@ export class GameScreenComponent implements OnInit, OnDestroy {
       user_id: this.user.user_id,
       got_it_right: value,
       game_id: this.game_id,
-      question_id: this.message.question_id
+      question_id: this.message.question_id,
+      points: this.value_points
     }
 
+    console.log('----------- Store User Activity ---------', object);
     this.tablesService.StoreUserActivity(object).subscribe();
   }
 

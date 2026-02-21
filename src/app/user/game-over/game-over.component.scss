@@ -1,3 +1,5 @@
+@import '../../../globals.scss';
+
 .logo {
    
     height: 20%;
@@ -49,6 +51,93 @@
     margin: auto;
 }
 
+.stats_background{
+    background-image: url('../../../assets/images/background.png');
+    background-size: contain;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between; align-items: center;
+}
+
+.header_item{
+    
+}
+
+.sportzbattle_logo{
+    width: 100px;
+}
+
+.link_text{
+    color:white;
+    font-size:20px;
+    font-style: italic;
+    font-family: 'orbitron-medium';
+}
+
+.stat_image{
+    width: 50%;
+    vertical-align: middle;
+    max-height: 121px;
+    object-fit: contain;
+}
+
+.stat_label{
+    font-size:20px;
+    font-style:italic;
+    text-align: center;
+    color: white;
+    border-bottom: solid 1px white;
+    padding-bottom: 8px;
+    font-family: 'orbitron-medium';
+    width: 149px;
+}
+
+.stat_data_number{
+    font-size:34px;
+    text-align: center;
+    color: white;
+    line-height: 70px;
+    font-family: 'orbitron-medium';
+}
+
+.stat_value{
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'orbitron-medium';
+    height: 117px;
+}
+
+.cards{
+    max-width: 635px;
+    margin: 40px auto;
+}
+
+.social_media_icon{
+    display: inline-block;
+    width: 50px;
+    margin: 0 10px;
+}
+
+.bottom_label{
+    background-color: $color-one;
+    color:white;
+    width: fit-content;
+    padding: 5px 30px;
+    text-align: center;
+    margin: 20px auto;
+    font-family: 'orbitron-medium';
+}
+
+.skill_receipt_sm{
+    display: none;
+}
+
+.snx{
+    font-size: 27px;
+}
+
 
 @media screen and (max-width: 768px) {
     .logo {
@@ -58,4 +147,45 @@
     .logo_words {
         width: 80%;
     }
+
+    .stat_image{
+            margin: auto;
+    display: block;
+    height: 56px;
+    object-fit: contain;
+    }    
+
+.stat_value{
+    display: block;
+    margin: auto;
+    height:auto;
+}
+
+.modal_body{
+    padding: 10px 10px 40px 10px;
+}
+
+.skill_receipt_lg{
+    display: none;
+}
+
+.skill_receipt_sm{
+    display: block;
+}
+
+.cards{
+    margin: 20px auto;
+}
+
+.stat_data_number{
+    font-size:40px;
+    line-height: 50px;
+    padding-top:10px;
+}
+
+.snx{
+    font-size: 30px;
+}
+
+    
 }

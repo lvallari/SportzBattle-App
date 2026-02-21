@@ -95,6 +95,14 @@ export class ApisService {
       )
   }
 
+  getGameStats(game_id:number){
+    return this.http.get<any>(this.baseurl + '/getGameStats?id=' + game_id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      )
+  }
+
   // Error handling
   errorHandl(error: any) {
     let errorMessage = '';
