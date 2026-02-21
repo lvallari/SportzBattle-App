@@ -247,6 +247,16 @@ export class GameScreenComponent implements OnInit, OnDestroy {
             //this.page = 'leaderboard';
             this.time_is_up = false;
             this.has_joined = true;
+
+            /*
+            this.page = 'game_over';
+            this.apisService.getGameStats(1364).subscribe((data:any) => {
+              this.game_stats = data;
+            });
+            this.game_is_active = false;
+            return;
+            */
+           
             this.question_active = true;
             
 

@@ -15,6 +15,13 @@ export class GameOverComponent implements OnInit{
 
   message!:string;
 
+  accuracy:number = 0;
+  time_average:number = 0;
+  tokens:number = 0;
+
+  duration:number = 4000;
+
+
   constructor(
     public router:Router
   ){}
@@ -30,7 +37,15 @@ export class GameOverComponent implements OnInit{
 
     this.message = messages[Math.floor(Math.random() * 5)];
 
-    if (this.stats) $('#gameStatsModal').modal('show');
+    if (this.stats) {
+      console.log('thi.stats', this.stats);
+      $('#gameStatsModal').modal('show');
+      this.playSound();
+      //animate
+      this.animateNumberAccuracy(Number(this.stats.accuracy),0);
+      this.animateNumberTimeAverage(Number(this.stats.time_average),0);
+      this.animateNumberTokens(Number(this.stats.tokens),0);
+    }
 
   }
 
@@ -44,6 +59,67 @@ export class GameOverComponent implements OnInit{
 
   closeModal(name:string){
     $('#' + name).modal('hide');
+  }
+
+  playSound(): void {
+    console.log('play sound');
+    const audio = new Audio();
+    audio.src = 'assets/sounds/404024__joshuaempyre__victory-percussion-music-cue.mp3';
+    
+    audio.load();
+    audio.play().catch(err => {
+      console.error('Audio playback failed:', err);
+    });
+  }
+
+  private animateNumberAccuracy(target:number,start:number): void {
+    const range = target - start;
+    const startTime = performance.now();
+
+    const step = (currentTime: number) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / this.duration, 1); // Normalize progress to 0–1
+      this.accuracy = Math.floor(start + progress * range);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  }
+  private animateNumberTimeAverage(target:number,start:number): void {
+    const range = target - start;
+    const startTime = performance.now();
+
+    const step = (currentTime: number) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / this.duration, 1); // Normalize progress to 0–1
+      this.time_average = Number((start + progress * range).toFixed(1));
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  }
+
+  private animateNumberTokens(target:number,start:number): void {
+    const range = target - start;
+    const startTime = performance.now();
+
+    const step = (currentTime: number) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / this.duration, 1); // Normalize progress to 0–1
+      this.tokens = Math.floor(start + progress * range);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
   }
 
 }

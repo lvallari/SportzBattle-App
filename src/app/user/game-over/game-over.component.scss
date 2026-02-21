@@ -62,7 +62,7 @@
 }
 
 .header_item{
-    
+    width:198px;
 }
 
 .sportzbattle_logo{
@@ -74,6 +74,7 @@
     font-size:20px;
     font-style: italic;
     font-family: 'orbitron-medium';
+    font-weight:600;
 }
 
 .stat_image{
@@ -128,6 +129,8 @@
     text-align: center;
     margin: 20px auto;
     font-family: 'orbitron-medium';
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .skill_receipt_sm{
@@ -136,6 +139,34 @@
 
 .snx{
     font-size: 27px;
+}
+.transparent-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.transparent-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 300%;
+  /* A sharp diagonal "beam" of light */
+  background: linear-gradient(
+    80deg,
+    transparent,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    transparent
+  );
+  animation: sweep 5s infinite;
+}
+
+@keyframes sweep {
+  0% { transform: translate(-100%, -50%); }
+  100% { transform: translate(100%, 50%); }
 }
 
 
