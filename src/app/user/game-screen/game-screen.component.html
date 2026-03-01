@@ -108,7 +108,7 @@
     @else if (page == 'game_over'){
         @if(popup == 'warrior'){ <app-warrior-popup></app-warrior-popup> }
         @if (game_stats){
-            <app-game-over (playAgain)="playAgain()" [stats]="game_stats"></app-game-over>
+            <app-game-over (playAgain)="playAgain()" [stats]="game_stats" [points]="user.points"></app-game-over>
         }
     }
     }

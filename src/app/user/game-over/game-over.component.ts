@@ -12,6 +12,7 @@ export class GameOverComponent implements OnInit{
   @Output() playAgain = new EventEmitter();
   @Input() game!:string;
   @Input() stats!:any;
+  @Input() points!:any;
 
   message!:string;
 
