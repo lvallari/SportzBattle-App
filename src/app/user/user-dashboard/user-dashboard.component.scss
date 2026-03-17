@@ -23,6 +23,15 @@
     display: inline-block;
 }
 
+.user_image_grid{
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    margin-right:8px;
+}
+
+
 .user_name{
     font-size: 20px;
     font-family: 'orbitron-bold';
@@ -159,6 +168,48 @@
     left: calc(50% - 111px);
 }
 
+.stat_image{
+    width: 50%;
+    vertical-align: middle;
+    max-height: 121px;
+    object-fit: contain;
+}
+
+.stat_label{
+    font-size:20px;
+    font-style:italic;
+    text-align: center;
+    color: white;
+    border-bottom: solid 1px white;
+    padding-bottom: 8px;
+    font-family: 'orbitron-medium';
+    width: 220px;
+}
+
+.stat_data_number{
+    font-size:34px;
+    text-align: center;
+    color: white;
+    line-height: 70px;
+    font-family: 'orbitron-medium';
+}
+
+.stat_value{
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'orbitron-medium';
+    height: 117px;
+}
+
+.stat_data{
+    font-size:16px;
+    text-align: center;
+    color: white;
+    font-family: 'orbitron-medium';
+    padding-top:20px;
+    line-height: 0px;
+}
+
 
 @media screen and (max-width: 768px) {
    .user_name{
@@ -189,4 +240,18 @@
    .level_container{
     padding-left: 20px;
    }
+
+   .cards{
+    margin: 20px auto;
+}
+
+.stat_data_number{
+    font-size:40px;
+    line-height: 50px;
+    padding-top:10px;
+}
+
+.snx{
+    font-size: 30px;
+}
 }

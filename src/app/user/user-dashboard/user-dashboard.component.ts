@@ -95,7 +95,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.stats = data;
       this.user.all_time_points = this.user.points;//data.all_time_points; //this.user.points;
       
-      console.log('this.user', this.user);
+      //console.log('this.user', this.user);
       this.getLevel();
     })
 
@@ -155,7 +155,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
           this.badges.push(object);
         }
       })
-      console.log('badges', this.badges);
+      //console.log('badges', this.badges);
 
     });
     
@@ -170,7 +170,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.tablesService.GetAll('skill_levels').subscribe((data:any) => {
 
       this.commonService.assignLevel(this.user, data);
-      console.log('getLevel', this.user);     
+      //console.log('getLevel', this.user);     
     })
   }
 
@@ -205,7 +205,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         x.user_position = this.commonService.getOrdinalSuffix(x.user_position);
         x.date = this.commonService.getDate2(x.expiration_timestamp);
       });
-      console.log('h2h_games', this.h2h_games);
+      //console.log('h2h_games', this.h2h_games);
     })
   }
 

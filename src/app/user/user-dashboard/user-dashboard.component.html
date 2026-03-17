@@ -40,7 +40,72 @@
                 }
             </div>
 
+        <!--
         <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>
+        -->
+        @if (stats.square1 && stats.square2){
+        <div class="row cards pt-3 pb-5 g-2">
+            <div class="col-12 col-md-6 text-center">
+                <div class="border py-4 transparent-shine">
+                    <img class="stat_image" src="../../../assets/images/dashboard_image3.jpg">
+                    <div class="stat_value">
+                        <div class="text-center">
+                            <div class="stat_label">Points Rank</div>
+                            <div class="stat_data_number">{{stats.all_time_points_rank_suffix}}</div>
+                        </div>
+                    </div>
+                    <div class="stat_data">
+                        <img class="user_image_grid" src="{{stats.square1.image}}">
+                        {{stats.square1.text}}
+                    </div>
+                </div>
+        
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <div class="border py-4 transparent-shine">
+                    <img class="stat_image" src="../../../assets/images/dashboard_image4.jpg">
+                    <div class="stat_value">
+                        <div class="text-center">
+                            <div class="stat_label">Rival Rank</div>
+                            <div class="stat_data_number">{{stats.square2.value}}</div>
+                        </div>
+                    </div>
+                    <div class="stat_data">
+                        <img class="user_image_grid" src="{{stats.square2.image}}">
+                        {{stats.square2.text}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <div class="border py-4 transparent-shine">
+                    <img class="stat_image" src="../../../assets/images/dashboard_image1.jpg">
+                    <div class="stat_value">
+                        <div class="text-center">
+                            <div class="stat_label">Answer Speed</div>
+                            <div class="stat_data_number snx">{{stats.average_speed.toFixed(2)}}&nbsp;s</div>
+                        </div>
+                    </div>
+                    <div class="stat_data">
+                        Site average: {{stats.speed_site_average.toFixed(2)}} seconds
+                    </div>
+                </div>
+        
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <div class="border py-4 transparent-shine">
+                    <img class="stat_image" src="../../../assets/images/dashboard_image2.jpg">
+                    <div class="stat_value">
+                        <div class="text-center">
+                            <div class="stat_label">Accuracy Rank</div>
+                            <div class="stat_data_number">{{stats.accuracy_rank_suffix}}</div>
+                        </div>
+                    </div><div class="stat_data">
+                        Your accuracy: {{stats.accuracy.toFixed(2)}}&nbsp;%
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
 
         @if(user){
         <div class="row rowx" id="myrow">
@@ -167,6 +232,33 @@
             </div>
             
         </div>
+
+        @if (stats.average_speed){
+        <div class="row rowx" id="myrow">
+            <div class="col-6">
+                <div class="bubble_container">
+                    @if (stats.speed_rank_suffix == '1st'){
+                        <img class="ribbon" src="../../../assets/images/record_holder.png">
+                    }
+                <div class="box_title">Avg. Speed</div>
+                <div class="box_number">{{stats.average_speed.toFixed(1)}}&nbsp;s</div>
+                
+                <div class="box_rank">{{stats.speed_rank_suffix}} out of {{stats.top_score_all_time_number_players}}</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="bubble_container">
+                    @if (stats.accuracy_rank_suffix == '1st'){
+                        <img class="ribbon" src="../../../assets/images/record_holder.png">
+                    }
+                <div class="box_title">Accuracy</div>
+                <div class="box_number">{{stats.accuracy.toFixed(0)}}&nbsp;%</div>
+                <div class="box_rank">{{stats.accuracy_rank_suffix}} out of {{stats.top_score_all_time_number_players}}</div>
+                </div>
+            </div>
+            
+        </div>
+    }
         }
 
         <div class="box_title">Loop Game</div>
