@@ -13,6 +13,7 @@ export class GameOverComponent implements OnInit{
   @Input() game!:string;
   @Input() stats!:any;
   @Input() points!:any;
+  @Input() user!:any;
 
   message!:string;
 

@@ -148,6 +148,20 @@
 .snx{
     font-size: 27px;
 }
+
+.user_image{
+    width:50px;
+    height: 50px;
+    border-radius:50%;
+    display: inline-block;
+}
+.user_info{
+     font-family: "orbitron-medium";
+     color: white;
+     font-size: 20px;
+    padding-top: 8px;
+}
+
 .transparent-shine {
   position: relative;
   overflow: hidden;
@@ -225,6 +239,8 @@
 .snx{
     font-size: 30px;
 }
+
+
 
     
 }

@@ -24,7 +24,8 @@
                 <p class="text-uppercase text-secondary small mb-2 value">Wallet Balance</p>
 
                 <div class="display-1 fw-semibold lh-1 my-3 value" style="color:white;">
-                    {{ user.wallet_value | currency:'USD':'symbol':'1.0-2' }}
+                    <!--{{ user.wallet_value | currency:'USD':'symbol':'1.0-2' }}-->
+                     {{ user.wallet.toLocaleString() }}
                 </div>
 
                 <button type="button" class="btn btn-default button_primary btn-lg px-5 value" style="margin-top:30px;" (click)="redeemCash()">
@@ -46,7 +47,7 @@
                 </button>
                 
                 <div class="text-center" style="padding: 50px 0;">
-                    <p><em>You must have at least $50 in your wallet to redeem.</em></p>
+                    <p><em>You must have at least 20,000 tokens in your wallet to redeem.</em></p>
                 </div>
                 <div class="text-center">
                     <button type="button" class="btn btn-default button_primary" (click)="closeModal('notEnoughMoneyModal')">Ok</button>

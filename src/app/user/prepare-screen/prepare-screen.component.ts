@@ -26,6 +26,8 @@ export class PrepareScreenComponent implements OnInit, OnDestroy{
       if (this.countdown_timer < 0) this.countdown_timer = 0;
     },1000);
 
+    console.log('this.banners', this.banners);
+    if (!this.banners || this.banners.length == 0) return;
     var index = Math.floor(Math.random() * this.banners.length);
     if (index == this.banners.length) index -= 1;
     this.banner = this.banners[index];

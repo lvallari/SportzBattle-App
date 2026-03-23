@@ -3,7 +3,10 @@
     <app-timer [time]="time"></app-timer>
    
     -->
-     
+    <!--
+    <div style="position:fixed;top:0; left:50%; color:red; font-size:40px;">{{page}}</div>
+    -->
+    
     @if (has_joined){
     @if (page == 'game'){
     <app-user-stats [user]="user" [counter]="counter" [show_lives]="true" [active_players]="active_players" [on_fire]="user_on_fire"></app-user-stats>
@@ -108,7 +111,7 @@
     @else if (page == 'game_over'){
         @if(popup == 'warrior'){ <app-warrior-popup></app-warrior-popup> }
         @if (game_stats){
-            <app-game-over (playAgain)="playAgain()" [stats]="game_stats" [points]="user.points"></app-game-over>
+            <app-game-over (playAgain)="playAgain()" [stats]="game_stats" [points]="user.points" [user]="user"></app-game-over>
         }
     }
     }

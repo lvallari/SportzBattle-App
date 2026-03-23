@@ -29,16 +29,23 @@
             </div>
         </div>
         }
-        <div class="user_badges">
+        
+         <div class="user_badges">
             <div class="user_name" style="padding-bottom: 15px;">Badges ({{number_of_badges}})</div><br>
-            
-                @for (x of badges; track x.user_badge_id){
-                    <div class="badgex">
-                    <img class="user_badge" src="{{x.badge_icon}}">
-                    <div>X{{x.count}}</div>
-                </div>
-                }
+        
+            @for (x of badges; track x.user_badge_id){
+            <div class="badgex">
+                <img class="user_badge" src="{{x.badge_icon}}">
+                <div>X{{x.count}}</div>
             </div>
+            }
+        </div>
+        
+        <div class="text-center">
+            <img class="battle_stats" src="../../../assets/images/battle_stats.jpg">
+        </div>
+
+       
 
         <!--
         <app-user-dashboard-graph [games]="games"></app-user-dashboard-graph>

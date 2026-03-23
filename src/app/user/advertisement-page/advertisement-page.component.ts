@@ -12,6 +12,10 @@ export class AdvertisementPageComponent implements OnInit {
   advertisement!:string;
 
   ngOnInit(): void {
+
+    console.log('ads', this.ads)
+    if(!this.ads || this.ads.length == 0) return;
+
     var index = Math.floor(Math.random() * this.ads.length);
     if (index == this.ads.length) index -= 1;
     this.advertisement = this.ads[index];
